@@ -139,6 +139,15 @@ Check: Did the agent use synthetic data (fictional names, made-up case numbers)?
 - You can build a **library of rules** and reuse them across projects
 - Rules complement spec-driven development — specs guide individual features, rules guide everything
 
+## Done When
+
+- [ ] You had a conversation with the agent (knowledge question, code explanation, creation)
+- [ ] You watched the agent use tools (reading files, running commands)
+- [ ] You created and ran `hello_investigator.py`
+- [ ] You iterated on the script (agent modified existing code)
+- [ ] You read the existing `course-context.mdc` rule and understood its structure
+- [ ] You created the `no-real-data.mdc` rule and tested it
+
 ## What You Just Did
 
 You experienced the AI agent as:

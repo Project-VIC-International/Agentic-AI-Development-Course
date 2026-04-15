@@ -79,6 +79,44 @@ The answer illustrates the core value proposition:
 - **CSV:** flat rows and columns, no relationships, no provenance
 - **CASE graph:** connected data with full context — who found what, when, how, connected to whom
 
+## Step 6: Validate with SHACL
+
+Now see validation in action. In the Cursor terminal, install the dependencies (if you haven't already) and run the validator:
+
+```bash
+pip install rdflib pyshacl
+```
+
+Validate the known-good graph:
+
+```bash
+python3 part-2-lab/exercises/04-case-uco-introduction/validation/validate_graph.py
+```
+
+You should see `PASS`. Now validate the graph with intentional errors:
+
+```bash
+python3 part-2-lab/exercises/04-case-uco-introduction/validation/validate_graph.py part-2-lab/exercises/04-case-uco-introduction/validation/graph_with_errors.jsonld
+```
+
+You should see `FAIL` with specific error messages — a missing name on the investigation, a file with no facets, an action with no performer.
+
+**This is SHACL in action.** The shapes file (`investigation-shapes.ttl`) defines the grammar rules. The validator checks your data against those rules. If two tools both validate against the same shapes, their outputs are guaranteed to be compatible.
+
+> **Windows users:** Use `python` instead of `python3` if needed.
+
+## Done When
+
+- [ ] You read the JSON-LD investigation graph and can explain what it represents
+- [ ] You can name the five building blocks: namespace, class, property, relationship, facet
+- [ ] You compared JSON-LD and Turtle formats
+- [ ] You added a second device to the JSON-LD graph (agent-assisted)
+- [ ] You ran the validator on the good graph and saw `PASS`
+- [ ] You ran the validator on the bad graph and saw `FAIL` with specific errors
+- [ ] You can articulate why a knowledge graph is more powerful than a CSV export
+
+**Artifacts:** A modified `simple-investigation.jsonld` with the added laptop device, and a successful validation run.
+
 ## What You Just Did
 
 You worked directly with CASE/UCO data:

@@ -3,6 +3,8 @@
 **Duration:** 15 minutes
 **Goal:** Verify your development environment is working and get oriented in Cursor
 
+> **Observer mode?** If you're following along without a full install, skip to [Step 3](#step-3-open-in-cursor) and follow on the projector. You can still browse the [course repository on GitHub](https://github.com/Project-VIC-International/Agentic-AI-Development-Course) in your browser. Pair with a neighbor for the hands-on steps.
+
 ## Step 1: Verify Your Tools
 
 Open a terminal (Command Prompt on Windows, Terminal on Mac/Linux) and run:
@@ -12,16 +14,28 @@ git --version
 python3 --version
 ```
 
+> **Windows users:** If `python3` is not recognized, try `python --version` instead. Either is fine as long as the version is 3.10+.
+
 You should see version numbers for both. If not, see the [prerequisites guide](../../prerequisites.md).
 
-## Step 2: Clone the Course Repository
+## Step 2: Clone and Preflight Check
 
-If you haven't already:
+If you haven't already cloned the repository:
 
 ```bash
-git clone https://github.com/YOUR-ORG/Agentic-AI-Development-Course.git
+git clone https://github.com/Project-VIC-International/Agentic-AI-Development-Course.git
 cd Agentic-AI-Development-Course
 ```
+
+Run the preflight check to verify everything at once:
+
+```bash
+python3 part-2-lab/preflight.py
+```
+
+> **Windows users:** Use `python part-2-lab/preflight.py` if `python3` is not recognized.
+
+The script checks all required and optional dependencies. Fix any `FAIL` items. `WARN` items are optional and won't block you.
 
 ## Step 3: Open in Cursor
 
@@ -57,18 +71,23 @@ In the Cursor terminal, run:
 python3 -c "print('Environment is ready!')"
 ```
 
+> **Windows users:** Use `python -c "print('Environment is ready!')"` if `python3` is not recognized.
+
 You should see `Environment is ready!` printed.
 
-## Checkpoint
+## Done When
 
 Before moving on, confirm:
 
 - [ ] Git is installed and working
 - [ ] Python 3.10+ is installed and working
+- [ ] Preflight check passes (no `FAIL` items)
 - [ ] The course repository is cloned
 - [ ] Cursor is open with the project loaded
 - [ ] You've opened the agent panel and sent a message
 - [ ] The terminal works inside Cursor
+
+**Observer mode:** Confirm you can see the instructor's screen and you have the [GitHub repo](https://github.com/Project-VIC-International/Agentic-AI-Development-Course) open in your browser.
 
 If any of these aren't working, ask the instructor for help now — everything that follows depends on this setup.
 

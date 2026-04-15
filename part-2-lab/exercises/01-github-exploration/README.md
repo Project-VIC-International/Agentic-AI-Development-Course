@@ -79,6 +79,13 @@ Go back to Cursor and ask the agent:
 
 Watch how the agent searches, evaluates, and summarizes. This is the agent using **Door 3 (API)** and **Door 4 (MCP)** to interact with GitHub — the same doors we discussed in the lecture.
 
+## Done When
+
+- [ ] You searched GitHub and found at least one ICAC-related project
+- [ ] You visited all four CDO ecosystem organizations (casework, CDO, ucoProject, CAC Ontology)
+- [ ] You evaluated one repository for activity, documentation, and licensing
+- [ ] You asked the agent to search GitHub and reviewed its findings
+
 ## What You Just Did
 
 You learned to treat GitHub as a library:

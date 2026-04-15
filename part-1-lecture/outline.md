@@ -4,6 +4,31 @@
 
 ---
 
+## Timing Guidance
+
+The lecture is designed for a **60-minute session** with optional stretch content for longer slots.
+
+| Section | Time | Core/Stretch | Notes |
+|---------|------|-------------|-------|
+| 1. Welcome & Why | 0:00–0:05 | **Core** | |
+| 2. AI Foundations | 0:05–0:14 | **Core** | Agent memory tools can be summarized briefly if short on time |
+| 3. Agentic AI | 0:14–0:20 | **Core** | |
+| 4. Four Doors | 0:20–0:28 | **Core** | |
+| 5. GitHub as Library | 0:28–0:33 | **Core** | |
+| 6. Cursor & Spec-Driven Dev | 0:33–0:40 | **Core** | Agent Rules slides are core; can abbreviate to 2-3 examples if tight |
+| 7. Interoperability Journey | 0:40–0:44 | **Core** | |
+| 8. CASE/UCO/CDO | 0:44–0:48 | **Core** | Facets, SPARQL, SHACL, Reasoning slides are core; can condense SPARQL + Reasoning into 1 slide if tight |
+| 9. CAC Ontology | 0:48–0:52 | **Core** | |
+| 10. Graph Databases | 0:52–0:56 | **Core** | |
+| 11. Testing, Validation & Security | 0:56–1:04 | **Stretch** — can compress to 4 min by focusing on the non-negotiable rule + CJIS headline | Full 8 min version covers NIST 800-53 details |
+| 12. Bridge to Lab | 1:04–1:08 | **Core** | Always end with this |
+
+**For a strict 50-minute slot:** Compress sections 11 to the non-negotiable rule + CJIS headline (2 min), and summarize the Agent Memory tools in section 2 rather than covering each one.
+
+**For a 75+ minute slot:** Expand section 8 with live SPARQL examples, and section 11 with detailed NIST control family walkthrough.
+
+---
+
 ## Section 1: Welcome & Why This Matters (0:00–0:05)
 
 **Key message:** The digital evidence landscape is exploding. The tools you need don't exist yet — or they don't talk to each other. You can change that, starting today.

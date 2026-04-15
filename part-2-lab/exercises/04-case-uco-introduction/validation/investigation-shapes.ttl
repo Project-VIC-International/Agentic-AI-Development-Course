@@ -1,0 +1,68 @@
+@prefix sh:       <http://www.w3.org/ns/shacl#> .
+@prefix xsd:      <http://www.w3.org/2001/XMLSchema#> .
+@prefix case-inv: <https://ontology.caseontology.org/case/investigation/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-obs:  <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix uco-id:   <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix uco-act:  <https://ontology.unifiedcyberontology.org/uco/action/> .
+
+# ── Investigation must have a name ──────────────────────────
+<#InvestigationShape>
+    a sh:NodeShape ;
+    sh:targetClass case-inv:Investigation ;
+    sh:property [
+        sh:path uco-core:name ;
+        sh:minCount 1 ;
+        sh:datatype xsd:string ;
+        sh:message "Every Investigation MUST have a uco-core:name" ;
+    ] .
+
+# ── Device must have a name and at least one facet ──────────
+<#DeviceShape>
+    a sh:NodeShape ;
+    sh:targetClass uco-obs:Device ;
+    sh:property [
+        sh:path uco-core:name ;
+        sh:minCount 1 ;
+        sh:message "Every Device MUST have a uco-core:name" ;
+    ] ;
+    sh:property [
+        sh:path uco-core:hasFacet ;
+        sh:minCount 1 ;
+        sh:message "Every Device MUST have at least one Facet (e.g. DeviceFacet)" ;
+    ] .
+
+# ── File must have a name and at least one facet ────────────
+<#FileShape>
+    a sh:NodeShape ;
+    sh:targetClass uco-obs:File ;
+    sh:property [
+        sh:path uco-core:name ;
+        sh:minCount 1 ;
+        sh:message "Every File MUST have a uco-core:name" ;
+    ] ;
+    sh:property [
+        sh:path uco-core:hasFacet ;
+        sh:minCount 1 ;
+        sh:message "Every File MUST have at least one Facet (e.g. FileFacet, ContentDataFacet)" ;
+    ] .
+
+# ── InvestigativeAction must have a performer ───────────────
+<#InvestigativeActionShape>
+    a sh:NodeShape ;
+    sh:targetClass case-inv:InvestigativeAction ;
+    sh:property [
+        sh:path uco-act:performer ;
+        sh:minCount 1 ;
+        sh:message "Every InvestigativeAction MUST record who performed it (uco-action:performer)" ;
+    ] .
+
+# ── Identity must have a name ──────────────────────────────
+<#IdentityShape>
+    a sh:NodeShape ;
+    sh:targetClass uco-id:Identity ;
+    sh:property [
+        sh:path uco-core:name ;
+        sh:minCount 1 ;
+        sh:message "Every Identity MUST have a uco-core:name" ;
+    ] .

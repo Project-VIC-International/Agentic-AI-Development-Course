@@ -86,6 +86,16 @@ The contrast drives home the value of structured, standards-based data:
 - **CSV:** flat rows, no relationships, no provenance, no context
 - **Knowledge graph:** connected data, full provenance, queryable, shareable, machine-readable
 
+## Done When
+
+- [ ] You read the synthetic press release and identified key entities
+- [ ] The agent produced `investigation-graph.ttl` from the press release
+- [ ] You reviewed the graph summary and ASCII diagram
+- [ ] You answered investigative questions using the graph
+- [ ] You used a second AI model to review the graph (cross-model review)
+
+**Artifact:** `investigation-graph.ttl` — a CASE/UCO/CAC knowledge graph of the synthetic scenario.
+
 ## What You Just Did
 
 You completed the AI-assisted CAC Ontology modeling workflow:

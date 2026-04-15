@@ -43,21 +43,25 @@ Now it's your turn. Think of a tool you wish existed for your work. Here are som
 - **Investigation Graph Builder** — Converts a case report into a CASE/UCO/CAC knowledge graph
 - **Device-Account Mapper** — Maps relationships between seized devices and associated online accounts
 
-Pick one (or bring your own idea) and ask the agent to help you write a specification.
+Pick one (or bring your own idea) and use the starter template to write a specification.
+
+### Use the Starter Template
+
+Open the spec template:
+
+```
+part-2-lab/exercises/03-spec-driven-dev/templates/spec-template.md
+```
+
+This template has every section you need, with placeholders to fill in. You don't need to invent the structure from scratch — just fill in the blanks.
 
 In Cursor's agent panel:
 
-> I want to create a specification for a [YOUR TOOL IDEA]. Using the spec-driven development approach, help me write a specification that describes:
-> 1. What the tool does (in plain language)
-> 2. Who uses it (the user persona)
-> 3. What problem it solves
-> 4. What inputs it takes
-> 5. What outputs it produces
-> 6. Key constraints (must be CASE/UCO/CAC compliant, must handle sensitive data appropriately)
+> Read the template at part-2-lab/exercises/03-spec-driven-dev/templates/spec-template.md and the constitution at part-2-lab/exercises/03-spec-driven-dev/example-spec/constitution.md.
 >
-> Reference the constitution in part-2-lab/exercises/03-spec-driven-dev/example-spec/constitution.md for project rules.
+> I want to build a [YOUR TOOL IDEA]. Help me fill in the spec template for this tool. Save the completed specification as spec.md in this directory.
 
-The agent will generate a specification document. Review it:
+The agent will generate a specification document using the template structure. Review it:
 - Does it capture what you actually want?
 - Is anything missing?
 - Is anything wrong?
@@ -66,14 +70,11 @@ Tell the agent to revise until you're satisfied.
 
 ## Step 3: Generate a Plan
 
-Once your specification is solid, ask the agent to plan:
+Once your specification is solid, use the plan template:
 
-> Based on the specification we just wrote, generate a technical plan. Include:
-> 1. Architecture overview
-> 2. Data model (what objects, properties, and relationships are needed)
-> 3. Component breakdown
-> 4. CASE/UCO/CAC integration approach
-> 5. Testing strategy
+> Read the plan template at part-2-lab/exercises/03-spec-driven-dev/templates/plan-template.md and the spec we just wrote.
+>
+> Generate a technical plan for this tool using the template structure. Include architecture, data model, components, CASE/UCO/CAC integration approach, and testing strategy.
 >
 > Save the plan as plan.md.
 
@@ -84,13 +85,11 @@ Review the plan. This is where the agent translates your "what" into "how." Chec
 
 ## Step 4: Generate Tasks
 
-Ask the agent to break the plan into tasks:
+Use the tasks template to break the plan into work units:
 
-> Break this plan into a list of atomic, testable tasks. Each task should:
-> 1. Have a clear description
-> 2. Be completable independently
-> 3. Have a clear "done" criteria
-> 4. Be ordered by dependency (what must come first)
+> Read the tasks template at part-2-lab/exercises/03-spec-driven-dev/templates/tasks-template.md and the plan we just wrote.
+>
+> Break the plan into an ordered list of atomic, testable tasks using the template structure. Each task should have a clear description and a "done when" criterion.
 >
 > Save the task list as tasks.md.
 
@@ -109,6 +108,16 @@ Ask the agent:
 > Review the constitution, specification, plan, and tasks for consistency. Are there any contradictions, gaps, or misalignments? Does the plan honor the constitution's requirements for CASE/UCO/CAC compliance?
 
 This is the **verification step** — catching problems before code is written, not after.
+
+## Done When
+
+You should have these artifacts saved in your project:
+
+- [ ] `constitution.md` — reviewed and discussed as a class
+- [ ] `spec.md` — your tool specification, reviewed and revised
+- [ ] `plan.md` — technical plan generated from the spec
+- [ ] `tasks.md` — ordered list of atomic tasks
+- [ ] Consistency check — agent reviewed all four documents for alignment
 
 ## What You Just Did
 

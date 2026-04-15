@@ -2,7 +2,19 @@
 
 Complete these steps **before** the lab session. If you run into issues, bring your laptop to the session and we'll help you during Exercise 0.
 
-## Required Software
+## Participation Modes
+
+Not everyone has the same laptop or the same technical background. Choose the mode that fits your situation:
+
+| Mode | What You Need | What You Do |
+|------|--------------|-------------|
+| **Hands-On** (recommended) | Your own laptop with Git, Python, and Cursor installed | Follow every exercise yourself |
+| **Paired** | A seat next to someone in Hands-On mode | Work together — one drives, one navigates. Switch roles between exercises |
+| **Observer** | A web browser and a GitHub account | Follow along on the projector, explore GitHub repos in your browser, take notes. The instructor walks through every step live |
+
+All three modes are full participation. You will learn the concepts regardless of which mode you choose. If your agency laptop has restrictions that prevent installs, **Observer mode is designed for you** — bring the laptop anyway and follow along in your browser.
+
+## Required Software (Hands-On Mode)
 
 ### 1. GitHub Account (Free)
 
@@ -36,11 +48,13 @@ Python is the programming language we'll use for exercises and prototyping.
 python3 --version
 ```
 
+> **Windows users:** If `python3` is not recognized, try `python --version` instead. On Windows, Python is often available as `python` rather than `python3`. Either is fine as long as the version is 3.10 or higher.
+
 If you see version 3.10 or higher, you're good.
 
 **If not installed:**
 - **All platforms:** Download from [python.org/downloads](https://www.python.org/downloads/)
-- During installation on Windows, **check "Add Python to PATH"**
+- During installation on Windows, **check "Add Python to PATH"** — this is critical
 
 ### 4. Cursor IDE
 
@@ -70,19 +84,22 @@ Follow the prompts to log in with your GitHub account.
 
 ## Pre-Lab Setup
 
-Once all software is installed, run these commands to verify everything works:
+Once all software is installed, clone the course repository and run the preflight check:
 
 ```bash
-git --version
-python3 --version
-```
-
-Then clone the course repository:
-
-```bash
-git clone https://github.com/YOUR-ORG/Agentic-AI-Development-Course.git
+git clone https://github.com/Project-VIC-International/Agentic-AI-Development-Course.git
 cd Agentic-AI-Development-Course
 ```
+
+Run the preflight check to verify everything at once:
+
+```bash
+python3 part-2-lab/preflight.py
+```
+
+> **Windows users:** Use `python part-2-lab/preflight.py` if `python3` is not recognized.
+
+The script checks Python version, Git, pip, and optional dependencies. Fix any items marked `FAIL` before the lab. Items marked `WARN` are optional and won't block you.
 
 Open the project in Cursor:
 
@@ -104,9 +121,11 @@ Or open Cursor manually and use File → Open Folder to open the `Agentic-AI-Dev
 | Problem | Solution |
 |---------|----------|
 | `git` command not found | Reinstall Git, ensure it's added to PATH |
-| `python3` command not found | Reinstall Python, check "Add to PATH" on Windows |
+| `python3` command not found | Try `python --version` (Windows). If still missing, reinstall Python and check "Add to PATH" |
 | Cursor won't launch | Check system requirements at [cursor.com](https://cursor.com) |
 | GitHub authentication fails | Run `gh auth login` and follow prompts |
 | Can't clone the repository | Check internet connection, verify GitHub credentials |
+| Agency laptop blocks installs | Use Observer mode — follow along in your browser and pair with a neighbor |
+| Cursor free-tier rate limit | Pair up — two people share one Cursor session. This also models real collaboration |
 
 If you arrive at the lab without completing setup, don't worry — pair with someone who has, and we'll help you get set up during Exercise 0.

@@ -111,6 +111,17 @@ Take the tool's output and paste it into a different AI model:
 
 > Review this CASE/UCO/CAC knowledge graph output for correctness and completeness. Does it follow CASE modeling best practices? Are there any issues?
 
+## Done When
+
+- [ ] Tool chosen and specification written (`spec.md`)
+- [ ] Technical plan generated (`plan.md`)
+- [ ] Tasks broken down (`tasks.md`)
+- [ ] Prototype runs on synthetic input data
+- [ ] Output is CASE/UCO/CAC-compliant (validated or agent-reviewed)
+- [ ] (If time) Cross-model review completed
+
+**Artifacts:** `spec.md`, `plan.md`, `tasks.md`, working prototype code, sample output graph, and validation results.
+
 ## What You Just Built
 
 In one lab session, you:
