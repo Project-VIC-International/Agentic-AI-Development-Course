@@ -1,0 +1,137 @@
+@prefix case-investigation: <https://ontology.caseontology.org/case/investigation/> .
+@prefix kb: <http://example.org/kb/> .
+@prefix uco-action: <https://ontology.unifiedcyberontology.org/uco/action/> .
+@prefix uco-core: <https://ontology.unifiedcyberontology.org/uco/core/> .
+@prefix uco-identity: <https://ontology.unifiedcyberontology.org/uco/identity/> .
+@prefix uco-observable: <https://ontology.unifiedcyberontology.org/uco/observable/> .
+@prefix uco-types: <https://ontology.unifiedcyberontology.org/uco/types/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+# === INVESTIGATION ===
+
+kb:investigation-001
+    a case-investigation:Investigation ;
+    uco-core:name "Operation Safe Harbor - Case 2024-ICT-0042" ;
+    uco-core:description "Investigation initiated from NCMEC CyberTip regarding suspected CSAM distribution via cloud storage account." ;
+    uco-core:startTime "2024-03-15T09:00:00Z"^^xsd:dateTime ;
+    case-investigation:focus "Child Sexual Abuse Material Distribution" .
+
+# === DEVICE ===
+
+kb:device-001
+    a uco-observable:Device ;
+    uco-core:name "Subject's Samsung Galaxy S24" ;
+    uco-core:hasFacet kb:device-001-facet .
+
+kb:device-001-facet
+    a uco-observable:DeviceFacet ;
+    uco-observable:manufacturer "Samsung" ;
+    uco-observable:model "Galaxy S24" ;
+    uco-observable:serialNumber "SYNTH-SN-20240315-001" .
+
+# === FILE (EVIDENCE) ===
+
+kb:file-001
+    a uco-observable:File ;
+    uco-core:name "evidence_image_001.jpg" ;
+    uco-core:hasFacet kb:file-001-content-facet , kb:file-001-file-facet .
+
+kb:file-001-content-facet
+    a uco-observable:ContentDataFacet ;
+    uco-observable:hash kb:file-001-hash ;
+    uco-observable:sizeInBytes "2048576"^^xsd:long .
+
+kb:file-001-hash
+    a uco-types:Hash ;
+    uco-types:hashMethod "SHA-256" ;
+    uco-types:hashValue "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855" .
+
+kb:file-001-file-facet
+    a uco-observable:FileFacet ;
+    uco-observable:fileName "evidence_image_001.jpg" ;
+    uco-observable:filePath "/storage/emulated/0/DCIM/Camera/evidence_image_001.jpg" ;
+    uco-observable:extension "jpg" .
+
+# === RELATIONSHIPS (Device contains File) ===
+
+kb:relationship-device-contains-file
+    a uco-observable:ObservableRelationship ;
+    uco-core:source kb:device-001 ;
+    uco-core:target kb:file-001 ;
+    uco-core:kindOfRelationship "contained-within" ;
+    uco-core:isDirectional true .
+
+# === FORENSIC ACTION ===
+
+kb:forensic-action-001
+    a case-investigation:InvestigativeAction ;
+    uco-core:name "Mobile Device Forensic Extraction" ;
+    uco-core:description "Full file system extraction of Samsung Galaxy S24 using Cellebrite UFED." ;
+    uco-core:startTime "2024-03-20T10:30:00Z"^^xsd:dateTime ;
+    uco-core:endTime "2024-03-20T12:45:00Z"^^xsd:dateTime ;
+    uco-action:instrument kb:tool-cellebrite ;
+    uco-action:object kb:device-001 ;
+    uco-action:result kb:file-001 ;
+    uco-action:performer kb:examiner-smith .
+
+# === FORENSIC TOOL ===
+
+kb:tool-cellebrite
+    a uco-observable:Software ;
+    uco-core:name "Cellebrite UFED" ;
+    uco-core:hasFacet kb:tool-cellebrite-facet .
+
+kb:tool-cellebrite-facet
+    a uco-observable:SoftwareFacet ;
+    uco-observable:swid "cellebrite-ufed" ;
+    uco-observable:version "7.70" .
+
+# === PEOPLE ===
+
+kb:examiner-smith
+    a uco-identity:Identity ;
+    uco-core:name "Det. Jane Smith" ;
+    uco-core:hasFacet kb:examiner-smith-name .
+
+kb:examiner-smith-name
+    a uco-identity:SimpleNameFacet ;
+    uco-identity:givenName "Jane" ;
+    uco-identity:familyName "Smith" .
+
+kb:subject-001
+    a uco-identity:Identity ;
+    uco-core:name "John Doe (Synthetic Subject)" ;
+    uco-core:hasFacet kb:subject-001-name .
+
+kb:subject-001-name
+    a uco-identity:SimpleNameFacet ;
+    uco-identity:givenName "John" ;
+    uco-identity:familyName "Doe" .
+
+# === ONLINE ACCOUNT ===
+
+kb:account-001
+    a uco-observable:Account ;
+    uco-core:name "cloud_user_42" ;
+    uco-core:hasFacet kb:account-001-facet .
+
+kb:account-001-facet
+    a uco-observable:AccountFacet ;
+    uco-observable:accountIdentifier "cloud_user_42" ;
+    uco-observable:accountType "Cloud Storage" .
+
+# === RELATIONSHIPS (Subject has Account, Investigation has Subject) ===
+
+kb:relationship-subject-has-account
+    a uco-observable:ObservableRelationship ;
+    uco-core:source kb:subject-001 ;
+    uco-core:target kb:account-001 ;
+    uco-core:kindOfRelationship "has-account" ;
+    uco-core:isDirectional true .
+
+kb:relationship-investigation-has-subject
+    a uco-observable:ObservableRelationship ;
+    uco-core:source kb:investigation-001 ;
+    uco-core:target kb:subject-001 ;
+    uco-core:kindOfRelationship "has-subject" ;
+    uco-core:isDirectional true .

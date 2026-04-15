@@ -1,0 +1,82 @@
+---
+description: Context for the Agentic AI Development Course — training materials for law enforcement investigators building interoperable CAC mission tools
+globs: **/*
+alwaysApply: true
+---
+
+# Course Context
+
+This repository contains training materials for the **Agentic AI Development Course** — a two-part session teaching Crimes Against Children (CAC) investigators how to build interoperable mission tools using agentic AI and open standards.
+
+## Audience
+
+- Law enforcement investigators, forensic examiners, crime intelligence analysts, and prosecutors
+- Working Crimes Against Children (CAC) and Internet Crimes Against Children (ICAC) cases
+- **No prior programming experience assumed**
+- Explanations must be in plain language with law-enforcement-relevant examples
+
+## Key Standards
+
+All tools and examples in this course MUST be compliant with:
+
+1. **UCO (Unified Cyber Ontology)** — foundational cyber domain vocabulary
+   - Namespace: `https://ontology.unifiedcyberontology.org/uco/`
+   - GitHub: https://github.com/ucoProject
+2. **CASE (Cyber-investigation Analysis Standard Expression)** — cyber-investigation extension
+   - Namespace: `https://ontology.caseontology.org/case/`
+   - GitHub: https://github.com/casework
+3. **CAC Ontology (Crimes Against Children Ontology)** — domain-specific extension
+   - Namespace: `https://cacontology.projectvic.org/`
+   - GitHub: https://github.com/Project-VIC-International/CAC-Ontology
+
+## Critical Rules
+
+- **No real PII, case data, victim information, or suspect information** in any file — all examples use synthetic data
+- **Interoperability is mandatory** — all tool output must be CASE/UCO/CAC compliant
+- **CJIS compliance is mandatory** — all tools handling CJI must meet FBI CJIS Security Policy requirements
+- **Encryption at all times** — data at rest (AES-256) and in transit (TLS 1.2+), no exceptions
+- **Independent testing and validation** — any tool MUST be independently tested and validated before operational use in law enforcement or digital forensics
+- **NIST 800-53 controls** — use NIST SP 800-53 Rev. 5 as the security control framework; reference NIST cybersecurity overlays for law enforcement
+- **Explanations must be accessible** — write for investigators, not for software engineers
+- **Search before building** — always check existing projects before creating something new
+- **Apache 2.0 license** — consistent with the CDO ecosystem
+
+## Security Standards
+
+When building tools, reference and implement:
+- **FBI CJIS Security Policy** — https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+- **NIST Cybersecurity Framework** — https://www.nist.gov/cyberframework
+- **NIST SP 800-53 Rev. 5** — https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final
+- **NIST CFTT** (for tool validation) — https://www.nist.gov/itl/ssd/software-quality-group/computer-forensics-tool-testing-program-cftt
+
+## Technology Stack
+
+- Python 3.10+
+- JSON-LD and Turtle for data serialization
+- rdflib for RDF handling
+- pyshacl for SHACL validation
+- pytest for testing
+- Graph databases (GraphDB, Apache Jena Fuseki, Neo4j, etc.) for storing/querying CASE/UCO/CAC knowledge graphs
+
+## Graph Databases
+
+CASE/UCO/CAC data is stored in graph databases. When building tools:
+- Use RDF/SPARQL graph databases (GraphDB, Fuseki, Stardog, Amazon Neptune) for native CASE/UCO/CAC support
+- Graph databases have UI, CLI, API, and some have MCP servers for agent interaction
+- Agents can store data in and query graph databases directly
+
+## AI/ML Models
+
+- Models can be sourced from HuggingFace, the research community, Project VIC International, or state universities
+- GPU acceleration is necessary for inference at operational speed
+- All AI/ML models MUST be independently validated before operational use (benchmark testing, error rates, bias evaluation)
+
+## Spec-Driven Development
+
+This course teaches GitHub's spec-kit workflow:
+1. Constitution → 2. Specify → 3. Plan → 4. Tasks → 5. Implement
+
+The constitution for CAC mission tools is at:
+`part-2-lab/exercises/03-spec-driven-dev/example-spec/constitution.md`
+
+The constitution includes CJIS, NIST, encryption, and T&V requirements. When building tools from specs, these security and validation requirements are inherited automatically.

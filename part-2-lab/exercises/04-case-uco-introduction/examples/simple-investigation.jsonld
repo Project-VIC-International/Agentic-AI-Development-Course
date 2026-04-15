@@ -1,0 +1,157 @@
+{
+  "@context": {
+    "case-investigation": "https://ontology.caseontology.org/case/investigation/",
+    "kb": "http://example.org/kb/",
+    "uco-action": "https://ontology.unifiedcyberontology.org/uco/action/",
+    "uco-core": "https://ontology.unifiedcyberontology.org/uco/core/",
+    "uco-identity": "https://ontology.unifiedcyberontology.org/uco/identity/",
+    "uco-location": "https://ontology.unifiedcyberontology.org/uco/location/",
+    "uco-observable": "https://ontology.unifiedcyberontology.org/uco/observable/",
+    "uco-types": "https://ontology.unifiedcyberontology.org/uco/types/",
+    "uco-vocabulary": "https://ontology.unifiedcyberontology.org/uco/vocabulary/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#"
+  },
+  "@graph": [
+    {
+      "@id": "kb:investigation-001",
+      "@type": "case-investigation:Investigation",
+      "uco-core:name": "Operation Safe Harbor - Case 2024-ICT-0042",
+      "uco-core:description": "Investigation initiated from NCMEC CyberTip regarding suspected CSAM distribution via cloud storage account.",
+      "uco-core:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2024-03-15T09:00:00Z"
+      },
+      "case-investigation:focus": "Child Sexual Abuse Material Distribution"
+    },
+    {
+      "@id": "kb:device-001",
+      "@type": "uco-observable:Device",
+      "uco-core:name": "Subject's Samsung Galaxy S24",
+      "uco-core:hasFacet": [
+        {
+          "@type": "uco-observable:DeviceFacet",
+          "uco-observable:manufacturer": "Samsung",
+          "uco-observable:model": "Galaxy S24",
+          "uco-observable:serialNumber": "SYNTH-SN-20240315-001"
+        }
+      ]
+    },
+    {
+      "@id": "kb:file-001",
+      "@type": "uco-observable:File",
+      "uco-core:name": "evidence_image_001.jpg",
+      "uco-core:hasFacet": [
+        {
+          "@type": "uco-observable:ContentDataFacet",
+          "uco-observable:hash": [
+            {
+              "@type": "uco-types:Hash",
+              "uco-types:hashMethod": "SHA-256",
+              "uco-types:hashValue": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+            }
+          ],
+          "uco-observable:sizeInBytes": {
+            "@type": "xsd:long",
+            "@value": 2048576
+          }
+        },
+        {
+          "@type": "uco-observable:FileFacet",
+          "uco-observable:fileName": "evidence_image_001.jpg",
+          "uco-observable:filePath": "/storage/emulated/0/DCIM/Camera/evidence_image_001.jpg",
+          "uco-observable:extension": "jpg"
+        }
+      ]
+    },
+    {
+      "@id": "kb:relationship-device-contains-file",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": { "@id": "kb:device-001" },
+      "uco-core:target": { "@id": "kb:file-001" },
+      "uco-core:kindOfRelationship": "contained-within",
+      "uco-core:isDirectional": true
+    },
+    {
+      "@id": "kb:forensic-action-001",
+      "@type": "case-investigation:InvestigativeAction",
+      "uco-core:name": "Mobile Device Forensic Extraction",
+      "uco-core:description": "Full file system extraction of Samsung Galaxy S24 using Cellebrite UFED.",
+      "uco-core:startTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2024-03-20T10:30:00Z"
+      },
+      "uco-core:endTime": {
+        "@type": "xsd:dateTime",
+        "@value": "2024-03-20T12:45:00Z"
+      },
+      "uco-action:instrument": { "@id": "kb:tool-cellebrite" },
+      "uco-action:object": { "@id": "kb:device-001" },
+      "uco-action:result": { "@id": "kb:file-001" },
+      "uco-action:performer": { "@id": "kb:examiner-smith" }
+    },
+    {
+      "@id": "kb:tool-cellebrite",
+      "@type": "uco-observable:Software",
+      "uco-core:name": "Cellebrite UFED",
+      "uco-core:hasFacet": [
+        {
+          "@type": "uco-observable:SoftwareFacet",
+          "uco-observable:swid": "cellebrite-ufed",
+          "uco-observable:version": "7.70"
+        }
+      ]
+    },
+    {
+      "@id": "kb:examiner-smith",
+      "@type": "uco-identity:Identity",
+      "uco-core:name": "Det. Jane Smith",
+      "uco-core:hasFacet": [
+        {
+          "@type": "uco-identity:SimpleNameFacet",
+          "uco-identity:givenName": "Jane",
+          "uco-identity:familyName": "Smith"
+        }
+      ]
+    },
+    {
+      "@id": "kb:subject-001",
+      "@type": "uco-identity:Identity",
+      "uco-core:name": "John Doe (Synthetic Subject)",
+      "uco-core:hasFacet": [
+        {
+          "@type": "uco-identity:SimpleNameFacet",
+          "uco-identity:givenName": "John",
+          "uco-identity:familyName": "Doe"
+        }
+      ]
+    },
+    {
+      "@id": "kb:account-001",
+      "@type": "uco-observable:Account",
+      "uco-core:name": "cloud_user_42",
+      "uco-core:hasFacet": [
+        {
+          "@type": "uco-observable:AccountFacet",
+          "uco-observable:accountIdentifier": "cloud_user_42",
+          "uco-observable:accountType": "Cloud Storage"
+        }
+      ]
+    },
+    {
+      "@id": "kb:relationship-subject-has-account",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": { "@id": "kb:subject-001" },
+      "uco-core:target": { "@id": "kb:account-001" },
+      "uco-core:kindOfRelationship": "has-account",
+      "uco-core:isDirectional": true
+    },
+    {
+      "@id": "kb:relationship-investigation-has-subject",
+      "@type": "uco-observable:ObservableRelationship",
+      "uco-core:source": { "@id": "kb:investigation-001" },
+      "uco-core:target": { "@id": "kb:subject-001" },
+      "uco-core:kindOfRelationship": "has-subject",
+      "uco-core:isDirectional": true
+    }
+  ]
+}
