@@ -31,17 +31,17 @@ That's enormously valuable. But it communicates **very little context about the 
 
 ## What's Missing
 
-The VICS schema doesn't capture:
+The VICS schema doesn't capture or mandate:
 
-- Who found the evidence and on which device
+- Who specifically found the evidence and on which device
 - What account it was associated with
 - Which suspect is connected
-- What jurisdiction is involved
+- What jurisdiction(s) are involved beyond the observer's jurisdiction
 - What operation led to the discovery
 - What legal process followed
 - What happened to the victim
 
-**That context lives in spreadsheets, reports, emails, and your head.**
+**That context lives in spreadsheets, reports, emails, and your head or in the head of someone who retired years ago.**
 
 ---
 
@@ -68,7 +68,7 @@ This is **data janitorial work**. It's not investigation. It's where cases stall
 
 ## The Vision
 
-What if every tool spoke the same language — for **everything**, not just hashes?
+What if every tool spoke the same language — for **everything**, not just hashes and basic observations?
 
 ```
 TOMORROW (standards-based):
@@ -94,9 +94,12 @@ In the past, adopting CASE/UCO required a developer:
 
 Today:
 1. **CASE/UCO/CAC SDK** — pre-built libraries handle the plumbing
-2. **A capable AI agent** (like Opus 4.6 in Cursor) understands the ontology
+2. **A capable AI agent** (like Opus 4.x+, GPT 5.x, Gemini 3.x+, Grok in Cursor) understands the ontology
 3. **Multiple LLM services as reviewers** — generate with one model, review with another, validate with SHACL
 
+In the near future:
+1. **Local Models Keep Improving** - in another 2-3 years local models may be nearly as good as current frontier models
+2. **Local Agent Frameworks Keep Improving** - there are many local agent frameworks that are presenting opportunities for having and training your own personal/work AI assistant. Reference frameworks like OpenClaw & Hermes Agent that are new in 2026. More will surely follow. OpenClaw is the fastest growing open-source project ever.
 ---
 
 ## The AI Review Team
@@ -127,4 +130,4 @@ Don't trust one model blindly. Use them as peer reviewers.
                                 └───────────────┘
 ```
 
-Just like having a partner review your case file.
+Just like having a partner or team of partners review your case file. Prompt the agent to provide "critical feedback" on the other agent's work, or on your own work.

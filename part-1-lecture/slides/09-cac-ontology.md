@@ -56,7 +56,7 @@ The **Crimes Against Children Ontology Family** — a domain-specific extension 
 | SPARQL analytics suites | 28 |
 | Countries supported | 120+ |
 
-This is **comprehensive**. It covers your mission.
+This is **comprehensive**. It covers your mission and it continues to improve concept coverage over time.
 
 ---
 
@@ -101,7 +101,7 @@ CyberTip-2024-001
 You don't need to write this graph by hand.
 
 1. **Start with a document** — a press release, a report, a tool export
-2. **Give it to an AI agent** with the CAC Ontology context
+2. **Give it to an AI agent** with the CAC Ontology context and access to the CASE/UCO SDK
 3. **The agent reads the ontology**, identifies the relevant concepts
 4. **The agent produces the graph** in Turtle or JSON-LD format
 5. **You review and refine**
@@ -140,7 +140,7 @@ Different models catch different things. Use them like you'd use peer reviewers.
 
 ## International Reach
 
-CAC Ontology supports coordination across **120+ countries**.
+CAC Ontology supports coordination across **120+ countries** based on concept adoption from the International Centre for Missing and Exploited Children.
 
 - International legal harmonization
 - Cross-border operation frameworks

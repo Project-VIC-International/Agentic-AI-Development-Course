@@ -288,7 +288,7 @@ Nobody stated that directly. The graph followed the chain of relationships and d
 - Discover shared infrastructure between seemingly unrelated cases
 - Surface patterns across thousands of evidence items that no human would manually cross-reference
 
-The graph does the connecting. You decide what the connections mean.
+The graph does the connecting. You decide what the connections mean but that becomes easier when querying with your agent via MCP as the graph carries the meaning of every node and edge in the graph plus the specific data properties assigned to them.
 
 ---
 

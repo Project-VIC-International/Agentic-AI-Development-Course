@@ -48,6 +48,12 @@ These models are trained, shared, and deployed — and you can get them from mul
 - They can train **custom models** on your specific problem domain
 - They understand research ethics, data handling, and validation requirements
 
+### INTERPOL DevOps
+
+- This is a large group of people and organizations that get together to build models and applications for the CAC Community
+- Access these tools through https://forceforge.org
+- Forceforge is a community designed to enable developers from law enforcement to collaborate on projects related to tracking child abuse material traders on the internet. ForceForge is a developer oriented system with collaborative tools that the enable members to share and develop open source tools. All projects worked on within ForceForge are published under the Apache 2.0 licence
+
 **You don't have to build models from scratch.** Search for existing ones first, then partner with experts to customize.
 
 ---
