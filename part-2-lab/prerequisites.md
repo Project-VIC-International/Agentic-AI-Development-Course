@@ -64,7 +64,7 @@ Cursor is the AI-powered development environment we'll use throughout the lab.
 2. Download the installer for your operating system
 3. Run the installer
 4. Launch Cursor and sign in (you can use your GitHub account)
-5. The free tier is sufficient for this lab
+5. The free tier is sufficient for this lab. A $20/month subscription will help you build a simple tool every month. A $200/month subscription will help you build a lot. You can add a budget on top of that as you need.
 
 ### 5. GitHub CLI (Optional but Recommended)
 

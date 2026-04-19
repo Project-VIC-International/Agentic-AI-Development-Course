@@ -55,7 +55,7 @@ See the [timing table in the lecture outline](../part-1-lecture/outline.md) for 
 These are the moments where the audience is most likely to engage. Lean into them:
 
 1. **Section 7 (Interoperability Journey):** Ask the room about data normalization pain. This is their daily frustration. Let them vent briefly — it validates the problem.
-2. **Section 4 (Four Doors):** The "working ON and IN simultaneously" concept surprises people. Pause and let it land.
+2. **Section 4 (Four Doors):** The "AI agent working ON and IN simultaneously" concept surprises people. Pause and let it land.
 3. **Section 8 (Reasoning):** The three-hop inference example (person → account → IP → location) always gets a reaction from investigators. They immediately see the value.
 4. **Section 6 (Agent Rules):** Investigators understand rules and policies. This section clicks fast with this audience.
 
