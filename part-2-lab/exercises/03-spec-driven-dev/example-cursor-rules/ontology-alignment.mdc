@@ -1,0 +1,165 @@
+---
+description: CASE / UCO / CAC (and optional SOLVE-IT) ontology alignment — all data must serialize as valid, semantically precise JSON-LD
+alwaysApply: true
+---
+
+# CASE / UCO / CAC Ontology Alignment
+
+This project is built on a stack of interlocking open ontologies. Every data structure, export, and internal representation MUST be grounded in these ontologies to enable true interoperability with the digital investigation and Project VIC communities, and to ensure court-defensible, scientifically rigorous output.
+
+## The Ontology Stack
+
+| Layer | Ontology | What It Covers | Where to Find It |
+|-------|----------|----------------|-------------------|
+| Foundation | **UCO** — Unified Cyber Ontology | Core cyber-domain concepts (files, accounts, devices, identities, locations, time) | https://unifiedcyberontology.org/ · https://github.com/ucoProject |
+| Investigation | **CASE** — Cyber-investigation Analysis Standard Expression | Investigations, investigative actions, evidence, provenance, chain of custody | https://caseontology.org/ · https://github.com/casework |
+| Domain | **CAC Ontology** — Crimes Against Children Ontology | Grooming, exploitation indicators, victim/offender modeling, Project VIC categories, analyst wellbeing | https://site.cacontology.projectvic.org/ · https://github.com/Project-VIC-International/CAC-Ontology |
+| Forensic Science (optional but encouraged) | **SOLVE-IT** | Forensic techniques, weaknesses, mitigations, tool profiles, ASTM E3016-18 error categories | https://ontology.solveit-df.org/ · https://github.com/SOLVE-IT-DF/solve-it-ontology |
+
+Use UCO/CASE/CAC at minimum. Add SOLVE-IT when your tool performs a documented forensic analysis whose error modes need to be defensible in court (carving, hashing, perceptual hashing, AI classification, OCR, timeline reconstruction, etc.). For CAC tools that may end up cited in trial exhibits, **SOLVE-IT alignment is strongly recommended.**
+
+## Why Each Ontology Matters in Plain Language
+
+- **UCO** is the dictionary. Every cyber thing — a file, an account, a phone number, an IP address — has a UCO class with a stable IRI. Without UCO, two agencies cannot agree on what the word "file" means in machine-readable form.
+- **CASE** is the grammar of an investigation. It connects observations to the actions that produced them, ties evidence to chain-of-custody actors, and gives every assertion a provenance trail.
+- **CAC Ontology** speaks the specific vocabulary of Crimes Against Children work. It defines categories like grooming stages, Project VIC CSAM categorization, victim age estimation, and analyst wellbeing exposures. It is the layer that lets a CAC investigator's tool output be understood by another CAC investigator's tool.
+- **SOLVE-IT** is the layer that makes your output **defensible**. It catalogues the known weaknesses of every forensic technique, the mitigations that address them, and the ASTM E3016-18 error categories that defense counsel will ask about on cross-examination. A SOLVE-IT-aligned tool tells the court not just "we found this," but "we found this using technique T, which has weakness W, which we mitigated with M, and the residual error category is E."
+
+## Tools the Agent Must Use
+
+### CASE/UCO/CAC SDKs
+
+Project VIC and the CASE community publish SDKs in multiple languages (Python, Rust, Java, C#) that provide typed builders for all CASE/UCO/CAC classes. These SDKs enforce required fields, produce correct `@context`, and are the **authoritative way to emit JSON-LD** — much more reliable than hand-writing JSON.
+
+[FILL IN: The SDK / library you are using and where it is installed in your project, e.g. `case-utils` (Python from PyPI), `case-rs` (Rust crate), or a vendored copy under `vendor/case-uco-libraries/`.]
+
+If your project's SDK exposes an MCP server for ontology lookup (some do), the AI agent MUST query it before writing any serialization code. Do not let the agent guess at class names or property names.
+
+### Browse the Ontologies Directly
+
+When an SDK lookup is not enough, browse the source ontologies:
+
+- UCO: https://github.com/ucoProject/UCO
+- CASE: https://github.com/casework/CASE
+- CAC: https://github.com/Project-VIC-International/CAC-Ontology
+- SOLVE-IT: https://github.com/SOLVE-IT-DF/solve-it-ontology
+
+For air-gapped lab deployments, vendor the ontology TTL files into a `vendor/ontologies/` directory in your repo with a pinned version, and validate against the vendored copies. CI should check the vendored copies for drift against upstream on a regular cadence.
+
+## Non-Negotiable Requirements
+
+### 1. Valid JSON-LD Serialization
+
+- Every artifact, relationship, provenance record, and analysis result your tool produces MUST serialize to valid CASE/UCO/CAC JSON-LD.
+- JSON-LD output MUST pass `case_validate` (the official Python validator from the CASE community: https://github.com/casework/CASE-Utilities-Python) with zero errors against the declared CASE version.
+- Use `@context` properly — reference the canonical CASE/UCO context URIs and any SOLVE-IT IRIs you use; never invent ad-hoc keys.
+- Every node MUST have a `@type` drawn from CASE, UCO, CAC, SOLVE-IT, or a registered extension. **No untyped nodes.**
+- Use UUID-based IRIs (`urn:uuid:<uuid4>`) for instance identifiers per CASE conventions.
+
+### 2. Semantic Precision Over Convenience
+
+- Use the **most specific class available**, not a generic parent. `uco-observable:File` not `uco-core:UcoObject`. `case-investigation:InvestigativeAction` not `uco-action:Action` when the action is investigative.
+- Properties MUST reference the correct ontology term. Do not invent synonyms or aliases. If CASE defines `uco-observable:fileName`, that is the property name — not `file_name`, not `name`, not `filename`.
+- Facets MUST be used correctly: observables carry data through facets (`uco-observable:ContentDataFacet`, `uco-observable:FileFacet`, etc.), not through top-level ad-hoc properties.
+- Controlled vocabularies (hash types, encoding types, action types, ASTM E3016-18 error categories) MUST use the values defined in CASE/UCO/SOLVE-IT — not project-local enums duplicated for convenience.
+
+### 3. CAC Ontology for ICAC-Specific Concepts
+
+- Grooming stages, CSAM categorization (Project VIC categories 1–5), analyst wellbeing metrics, exposure mitigation controls, and child-exploitation indicators MUST use CAC ontology terms.
+- Do **not** invent ad-hoc classifications. If the CAC ontology defines a concept, use it. If a concept appears to be missing, propose an extension via the AI-generated extension protocol (below) and validate it through SHACL before use.
+- Investigator-facing labels should be drawn from the CAC ontology where one exists ("Grooming stage" not "NLP classification"; "Victim age estimation" not "age regression output").
+
+### 4. SOLVE-IT Linkage for Forensic Defensibility (Strongly Recommended)
+
+If your tool performs any of the techniques catalogued in SOLVE-IT — file carving, hash lookup, keyword search, timeline analysis, web history recovery, OCR, perceptual hashing, AI classification, encryption detection, etc. — then:
+
+- Every `case-investigation:InvestigativeAction` your tool emits MUST link to at least one SOLVE-IT `Technique` via `solveit-core:hasTechnique`.
+- Every technique's known weaknesses that your tool encountered at runtime MUST be emitted as `solveit-core:Weakness` references on the analytic result.
+- Every triggered weakness MUST reference applicable `solveit-core:Mitigation` entries — including which mitigations your tool's current version satisfies and which remain unmitigated.
+- ASTM E3016-18 error categories (`mayResultInINAC_ALT`, `mayResultInINAC_AS`, `mayResultInINAC_COR`, `mayResultInINAC_EX`, `mayResultInINCOMP`, `mayResultInMISINT`) MUST be declared on every analytic result so defense counsel can cross-examine the specific error modes the tool acknowledges.
+- Missing techniques, weaknesses, or mitigations for novel forensic steps MUST be written to a `candidates.json` file in your repo for upstream contribution to SOLVE-IT — do not invent local classifications. Prefer upstream PRs over local extensions.
+
+### 5. Tool Profile Declaration (Strongly Recommended)
+
+Your tool SHOULD declare a `solveit-tool-profile:ToolProfile` for each released version, stating:
+
+- Which SOLVE-IT techniques this version implements
+- Which weaknesses are mitigated by this version's design
+- Which weaknesses remain unmitigated and why
+- The tool version and build identifier so results are attributable to a specific release
+
+Embed the tool profile in every export bundle so a downstream reader can ask "what guarantees applied when this output was produced?"
+
+### 6. Provenance Chains Are Mandatory
+
+- Every derived artifact links back to its source through `uco-action:Action` provenance chains.
+- The action that produced an artifact, the instrument used (tool name + version + configuration), and the input objects are all recorded.
+- Hash verification at evidence import is BOTH a CASE provenance action AND (when SOLVE-IT is in use) a `solveit-acquisition:` event.
+- The instrument on every action SHOULD point to an entry in the active version's tool profile so a downstream reader can trace what guarantees applied.
+
+### 7. SHACL Validation in CI
+
+- All JSON-LD exports MUST be validated against CASE/UCO SHACL shapes (and SOLVE-IT SHACL shapes if SOLVE-IT is in use) in CI.
+- SHACL validation failures MUST block merges.
+- When you add new data types, create or update SHACL shapes to cover the new structures.
+- Use `pyshacl` (Python) or an equivalent SHACL validator native to your language.
+
+### 8. AI-Generated Extension Protocol (Last Resort)
+
+When a concept is needed that does not exist in base CASE/UCO/CAC/SOLVE-IT:
+
+1. **First try** to propose an upstream contribution to the appropriate ontology. The CDO ecosystem accepts PRs.
+2. If the concept is too project-specific or upstream is too slow, create a local extension under `extensions/` in your repo:
+   - New extension classes MUST use `owl:Class` with explicit `rdfs:subClassOf` to a base CASE/UCO/CAC/SOLVE-IT class.
+   - OWL ontology and SHACL shapes MUST be in separate files.
+   - All extensions MUST have exemplar A-Box instances validated with `case_validate`.
+   - Extensions are **additive** — they never modify or conflict with base ontology terms.
+3. Extensions are a **bridge until the upstream concept lands**, not a permanent fork. Track each extension's upstream PR status.
+
+## What This Means in Practice
+
+When you create a data class, write serialization code, or add a new feature that produces output:
+
+1. **Query the SDK first.** Use the CASE/UCO SDK (or its MCP server, if available) to find the right types. Do not guess.
+2. **Check SOLVE-IT for technique/weakness/mitigation coverage** if forensic defensibility is in scope.
+3. **Get the details.** Call `get_class_details` (or read the OWL) to see the full property table, required fields, and facet patterns.
+4. **Map your data class to a CASE/UCO/CAC/SOLVE-IT class.** Identify the `@type`.
+5. **Map each field to a CASE/UCO/CAC/SOLVE-IT property.** Use facets where the ontology requires them.
+6. **If no mapping exists,** propose an upstream contribution OR create a local extension following the protocol above. Do not ship untyped data.
+7. **Use the SDK's typed builders** for serialization. Hand-rolling JSON-LD is allowed but discouraged — the SDK enforces required fields and prevents context errors.
+8. **Wire SOLVE-IT technique / weakness / mitigation linkage** if your feature performs a SOLVE-IT-catalogued forensic technique.
+9. **Update the tool profile generator** if your project produces one.
+10. **Write a test** that round-trips your data through JSON-LD serialization and validates with `case_validate` (and `pyshacl` against SOLVE-IT shapes if applicable).
+
+## Project-Specific Mapping Table
+
+[FILL IN: As your project grows, add a table here that maps each module / capability of your tool to the CASE/UCO/CAC classes it produces and the SOLVE-IT technique(s) it implements. This is the authoritative starting point for the agent when adding new features. Example:
+
+| Module / Feature | Primary CASE/UCO/CAC Class(es) | SOLVE-IT Technique(s) | Key Weaknesses to Surface |
+|------------------|---------------------------------|------------------------|---------------------------|
+| CyberTip ingest | `case-investigation:Investigation`, `case-investigation:Tip` (extension) | `T-CYBERTIP_TRIAGE` (CANDIDATE) | Reporter accuracy; URL decay; IP-attribution drift |
+| Hash lookup | `uco-observable:File` + `uco-observable:HashFacet` | `T-HASH_LOOKUP` | Algorithm collisions; hash-set staleness |
+| Timeline build | `solveit-timeline:DateTimeStamp` / `:DateTimeRange` | `T-TIMELINE_GENERATION` | Filesystem timestamp resolution drift; clock skew |
+
+Add a row for each new module during `/speckit.implement`.]
+
+## Reference Versions
+
+[FILL IN with the versions you are pinned to:
+
+- **CASE / UCO**: e.g. CASE v1.4.0 / UCO v1.4.0
+- **CAC Ontology**: e.g. v0.x.y from the Project VIC repository
+- **SOLVE-IT**: e.g. v0.1.4
+- **AI-generated extensions**: list any extension namespaces you depend on]
+
+## Vendoring for Air-Gapped Labs
+
+Many CAC investigative environments are air-gapped or operate under restrictive network policies. Your tool SHOULD function offline. Vendor all ontology assets locally:
+
+- CASE / UCO ontology files under `vendor/ontologies/case-uco/<version>/`
+- CAC Ontology files under `vendor/ontologies/cac/<version>/`
+- SOLVE-IT ontology TTLs under `vendor/ontologies/solve-it/<version>/`
+- The `case_validate` tool shipped alongside (or pinned in `requirements.txt`)
+- CI checks vendored versions against upstream to detect drift
+
+Air-gapped deployments MUST NOT require network access for SHACL validation, technique lookup, or `case_validate`.

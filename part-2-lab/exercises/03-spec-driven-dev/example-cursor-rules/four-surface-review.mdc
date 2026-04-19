@@ -1,0 +1,84 @@
+---
+description: Every change must be reviewed for impact across all four surfaces — GUI, CLI, API, MCP
+alwaysApply: true
+---
+
+# Four-Surface Impact Review
+
+A modern CAC mission tool exposes its functionality through **four surfaces**. Every change — feature, fix, refactor, or optimization — MUST be reviewed for its impact on all four. This is not optional. A change that improves one surface while leaving another broken or inconsistent is incomplete.
+
+This rule encodes one of the core lessons of this course: humans and AI agents both consume your tool, but they do so through different doors. If you only build the front door, half your users (and most of your AI agents) cannot get in.
+
+## The Four Surfaces
+
+| Surface | What It Is | Primary Users |
+|---------|------------|---------------|
+| **GUI** (Graphical User Interface) | Buttons, menus, panels, the visual application | Investigators and examiners working interactively, often under time pressure |
+| **CLI** (Command-Line Interface) | Terminal commands, scripts, batch processing | Examiners running unattended triage; lab automation; CI pipelines |
+| **API** (Application Programming Interface) | HTTP/REST endpoints, library functions | Lab management systems; integrations with other forensic tools; multi-user deployments |
+| **MCP** (Model Context Protocol) | Tools, resources, and prompts an AI agent can invoke | AI assistants helping investigators; automated triage; LLM-driven analysis workflows |
+
+If your project does not yet expose all four surfaces, the spec MUST say so explicitly and the missing surfaces MUST appear on the project roadmap. Do not silently treat the GUI as the only surface.
+
+## The Review Checklist
+
+Before considering any change complete, answer these questions for each surface:
+
+### GUI
+
+- Does this change need to be visible or accessible in the GUI?
+- If a new capability was added, is there a corresponding view, panel, menu item, or toolbar action?
+- Does the GUI use **investigator-familiar terminology** (per the CAC ontology and the project constitution's investigator-first language principle)?
+- Is the interaction designed for an investigator under stress and time pressure, not for a software engineer?
+- Does the GUI surface evidence provenance — can the user trace how a result was produced (which model, which version, which inputs, which timestamp)?
+
+### CLI
+
+- Does this change need a corresponding CLI command, subcommand, or flag?
+- Can an examiner script this operation for batch processing across many evidence sources?
+- Does the CLI output **structured data** (JSON-LD, CASE format, NDJSON) suitable for piping into other tools?
+- Are error messages actionable for someone running unattended overnight triage who will not see the error until morning?
+- Does the CLI honor `--help`, exit codes, and `--quiet` / `--verbose` conventions?
+
+### API
+
+- Does this change need a corresponding API endpoint or modify an existing one?
+- Does the API accept and return **CASE/UCO/CAC-compliant JSON-LD** (per the `ontology-alignment` rule)?
+- Is the endpoint documented with request/response schemas (OpenAPI is the preferred format)?
+- Does it respect access controls for multi-user deployments (per the `security-compliance` rule's RBAC requirements)?
+- Does it emit audit events for any state-changing operation?
+
+### MCP
+
+- Does this change need a corresponding MCP tool, resource, or prompt?
+- Can an AI agent invoke this capability to assist an investigator without first reading documentation?
+- Is the MCP tool's schema descriptive enough that an LLM can discover it via `list_tools` and use it correctly?
+- Does the MCP tool return structured, machine-interpretable results (JSON-LD or typed JSON), not just human-readable text?
+- Are tool arguments validated and error messages clear enough that an LLM can recover from a bad call?
+
+## Who We Build For
+
+This project is built for **crimes against children investigators** and the **digital forensics examiners, prosecutors, and AI agents** who support them. Every design decision — from terminology to workflow to API shape — must serve their mission:
+
+- **Investigators** need to find evidence quickly, understand what they are looking at, and document their findings for prosecution. They are not software engineers. They work under extreme emotional and time pressure. Optimize for them.
+- **Examiners** need reliable, high-throughput tools that produce court-admissible results with full chain of custody. They need reproducible workflows and CASE/UCO/CAC-compliant exports.
+- **Prosecutors** need clear, defensible reports that explain what was found, how it was found, and what it means — grounded in ontology terms that are legally understood.
+- **AI agents** need machine-interpretable schemas, deterministic behavior, structured errors, and the same audit/provenance guarantees as the human surfaces.
+
+If a feature does not ultimately serve one of these roles, question whether it belongs in the project at all.
+
+## Enforcement
+
+- Specs created via `/speckit.specify` MUST include a "Surface Impact" section identifying which of the four surfaces are affected and what changes are needed for each.
+- During `/speckit.plan`, the plan MUST allocate tasks for each affected surface.
+- During `/speckit.implement`, a feature is not "done" until all affected surfaces are updated.
+- If a change deliberately affects only one surface (for example, a GUI-only style tweak), explicitly document **why** the others are unaffected. Do not silently skip them.
+- The MCP surface is not secondary. AI-assisted investigation is a first-class workflow in this course's worldview. **Every capability available in the GUI, CLI, or API should be evaluated for MCP exposure**, not retrofitted later.
+
+## Practical Implementation Note
+
+The cleanest way to honor this rule architecturally is to put the real work in a **core library / domain layer** that has no GUI, CLI, API, or MCP code in it. The four surfaces then become thin adapters that call the same underlying functions. When you add a new capability to the core, exposing it on each surface is a small, mechanical step rather than four reimplementations.
+
+If you find yourself duplicating logic across the four surfaces, that is a smell — refactor it into the core.
+
+[FILL IN: The names of the modules / packages in your project that implement each surface, e.g. `myproject_gui`, `myproject_cli`, `myproject_api`, `myproject_mcp`. List them in a table here so the agent knows where to put new code.]

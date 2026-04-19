@@ -1,0 +1,126 @@
+---
+description: Karpathy-style auto-research for autonomous, experiment-driven improvement of the tool
+alwaysApply: true
+---
+
+# Auto-Research: Experiment-Driven Improvement
+
+After a feature passes its spec requirements, use Andrej Karpathy's auto-research methodology to autonomously discover improvements. This is **not** unstructured brainstorming — it is a disciplined experiment loop that produces measured, defensible results.
+
+For a CAC mission tool, this matters for two reasons:
+
+1. **Performance** — investigators need answers fast. A triage pass that takes 8 hours instead of 2 means children wait longer for help.
+2. **Defensibility** — every claimed improvement is backed by a logged, reproducible experiment. When a defense expert asks "how do you know your hash matcher is faster than the previous version?", the answer is a numbered experiment record with before / after measurements and the SHA of the branch that produced them.
+
+## The Loop
+
+```
+while improvements_possible:
+    1. READ        — current spec thresholds + benchmark baselines
+    2. HYPOTHESIZE — one concrete, testable change
+    3. IMPLEMENT   — in an isolated branch or worktree
+    4. MEASURE     — run benchmarks, compare to baseline
+    5. EVALUATE    — keep if better, discard if not
+    6. RATCHET     — update spec floor to new baseline if merged
+```
+
+The agent runs this loop. The investigator reviews each ratchet decision before it is merged.
+
+## Rules
+
+### 1. Always Measure, Never Guess
+
+- Every hypothesis MUST have a measurable prediction ("this change should improve throughput by ~15%" or "this should reduce false positives below 0.5%").
+- Run the actual benchmarks. **Do not eyeball code and declare it faster.**
+- Record before / after numbers with the same workload, same hardware profile, and same measurement methodology. A faster benchmark on a different machine proves nothing.
+
+### 2. One Variable at a Time
+
+- Each experiment changes **exactly one** thing: an algorithm, a buffer size, a parallelism strategy, a data structure, a model checkpoint, a confidence threshold.
+- Do not bundle multiple changes into one experiment. If you change two things and the metric improves, you cannot attribute the improvement to either change.
+
+### 3. Isolation Is Mandatory
+
+- Use Cursor's `best-of-n-runner` subagent (or an isolated git worktree, or a feature branch) for every experiment.
+- **Never pollute the main implementation branch with speculative changes.** The main branch is what the agency runs in production.
+- Each experiment branch is disposable until results prove it worthy of merging.
+
+### 4. Ratchet the Floor
+
+- When an experiment produces a verified improvement, the spec's performance threshold ratchets **upward** to the new baseline.
+- Update the spec's `Performance Thresholds` section AND the constitution's `Performance Baselines` table (if you keep one).
+- The old floor is dead. The new floor is the minimum the next change must respect.
+- Future regressions below the ratcheted floor MUST fail CI.
+
+### 5. Log Everything
+
+Each experiment session produces a log entry under `experiments/` (or in the feature's `research.md`):
+
+- **Hypothesis**: what you changed and why you expected improvement
+- **Method**: exact code change (diff or branch SHA), benchmark command, workload description, hardware profile (CPU, RAM, GPU, OS, Python version)
+- **Result**: before / after metrics with statistical significance if applicable (median of N runs is better than a single measurement)
+- **Decision**: keep (merge) or discard, with rationale
+- **Commit**: SHA of the experiment branch for reproducibility
+- **Court note** (optional but encouraged): one sentence describing what an examiner would tell a court about this change
+
+### 6. Know When to Stop
+
+- Stop when the last N experiments (N ≥ 3) show diminishing or zero returns.
+- Stop when the metric is bottlenecked by something outside the module's control (disk I/O, OS scheduler, network round-trip).
+- Stop when you have hit the theoretical optimum for the algorithm class.
+- **Report what was tried, what worked, and what the ceiling appears to be.** The negative results are also valuable — they prevent the next investigator from running the same experiment.
+
+## What to Measure
+
+For a CAC mission tool, the metrics that usually matter:
+
+| Metric Family | Examples |
+|----------------|----------|
+| **Throughput** | Files per second processed, GB/s carved, hashes computed per second, images classified per second |
+| **Latency** | p50 / p95 / p99 query response times, time to first result, time to triage list ready |
+| **Quality** | Precision, recall, F1 for classifiers; false positive / negative rates for hash matching; SHACL validation pass rate |
+| **Resource Usage** | Peak memory, peak GPU memory, disk space per case |
+| **Defensibility** | Coverage of SOLVE-IT weaknesses surfaced; number of ASTM E3016-18 categories declared; percentage of analytic results with provenance chains |
+
+Pick the metrics that matter to your tool and document them in the spec.
+
+## When to Apply Auto-Research
+
+- After `/speckit.implement` completes and all tests pass — the spec is met; now exceed it
+- When a benchmark regression is detected and the fix is not obvious
+- When a module's performance is below its spec threshold
+- When exploring algorithm alternatives (e.g., Aho-Corasick vs. regex for multi-pattern matching; ONNX vs. TensorRT for the same model)
+- Proactively on performance-critical modules (carving, hashing, indexing, AI inference)
+
+## When NOT to Apply
+
+- During initial implementation — get it correct first, then optimize.
+- For correctness bugs — fix those directly, do not "experiment" with whether they are real.
+- For UI / UX changes — use user testing with actual investigators, not micro-benchmarks.
+- For ontology / data shape changes — those go through the spec process, not the research loop.
+
+## Integration with Spec-Driven Development
+
+Auto-research is the **fifth phase** of the spec-driven pipeline:
+
+1. `specify` — define thresholds
+2. `plan` — design the approach
+3. `tasks` — break down the work
+4. `implement` — build to spec
+5. **`autoresearch`** — experiment to exceed spec minimums
+6. `analyze` / `verify` — confirm the implementation meets or exceeds all requirements
+
+After auto-research improves a metric, update the spec and re-run `/speckit.analyze` to ensure all artifacts (spec, plan, tasks, code, changelog) stay consistent.
+
+## A Worked Example for a CAC Tool
+
+Suppose the spec says the CyberTip Triage Helper must process 1,000 tips per minute. The implementation comes in at 1,200 tips per minute — exceeds the floor. Auto-research can then:
+
+1. **Hypothesize**: "Switching from per-tip database commits to batched commits of 100 should improve throughput by 3x without changing accuracy."
+2. **Implement** in `experiments/2026-04-19-batched-commits/`.
+3. **Measure**: 3,400 tips per minute with the same accuracy on the same synthetic dataset.
+4. **Decide**: merge.
+5. **Ratchet**: spec's `Performance Threshold` updates from 1,000 to 3,000 (give some headroom). README's headline number updates. Changelog gets a `Performance` entry per the `release-management` rule.
+6. **Log**: `experiments/2026-04-19-batched-commits/result.md` records hypothesis, method, before / after, hardware, and SHA.
+
+The next contributor can read that log and understand both what was tried and why the new floor is what it is.

@@ -51,7 +51,26 @@ As a class, pick one tool to build. Here are the candidates — or propose your 
 
 Bring the idea you thought of during the lecture. Describe it to the class. If the group picks it, we build it.
 
-## Step 2: Define the Specification
+## Step 2: Adopt the Constitution and Cursor Rules
+
+Before writing the spec, give your AI agent the standing orders it needs to build a CAC mission tool the right way. From your project root:
+
+```bash
+mkdir -p .cursor/rules .specify/memory
+cp ../03-spec-driven-dev/example-spec/constitution.md .specify/memory/constitution.md
+cp ../03-spec-driven-dev/example-cursor-rules/*.mdc .cursor/rules/
+```
+
+(Adjust the relative paths if your project lives somewhere else in the course tree.)
+
+You now have:
+
+- A **constitution** at `.specify/memory/constitution.md` — the rules of your project
+- Eight **Cursor rules** at `.cursor/rules/` — the standing orders the AI agent reads on every prompt (CASE/UCO/CAC alignment, CJIS security, four-surface coverage, no stubs, etc.)
+
+Open a couple of the rule files and read them. They are written in plain English and you can edit them to fit your project (look for `[FILL IN]` placeholders).
+
+## Step 3: Define the Specification
 
 Using the constitution from Exercise 3, ask the agent to help write a specification for the chosen tool:
 
@@ -64,15 +83,15 @@ Using the constitution from Exercise 3, ask the agent to help write a specificat
 >
 > Save it as spec.md in this directory.
 
-## Step 3: Generate the Plan
+## Step 4: Generate the Plan
 
 > Based on the spec we just wrote, generate a technical plan. Include architecture, data model, components, and testing approach. Save it as plan.md.
 
-## Step 4: Generate Tasks
+## Step 5: Generate Tasks
 
 > Break the plan into an ordered list of atomic tasks. Save as tasks.md.
 
-## Step 5: Build
+## Step 6: Build
 
 This is where the agent builds the tool. Work through the tasks one at a time:
 
@@ -90,7 +109,7 @@ For each task:
 - Does each task produce testable output?
 - Are examples using synthetic data only?
 
-## Step 6: Test the Prototype
+## Step 7: Test the Prototype
 
 Once the core tasks are done, test the prototype:
 
@@ -105,7 +124,7 @@ The agent should:
 
 This is the "working on and in simultaneously" concept in action.
 
-## Step 7: Cross-Model Review (If Time Permits)
+## Step 8: Cross-Model Review (If Time Permits)
 
 Take the tool's output and paste it into a different AI model:
 

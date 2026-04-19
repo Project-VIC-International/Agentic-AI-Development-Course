@@ -1,0 +1,87 @@
+---
+description: Mandatory spec-driven development pipeline for every feature in a CAC mission tool
+alwaysApply: true
+---
+
+# Spec-Driven Development
+
+Every feature, enhancement, and non-trivial bug fix in this project MUST follow the spec-driven development pipeline. Do not skip steps. Do not jump straight to implementation. The spec is the contract between you (the investigator), the AI agent, and any future developer, examiner, validator, or judge who needs to understand what the tool does and why.
+
+This is the discipline that separates a court-defensible mission tool from a one-off script.
+
+## The Required Pipeline
+
+| Step | Slash Command | What Happens |
+|------|---------------|--------------|
+| 1. Constitution | `/speckit.constitution` | The project's governing rules (this is a one-time setup, then it lives at `.specify/memory/constitution.md`) |
+| 2. Specify | `/speckit.specify` | Define what the feature does, who uses it, what counts as "done" — in plain language |
+| 3. Plan | `/speckit.plan` | Translate the spec into architecture, data models, components, and contracts |
+| 4. Tasks | `/speckit.tasks` | Break the plan into ordered, testable work units with clear acceptance criteria |
+| 5. Implement | `/speckit.implement` | Execute tasks one at a time; each one is reviewed before moving on |
+| 6. Analyze | `/speckit.analyze` | Cross-check the spec, plan, tasks, and implementation for consistency |
+
+GitHub spec-kit (https://github.com/github/spec-kit) provides these commands. They are not optional ritual — they are how a non-programmer keeps control of an AI agent that can write code faster than any human can read it.
+
+## When Spec-Driven Development Applies
+
+- Any new tool, feature, capability, or module
+- Performance improvements (pair with the `auto-research` rule)
+- Refactors that change inputs, outputs, or data shapes
+- Bug fixes that require changing the architecture or the data model
+- Anything that touches CASE/UCO/CAC output (per the `ontology-alignment` rule)
+- Anything that touches authentication, evidence handling, audit logging, encryption, or networking (per the `security-compliance` rule)
+
+## When It May Be Skipped
+
+- Single-line typo fixes
+- Documentation-only edits that do not change tool behavior
+- Dependency version bumps that do not change the public surface
+- Renaming an internal variable
+
+If you are not sure whether spec-driven development applies, **err on the side of writing a spec.** A 10-minute spec is cheap insurance against a 10-hour rebuild.
+
+## Enforcement Rules
+
+- Never start writing implementation code without a spec in `specs/`. If a contributor (human or AI) asks to implement something without a spec, the agent's first action is to create the spec.
+- Never merge a feature branch without at least `spec.md` and `plan.md` in its `specs/<feature>/` directory.
+- Use `/speckit.clarify` when the spec has unresolved ambiguities — do not guess during implementation. Guesses become bugs that defense counsel will find.
+- Use `/speckit.checklist` to generate validation checklists before implementation when the feature has security, compliance, or user-experience dimensions.
+- The constitution at `.specify/memory/constitution.md` is the supreme authority. Every spec MUST comply with it. If a spec needs to override a constitutional rule, amend the constitution first via a separate change.
+
+## Required Sections in Every Spec
+
+Specs in this project MUST include:
+
+- **Overview** — one sentence of plain-language summary, plus the problem the tool solves
+- **User Persona** — primary user (investigator, examiner, prosecutor, supervisor, AI agent) and their context of use
+- **Inputs / Processing / Outputs** — described in investigator-friendly language
+- **CASE/UCO/CAC Compliance** — which classes, properties, and facets are produced; which SHACL shapes apply (per the `ontology-alignment` rule)
+- **Surface Impact** — which of the GUI, CLI, API, and MCP surfaces are affected (per the `four-surface-review` rule)
+- **Security Controls** — which NIST SP 800-53 control families and CJIS sections apply (per the `security-compliance` rule)
+- **Performance Thresholds** — measurable floors the implementation must meet (per the `auto-research` rule)
+- **Acceptance Criteria** — concrete, testable success conditions
+- **Test & Validation Plan** — unit, integration, SHACL, and (for AI/ML) model validation requirements
+
+## Spec Location
+
+All specs live under `specs/` in numbered directories — for example, `specs/001-cybertip-triage/`, `specs/002-evidence-chain-tracker/`. The active feature directory is tracked in `.specify/feature.json` so the agent knows which spec it is currently implementing.
+
+A typical spec directory looks like:
+
+```
+specs/001-cybertip-triage/
+├── spec.md          # what and why
+├── plan.md          # how
+├── tasks.md         # ordered work units
+├── research.md      # links to existing tools, standards, prior art
+├── data-model.md    # CASE/UCO/CAC class mappings
+└── checklists/      # generated validation checklists
+```
+
+## Why This Matters for CAC Tools
+
+A spec-driven workflow gives a CAC investigator three things that ad-hoc development cannot:
+
+1. **Court defensibility** — every feature has a written specification that can be cited in motion practice or expert testimony. "The tool does X because the spec at commit Y says it does X."
+2. **Independent validation** — an outside reviewer (NIST CFTT, a peer agency, a university partner) can read the spec without reading any code. This is what `Independent Testing and Validation` from the constitution requires.
+3. **Agent control** — the spec is what stops the AI agent from doing something clever-but-wrong. The agent builds to the spec; you review the spec; you stay in charge.

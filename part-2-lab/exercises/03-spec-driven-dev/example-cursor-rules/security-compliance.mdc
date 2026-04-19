@@ -1,0 +1,181 @@
+---
+description: NIST SP 800-53 Rev. 5 and DoJ FBI CJIS security controls — mandatory for all code touching auth, crypto, evidence, logging, or network
+alwaysApply: true
+---
+
+# Security Compliance: NIST SP 800-53 Rev. 5 and FBI CJIS Security Policy
+
+This project processes Criminal Justice Information (CJI) and law-enforcement-sensitive evidence — potentially including CSAM in ICAC casework. All code MUST comply with **NIST SP 800-53 Rev. 5** and the **FBI CJIS Security Policy** (currently v5.9.x). Non-compliance is not a bug — it is a deployment blocker, and in many jurisdictions a legal liability for the agency operating the tool.
+
+The constitution's "Security and Privacy" section is the high-level statement. This rule is the enforceable detail the agent applies when writing code.
+
+The full mappings should live in your repo at `docs/security/nist-800-53-mapping.md` and `docs/security/cjis-compliance-mapping.md`. Update them every time a new feature touches a control family.
+
+These are the normal security control frameworks used within the United States of America. You may need to adjust this to your country or regional security control frameworks. Many security control frameworks have overlaps but they are not the same. If you want to run your software in many countries you may need to apply various security framework profiles to your application.
+
+## Reference Documents
+
+- **FBI CJIS Security Policy** — https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+- **NIST SP 800-53 Rev. 5** — https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final
+- **NIST Cybersecurity Framework** — https://www.nist.gov/cyberframework
+- **NIST CFTT** (tool validation) — https://www.nist.gov/itl/ssd/software-quality-group/computer-forensics-tool-testing-program-cftt
+
+## Applicable Control Families
+
+When implementing any feature that touches the areas below, map your implementation to the specific controls and document the mapping in the spec's "Security Controls" section (per the `speckit-workflow` rule).
+
+### Access Control (AC)
+
+- **AC-2 — Account management**: All multi-user mode users have individual accounts; no shared credentials. Agency identity systems map 1:1 to investigators / examiners. Never ship a default `admin/admin` account.
+- **AC-3 — Access enforcement**: Implement Role-Based Access Control (RBAC). Every API endpoint and MCP tool that mutates state MUST check the user's permission, not just their authentication.
+- **AC-6 — Least privilege**: Each component runs with the minimum permissions it needs. Plugin sandboxing for any third-party / dynamically-loaded code MUST drop privileges before executing untrusted code. Container deployments run as non-root.
+- **AC-7 — Unsuccessful login attempts**: Lock accounts after a configurable threshold of failed authentications. CJIS requires a maximum of 5 consecutive failures. Lockout state is persisted and auditable.
+- **AC-8 — System use notification**: GUI and API surfaces MUST display a configurable legal banner before login. The banner text is set per deployment by the operating agency.
+- **AC-11 — Session lock**: Auto-lock after 30 minutes of inactivity (CJIS). API / MCP sessions enforce token expiry.
+- **AC-17 — Remote access**: All remote connections (REST API, MCP over network transports, multi-user database connections) MUST use TLS 1.2 or higher.
+
+### Audit and Accountability (AU)
+
+- **AU-2 — Auditable events**: Authentication events, evidence access, ingest invocations, configuration changes, exports, and inter-agency data exchanges MUST emit audit events. New surfaces MUST emit through the **same shared audit facility** — never log security-relevant events through a generic logger alone.
+- **AU-3 — Content of audit records**: Every audit entry MUST include UTC timestamp, user identity (or `system`), event type, outcome, source address (where applicable), and the case identifier.
+- **AU-6 — Audit review**: Audit logs are structured (JSON) and queryable through CLI, API, and an MCP tool. They are SIEM-ingestible.
+- **AU-9 — Protection of audit information**: The audit log SHOULD be **append-only** with a SHA-256 hash chain that breaks if any entry is tampered with. Provide an offline `audit verify` command.
+- **AU-12 — Audit generation**: GUI, CLI, API, and MCP all generate audit events through a single shared facility. Any new surface or capability that handles evidence MUST wire into this facility, not roll its own logging.
+
+### Identification and Authentication (IA)
+
+- **IA-2 — User identification and authentication**: Required before any access to CJI on the API, MCP, or multi-user GUI surfaces. Single-user local mode MAY authenticate against the OS user account.
+- **IA-5 — Authenticator management**: Passwords meet CJIS complexity (minimum 8 characters, or passphrase ≥ 20). MFA support via TOTP for API access. **Default credentials are forbidden.**
+- **IA-6 — Authenticator feedback**: Never echo passwords, API tokens, or signing keys in logs, terminal output, error messages, panics, or audit entries.
+  - Python: use a wrapper such as a `Secret[str]` class that overrides `__repr__` and `__str__`, and avoid logging `**kwargs` blindly.
+  - Other languages: use the equivalent secret-wrapper pattern (`secrecy::Secret<T>` in Rust, etc.).
+- **IA-8 — Identification of non-organizational users**: Inter-agency data sharing (Project VIC OData exchanges, Central Repository peers, federated case data) authenticates the sending and receiving agency.
+
+### System and Communications Protection (SC)
+
+- **SC-8 — Transmission confidentiality**: TLS 1.2+ on every network interface. Localhost-only services (default API, MCP stdio) are exempt; the moment they listen on a non-loopback interface, TLS is required.
+- **SC-12 — Cryptographic key establishment**: Documented key generation, distribution, and rotation procedures live in `docs/security/`. Signing keys for evidence bundles use Ed25519 or ECDSA P-256.
+- **SC-13 — Cryptographic protection**: Use FIPS 140-2/3 validated modules where the deployment requires it. Approved primitives:
+  - Hashing: SHA-256 / SHA-512, BLAKE3. MD5 and SHA-1 only for legacy hash-set compatibility, not for new integrity work. XXH3 only for non-security deduplication.
+  - Signatures: Ed25519, ECDSA P-256.
+  - Symmetric: AES-256-GCM.
+  - TLS: a vetted, well-maintained TLS library with safe defaults (in Python, `ssl` with `PROTOCOL_TLS_CLIENT` and `set_ciphers` to a current list; or higher-level libraries such as `httpx`, `requests` with `verify=True`).
+- **SC-28 — Protection of information at rest**: Case databases, evidence stores, and cached extracted artifacts MUST support at-rest encryption in multi-user deployments. SQLite encryption via SQLCipher (or equivalent) is the supported path; PostgreSQL deployments use file-system or column encryption per agency policy.
+- **SC-39 — Process isolation**: Plugin execution and external-binary invocations are isolated from the main analysis process. Worker processes per data source are preferred over in-process plugin loading for any code not under your direct review.
+
+### System and Information Integrity (SI)
+
+- **SI-2 — Flaw remediation**: Security vulnerabilities are patched within CJIS timelines. CI MUST run a dependency vulnerability scanner on every PR (Python: `pip-audit` or `safety`; Rust: `cargo audit`; Node: `npm audit`); high-severity advisories block merge.
+- **SI-4 — System monitoring**: Structured logging with JSON output for SIEM ingestion. Repeated authentication failures and unusual evidence-access patterns generate audit events at `WARN` level or above.
+- **SI-7 — Software and information integrity**: Output bundles (CASE/UCO exports, Portable Cases, Project VIC exports) MUST include a `manifest.json` listing every artifact with its SHA-256 (and BLAKE3 when configured) and an Ed25519 signature over the manifest. SHACL validation is enforced for ontology exports per the `ontology-alignment` rule.
+- **SI-10 — Information input validation**: Every external input (file inputs, API request bodies, MCP tool arguments, CLI arguments, plugin manifests) is validated at the boundary. Reject before processing.
+
+## CJIS-Specific Requirements
+
+These come directly from the FBI CJIS Security Policy and supplement the NIST controls above.
+
+### Advanced Authentication (CJIS 5.6.2)
+
+- MFA MUST be available for remote access to CJI. TOTP is the supported default; smart-card / PIV / FIDO2 support is roadmapped.
+- Session tokens expire and are not reusable.
+- API keys are rotatable without downtime; rotation is an audit event.
+
+### Encryption (CJIS 5.10.1)
+
+- AES-256 (or stronger) for data at rest where the deployment processes CJI.
+- TLS 1.2+ for data in transit.
+- FIPS 140-2/3 validated cryptographic modules when deployed on government systems requiring FIPS mode.
+
+### Personnel Security and Attribution
+
+- Audit logs identify the specific user (or `system`) who performed each action.
+- Agency identifier and analyst identifier are recorded in every CASE/UCO graph export and every Project VIC export.
+
+### Media Protection (CJIS 5.10)
+
+- Evidence files are opened **read-only**. Forensic image files (E01, RAW, AFF4, VHD, VMDK) MUST never be written to by any module.
+- Original file hashes are computed at import (a Data Source Integrity step) and verified on demand.
+- Temporary files (extraction caches, OCR scratch, transcription scratch) are **securely deleted** after use. Use the standard library's tempfile facility (Python: `tempfile.TemporaryDirectory`; Rust: `tempfile::tempdir`) and ensure cleanup runs even on error / panic paths.
+
+## Implementation Rules
+
+### For Every Feature
+
+1. Identify which control families apply by reviewing the checklist above.
+2. Document the mapping in the spec's "Security Controls" section (required by `speckit-workflow`).
+3. Implement the controls as part of the feature, not as a follow-up. Per `no-stubs`, fake "we will add auth later" handlers are forbidden.
+4. Write tests that verify the controls are enforced — unauthenticated API requests are rejected with 401, missing permissions yield 403, audit events are emitted, hash chain validates after the operation, lockout triggers after the configured threshold.
+
+### Surface Coverage
+
+Per the `four-surface-review` rule, security controls apply to all four surfaces. A control implemented only in the GUI and bypassable through the API or MCP is **a vulnerability, not a feature**. Specifically:
+
+- Authorization checks live in the **core / domain layer**, so all four surfaces share the same enforcement code path. Surfaces are thin adapters; they do not own the security policy.
+- Audit emission lives in the core / domain layer for the same reason.
+- Input validation is performed both at the surface boundary (for early rejection and clear errors) and in the domain layer (for defense in depth).
+
+### Secrets and Credentials
+
+- **NEVER** hardcode secrets, API keys, passwords, signing keys, database credentials, or third-party license tokens (PhotoDNA, VICS, etc.) in source code, tests, fixtures, or configuration committed to git.
+- Use environment variables, the OS keychain (Python: `keyring`), or encrypted configuration files.
+- `.env` files MUST be in `.gitignore` — only `.env.example` / `.env.template` is committed.
+- Ed25519 / ECDSA private keys MUST have file permissions set to `0600` on POSIX. On Windows, document ACL configuration.
+- Wrap any credential or token in a secret-wrapper type so accidental `print()` / debug logging does not leak it.
+- **Log redaction**: if a value could be a secret, an evidence path containing PII, or a victim identifier, redact it before emitting through any logger.
+
+### Input Validation
+
+- Validate every file input at the boundary: magic-byte detection (Python: `python-magic` or the `magic` library; cross-language: the `infer` family), size limits, format-specific structural checks before deeper parsing.
+- Sanitize file paths to prevent directory traversal — never trust `..` segments in user-supplied paths or in archive entries (Zip-Slip).
+- Reject null bytes and other injection vectors in string inputs that flow into SQL, shell arguments, or filesystem paths.
+- Enforce size limits at the surface layer (API max body size, MCP tool argument size, ingest per-file caps).
+
+### Error Handling
+
+- Never expose internal stack traces, file paths, or database error text to external consumers (API responses, MCP tool results, REST error bodies).
+- Log the full error internally with context for debugging.
+- Return RFC 7807 problem-detail responses (`application/problem+json`) from the API surface.
+- Distinguish between client errors (4xx) and server errors (5xx).
+- Crashes / panics / unhandled exceptions in production paths are bugs — convert to typed errors with clear remediation guidance.
+
+### Dependencies
+
+- All dependencies pinned through a lockfile (`requirements.txt` with hashes, `poetry.lock`, `Cargo.lock`, `package-lock.json`) committed to git.
+- A vulnerability scanner runs in CI and high-severity advisories block merges.
+- License audit enforces the project's licensing rules — for this project, MIT / Apache 2.0 / BSD / MPL / Zlib are allowed; GPL-only dependencies are NOT permitted in release artifacts because they conflict with the project's Apache 2.0 license.
+
+### Container / Deployment
+
+- Container images run as a non-root user (e.g., `myproject`, UID 1000).
+- Read-only root filesystem with explicit writable mount points for case data and logs.
+- Capability dropping: drop `NET_RAW`, `SYS_ADMIN`, `SYS_PTRACE`, and any other capability not strictly required.
+- **No `--privileged` mode, ever.**
+- GPU access via `--gpus` flag (Docker) or device plugin (Kubernetes), never raw passthrough of `/dev/*`.
+
+### AI / ML Models
+
+Per the constitution's AI/ML validation requirements:
+
+- Document benchmark performance (accuracy, precision, recall) for every shipped model.
+- Document false positive and false negative rates.
+- Document bias evaluation across relevant data types.
+- Independent third-party validation before operational use.
+- Surface model version, training data lineage, and confidence scores in the JSON-LD output (per `ontology-alignment` — use SOLVE-IT weakness assessment for the wrapper).
+
+## Quick Reference: Control-to-Feature Mapping
+
+[FILL IN as your project grows. Example structure:
+
+| Feature Area | Module / Component | Primary Controls | CJIS Section |
+|--------------|--------------------|--------------------|---------------|
+| API authentication & RBAC | `myproject.api`, `myproject.auth` | AC-2, AC-3, IA-2, IA-5 | 5.6 |
+| Session management & lockout | `myproject.auth.session` | AC-7, AC-11, AC-17 | 5.6.2 |
+| Evidence ingest & integrity | `myproject.ingest`, `myproject.hashing` | SI-7, SC-28, MP-* | 5.10 |
+| Bundle signing & verification | `myproject.export.bundle` | SC-12, SC-13, SI-7 | 5.10.1 |
+| Tamper-evident audit chain | `myproject.audit` | AU-2, AU-3, AU-6, AU-9, AU-12 | 5.4 |
+| Project VIC sharing | `myproject.vic` | IA-8, SC-8, SI-7 | 5.10 |
+| Input validation | All surfaces | SI-10, SC-39 | 5.10 |
+| AI / ML inference | `myproject.ml.<model>` | (model validation, bias evaluation) | — |
+| Container deployment | `docker/`, `helm/` | AC-6, SC-39 | 5.7 |
+| Analyst wellbeing controls | `myproject.wellbeing` | (operator/analyst safety; CAC ontology) | — |
+]

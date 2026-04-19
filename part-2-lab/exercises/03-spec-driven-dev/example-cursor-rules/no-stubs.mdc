@@ -1,0 +1,61 @@
+---
+description: No stubs — every function, command, endpoint, and tool must perform real work
+alwaysApply: true
+---
+
+# No Stubs
+
+Never create stub implementations, placeholder functions, mock returns, or `TODO`-laden skeletons that pretend to work. Every function, CLI command, API endpoint, MCP tool handler, and AI prompt template MUST contain real, working logic that performs its documented purpose end to end.
+
+## Why This Matters
+
+In law enforcement and digital forensics work, a tool that **says** it did something but actually did nothing is worse than a tool that admits it cannot help. A stubbed-out CSAM hash check that quietly returns "no matches" misses real evidence. A stubbed-out audit logger that returns success but writes nothing leaves an investigator unable to prove what happened during examination. A stubbed-out CASE/UCO export that returns empty JSON-LD breaks interoperability with every downstream tool — silently.
+
+Stubs are technical debt that masquerades as progress. In this domain, they are also a defensibility risk.
+
+## The Rules
+
+- If a function is defined, it must do what its name and docstring say.
+- If a CLI command is registered, running it must produce its documented output (or a clear, actionable error explaining why it cannot).
+- If an API endpoint is wired up, calling it must return the real result — not `{"status": "ok"}` with no work performed.
+- If an MCP tool descriptor is published, the tool MUST execute the action an AI agent would expect from reading the schema.
+- If a dependency, model, hash database, or external service is not yet available, surface an actionable error (e.g., `"VICS hash database not loaded — run 'tool init --vics-path PATH' first"`) instead of returning a fake "acknowledged" response.
+- Test with realistic synthetic data, not with values that bypass the logic. A test that hard-codes `assert classify(image) == "category-1"` without actually running the classifier proves nothing.
+
+## What Counts as a Stub (and Is Forbidden)
+
+- `pass` or `return None` in a function body that is documented to do work
+- `return {"results": []}` from a search endpoint that has not been implemented
+- `raise NotImplementedError` shipped in a release branch (acceptable on a feature branch only when the spec explicitly defers the function to a later milestone and the deferral is documented)
+- `# TODO: implement` left in code that has been committed past the design phase
+- An ingest module registered in the module registry that does not actually parse anything
+- A CASE/UCO export function that emits the `@context` but no `@graph` content
+- A "validation" step that always returns "valid" because the validator hasn't been wired up
+
+## What Is Allowed
+
+- **Spec-defined deferral.** If the spec says "v0.1 supports JSON; XML support is deferred to v0.2," the XML code path may raise a clear, typed error explaining the deferral. The deferral MUST appear in `spec.md`, `CHANGELOG.md`, and the user-facing error message.
+- **Feature flags for experimental work.** Code behind an explicit `--enable-experimental-X` flag, defaulting off, may be incomplete if the flag's documentation says so.
+- **Actionable errors.** "PostgreSQL backend selected but `psycopg2` is not installed — run `pip install -r requirements-postgres.txt`" is not a stub. It is honest behavior at a real edge case.
+
+## Practical Guidance for AI Agents
+
+When the agent is implementing a feature and notices that a dependency is missing, an API key is not configured, or a downstream service is unreachable, the agent MUST:
+
+1. Implement the surrounding logic for real.
+2. Add a clear, typed error that names the missing piece and suggests the next step.
+3. Surface the gap in `CHANGELOG.md` (under `Known Limitations` for the current version) and in the spec under `Open Questions`.
+4. Never silently fall back to fake data, mocked responses, or pre-canned "example" output that pretends to be a real result.
+
+## Why "Real Data" Matters
+
+Tests that exercise stubbed code paths give false confidence. A regression suite that always passes because everything is mocked is worse than no tests — it convinces a busy investigator that the tool is fine when it is not.
+
+When you write tests for this project:
+
+- Use realistic **synthetic** data (per the constitution's prohibition on real PII / case data).
+- Exercise the actual code path the production tool will run, not a parallel mock universe.
+- For AI/ML models, test against held-out validation data with documented ground truth, not against a mock that returns the expected label.
+- For CASE/UCO/CAC serialization, round-trip the data through real serialization, real SHACL validation, and real deserialization.
+
+The principle is simple: **if it is in the codebase, it does what it says.**

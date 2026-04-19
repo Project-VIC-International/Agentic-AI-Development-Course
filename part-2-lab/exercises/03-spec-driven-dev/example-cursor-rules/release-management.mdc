@@ -1,0 +1,166 @@
+---
+description: CHANGELOG.md and README.md update requirements for every release of the tool
+alwaysApply: true
+---
+
+# Release Management: Changelog and Documentation
+
+Every minor and major release of this tool requires updated `CHANGELOG.md` and `README.md`. These files are the **public record of what shipped and how to use it**. Incomplete release documentation is a release blocker — CI MUST fail a release if the changelog is missing an entry for the version being tagged.
+
+For a CAC mission tool, this is more than good engineering hygiene. It is what lets a peer agency, a NIST CFTT validator, a defense expert, or a future you understand what version of the tool produced a particular piece of evidence. **A finding from this tool is only as defensible as the changelog entry for the version that produced it.**
+
+## CHANGELOG.md Requirements
+
+This project follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
+
+### When to Update
+
+- **Every version bump** — no version ships without a changelog entry.
+- Update the changelog as features land on the branch, **not** in a last-minute batch before release. Each PR that adds, changes, or fixes functionality SHOULD include an entry under the `[Unreleased]` section at the top of the file.
+- Spec-driven features MUST add a changelog entry as part of `/speckit.implement` — the spec is not "done" until the user-facing change is documented.
+
+### Entry Format
+
+Every version entry MUST include:
+
+- **Version number and date** in ISO 8601: `## [v1.1.0] - 2026-05-01`
+- Sections using standard categories: `Added`, `Changed`, `Fixed`, `Removed`, `Security`, `Deprecated`, `Performance`
+- Each item MUST be a concrete, **user-facing description** — not an internal implementation detail
+- Reference the affected module / package in parentheses where helpful: `(ingest)`, `(reporting)`, `(mcp)`
+- Reference related GitHub issues or PRs: `(#42)`, `(#19)`
+- For security-relevant changes, include the control family: `(NIST AC-7, CJIS 5.6.2)` per the `security-compliance` rule
+- For performance changes, include before / after benchmark numbers and link to the autoresearch run that produced them — per the `auto-research` rule, the spec floor ratchets to the new baseline
+
+### Surface Coverage
+
+Per the `four-surface-review` rule, every changelog entry should make clear which of the four surfaces is affected. Use a short prefix or grouping:
+
+- `GUI`: changes visible in the graphical interface
+- `CLI`: changes to command-line commands or flags
+- `API`: changes to API endpoints
+- `MCP`: changes to MCP tools, resources, or prompts
+
+If a feature deliberately affects only one surface, the changelog entry SHOULD say so explicitly so readers know parity is incomplete by design.
+
+### Performance Baseline Updates
+
+When auto-research ratchets a performance floor (per the `auto-research` rule), the changelog MUST include:
+
+- The metric, the old floor, the new floor
+- The module that improved
+- A pointer to the experiment log under `experiments/`
+- A note that the constitution's Performance Baselines table and the corresponding spec's `Performance Thresholds` section have been updated
+
+### Breaking Changes
+
+- Any breaking change MUST be called out in a `### Breaking Changes` subsection within the version entry.
+- Include **migration instructions** when public APIs, CLI flags, REST endpoints, MCP tool schemas, case database schemas, or CASE/UCO export shapes change.
+- Bump the minor version (pre-1.0) or major version (post-1.0) for breaking changes.
+- Database / case-store schema breaks MUST include a migration path or a documented one-way upgrade — **never silently corrupt an existing case.**
+- Changes to CASE/UCO/CAC output shape are breaking changes for downstream consumers, even if the JSON-LD remains technically valid. Treat them as such.
+
+### Security Changes
+
+A `Security` section is mandatory for any release that:
+
+- Patches a vulnerability (link the CVE if applicable)
+- Adds or changes an authentication / authorization control
+- Updates a cryptographic primitive
+- Modifies the audit chain format
+- Touches secrets handling
+
+Per the `security-compliance` rule, reference the affected NIST 800-53 control(s) and CJIS section(s).
+
+### Upgrade Instructions
+
+Include an `### Upgrade` subsection at the bottom of a version entry when the release requires user action: new dependencies, new external binaries, environment variable renames, ingest module reconfiguration, key rotation, etc.
+
+## README.md Requirements
+
+The top-level `README.md` is the canonical entry point for new users. It MUST be kept current.
+
+### When to Update
+
+`README.md` MUST be updated when any of the following change:
+
+- The list of features / modules / capabilities the tool ships with
+- The list of report / export formats the tool produces
+- The list of GUI views (if you have a GUI)
+- New CLI commands or flags
+- New REST endpoints
+- New MCP tools or resources
+- New configuration variables (env vars, config file keys) — keep the configuration table accurate
+- New external binary prerequisites or platform requirements (per the `cross-platform` rule)
+- New ontology coverage — CASE/UCO/CAC class additions or new extension namespaces (per the `ontology-alignment` rule)
+- Project VIC intelligence import / export format support
+- Investigator wellbeing controls or audit-chain semantics
+- Security posture changes — new authentication modes, multi-user role additions, audit event types
+
+### What to Keep Current
+
+- **Modules / features table** — must reflect what the code actually does, not what it aspired to do six months ago
+- **GUI views** list (if applicable) — must reflect the actual views in the GUI
+- **Reports / exports list** — must reflect what the tool actually produces
+- **Performance numbers** — when an auto-research ratchet changes the baseline, update the README's headline numbers to match
+- **Quick start** — must work for a new user on Windows, Linux, AND macOS
+
+### What NOT to Put in README.md
+
+- Detailed architecture (put in `docs/architecture/`)
+- Detailed REST request / response schemas (put in `openapi.yaml` or equivalent generated docs)
+- Detailed MCP tool schemas (put in MCP descriptors and `docs/mcp/`)
+- Historical changelog entries (those live in `CHANGELOG.md`)
+- Development setup instructions (put in `CONTRIBUTING.md`)
+- NIST 800-53 / CJIS control mappings (those live in `docs/security/` per `security-compliance`)
+
+## Version Numbering
+
+Pick a single source of truth for the project version (e.g., `pyproject.toml` `[project] version`, `Cargo.toml` `[workspace.package].version`, or `package.json` `version`). All build tools, the changelog, and any tool-profile output read from this single source.
+
+### Pre-1.0 (Early Phase, v0.x)
+
+- `0.MINOR.PATCH` — minor bumps for new features or breaking changes, patch for fixes.
+- Each milestone spec in `specs/` corresponds to a minor version.
+
+### Post-1.0
+
+- **MAJOR**: Breaking changes to CLI, REST API, MCP tool schemas, case database schema, CASE/UCO export shapes, or the public library API.
+- **MINOR**: New modules, new report formats, new MCP tools, new GUI views — backwards compatible.
+- **PATCH**: Bug fixes, security patches, performance improvements that do not change any public surface.
+
+## Release Checklist
+
+Before tagging a release, all of the following MUST be satisfied:
+
+1. [ ] All tests pass on Windows, Linux, and macOS (per the `cross-platform` rule)
+2. [ ] All benchmarks meet or exceed the floors in the constitution's Performance Baselines table and in each module's spec (per the `auto-research` rule)
+3. [ ] `CHANGELOG.md` has a dated entry covering every PR merged since the previous tag, with surface coverage and module attribution
+4. [ ] `README.md` reflects any new modules, commands, endpoints, MCP tools, GUI views, or configuration
+5. [ ] The single-source version file is bumped and the lockfile is regenerated (Python: `pip-compile`; Rust: `cargo update -w`; Node: `npm install`)
+6. [ ] Security controls are documented for any security-relevant changes (per `security-compliance`)
+7. [ ] SHACL validation passes for all CASE/UCO/CAC export changes (per `ontology-alignment`)
+8. [ ] The dependency vulnerability scanner shows no unresolved high-severity advisories
+9. [ ] License audit passes
+10. [ ] No new unsafe / unchecked code has been introduced without a documented justification
+11. [ ] `case_validate` succeeds against the example exports under `examples/case-uco-output/` (or wherever your fixtures live)
+12. [ ] Installers / packages for all three platforms build successfully
+13. [ ] A draft GitHub Release has been written, mirroring the changelog entry
+14. [ ] If your tool emits a SOLVE-IT `ToolProfile` (per `ontology-alignment`), the profile reflects the current version's actual technique / weakness / mitigation coverage
+
+## Automation
+
+- A GitHub Actions release workflow handles tagging, building per-platform artifacts, signing them, and publishing the GitHub Release.
+- CI MUST validate that `CHANGELOG.md` contains an entry whose version exactly matches the project version file before allowing a tag to be created.
+- The auto-research results tree (`experiments/`) is part of the release record — preserve it; do not gitignore it.
+- Generate release notes from the changelog rather than writing them by hand. They should match.
+
+## Why This Discipline Matters
+
+When a defense expert subpoenas the version of your tool that produced a piece of evidence:
+
+- The version stamp on the export points to a `CHANGELOG.md` entry.
+- The changelog entry points to the PRs and specs that defined the behavior at that version.
+- The specs point to the SHACL shapes, security controls, and performance thresholds the version was held to.
+- The auto-research log shows what experiments backed any performance claims.
+
+This is the audit trail that makes a CAC mission tool **defensible in court**. Skipping the changelog is skipping the audit trail.

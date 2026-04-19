@@ -33,6 +33,29 @@ This constitution includes:
 
 **Discussion:** As a class, review the constitution. Does it capture the rules your tools should follow? What would you add or change?
 
+### Companion: The Cursor Rules Starter Pack
+
+The constitution says **what** your project stands for. A companion **starter pack of Cursor rules** says **how** the AI agent should behave when it builds toward those values:
+
+```
+part-2-lab/exercises/03-spec-driven-dev/example-cursor-rules/
+```
+
+These are eight ready-to-use Cursor rules — generalized from the rules Project VIC International uses on its own development projects — covering:
+
+- Spec-driven development (`speckit-workflow.mdc`)
+- No stubs / no placeholders (`no-stubs.mdc`)
+- Four-surface review: GUI / CLI / API / MCP (`four-surface-review.mdc`)
+- CASE / UCO / CAC (and SOLVE-IT) ontology alignment (`ontology-alignment.mdc`)
+- NIST 800-53 + CJIS security compliance (`security-compliance.mdc`)
+- Windows / Linux / macOS cross-platform support (`cross-platform.mdc`)
+- Karpathy-style auto-research for measurable improvements (`auto-research.mdc`)
+- `CHANGELOG.md` and `README.md` discipline (`release-management.mdc`)
+
+Open the starter pack's [README](example-cursor-rules/README.md) and skim a couple of the rules. Notice how each one is short, specific, and written so an AI agent can act on it without ambiguity.
+
+You will copy these rules into your own project later in the course.
+
 ## Step 2: Write a Specification
 
 Now it's your turn. Think of a tool you wish existed for your work. Here are some ideas:
@@ -118,6 +141,7 @@ You should have these artifacts saved in your project:
 - [ ] `plan.md` — technical plan generated from the spec
 - [ ] `tasks.md` — ordered list of atomic tasks
 - [ ] Consistency check — agent reviewed all four documents for alignment
+- [ ] You have skimmed at least three rules from the [Cursor rules starter pack](example-cursor-rules/) and understand how they would shape what the agent builds
 
 ## What You Just Did
 

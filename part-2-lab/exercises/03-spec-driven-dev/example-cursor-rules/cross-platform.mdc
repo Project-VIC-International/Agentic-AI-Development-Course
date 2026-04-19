@@ -1,0 +1,134 @@
+---
+description: Cross-platform compatibility — code must run on Windows, Linux, and macOS
+alwaysApply: true
+---
+
+# Cross-Platform Compatibility
+
+This tool MUST run on **Windows 10/11**, **Linux** (Ubuntu 22.04+, RHEL 8+), and **macOS** (12+). Law enforcement agencies and digital forensics labs use all three:
+
+- **Windows** dominates examiner workstations.
+- **Linux** is common on triage servers, processing farms, auto-ingest nodes, and air-gapped lab infrastructure.
+- **macOS** is used by a meaningful subset of examiners.
+
+Code that works only on one OS is **incomplete**. A feature that is "done on Linux" but breaks on Windows is not done.
+
+This rule applies regardless of language (Python, Rust, Go, JavaScript, etc.). Examples below are mostly Python because the course's reference stack is Python; the principles transfer directly.
+
+## Path Handling
+
+- ALWAYS use the standard library's path-handling facility — never concatenate paths with `/` or `\` string literals.
+  - Python: `pathlib.Path` (preferred) or `os.path.join`.
+  - Rust: `std::path::Path` and `std::path::PathBuf`.
+  - Go: `path/filepath`.
+  - Node: `path.join` from the `path` module.
+- Use the platform's user-directory facility for config, data, and cache locations — do not hardcode `/home/`, `~/`, `C:\Users\`, or `/Users/`.
+  - Python: `platformdirs` (preferred) or `appdirs`.
+  - Rust: the `dirs` or `directories` crate.
+- Normalize paths before comparison or persistence (Python: `Path.resolve()`).
+- **Never assume case-sensitive file systems.** Windows (NTFS) and macOS (APFS default) are case-insensitive; Linux is case-sensitive. Case folding for evidence file lookups MUST be explicit, not accidental.
+- Use the standard library's temp-file facility for scratch space — never hardcode `/tmp/` or `%TEMP%`.
+  - Python: `tempfile.TemporaryDirectory`, `tempfile.NamedTemporaryFile`.
+  - Rust: `tempfile::tempdir`, `tempfile::NamedTempFile`.
+- Maximum path length on Windows is 260 characters by default — keep generated artifact paths short and document long-path support (`\\?\` prefix or registry opt-in) in your deployment guide.
+
+## File System
+
+- Be aware that not all metadata is portable. File creation time (`ctime` / "birth time") is unreliable on some Linux file systems (ext4 by default lacks it).
+- POSIX file permissions (`0o600`, etc.) only apply on Unix-likes. On Windows, set ACL-based protection or surface a clear warning that POSIX bits are not enforced.
+- Open evidence files in **binary mode** by default; never apply text-mode line-ending translation to forensic data.
+  - Python: always use `open(path, "rb")` for evidence; `open(path, "r")` invites Windows newline mangling.
+- Memory-mapped I/O (`mmap`) behaves differently on Windows vs. POSIX — wrap platform differences inside a single helper so callers do not need OS-conditional code.
+
+## Process and Shell
+
+- Always invoke external tools (`exiftool`, `tesseract`, `ffprobe`, `ffmpeg`, `plaso`, `aLEAPP`, `iLEAPP`, `photorec`, etc.) through the standard library's process facility with **argument arrays**. Never compose shell strings with `&&`, `|`, or `;` — they are not portable AND they are an injection risk.
+  - Python: `subprocess.run([...])` with `shell=False`. **Never** use `shell=True` on user-supplied data.
+  - Rust: `std::process::Command::new(...).args(...)`.
+- Locate external binaries at startup, not at every call site.
+  - Python: `shutil.which("exiftool")`.
+  - Rust: the `which` crate.
+- Some tools have different binary names per platform. ExifTool on Windows ships as `exiftool.exe` (often `exiftool(-k).exe`); on Linux/macOS as `exiftool`. The lookup MUST accept both.
+- Document install paths per platform in the User Guide and surface actionable errors when external dependencies are missing (per the `no-stubs` rule).
+- **Never call `fork()` directly.** Use the standard library's threading / async / process spawn primitives — they are portable.
+
+## Database Backends
+
+- SQLite is the cross-platform default for local case storage.
+  - Python: the standard library `sqlite3` module is sufficient for most uses; `sqlcipher3-binary` provides at-rest encryption (per the `security-compliance` rule's SC-28).
+- PostgreSQL is used for multi-user mode and lab automation. Connection URLs and TLS configuration MUST work identically on all three platforms.
+- Path-based connection strings (e.g., SQLite file paths) — pass the `Path` object directly where the library accepts it; if you must stringify, do not let backslashes get interpreted as escape characters.
+
+## Native Dependencies and FFI
+
+- Document build / install steps for native dependencies (libtsk, ONNX Runtime, OpenCV, FFmpeg, Tesseract) per platform. The reader should not have to guess.
+- Pre-built wheels (Python) or vendored binaries (Rust / Go) are strongly preferred over expecting the user to compile from source.
+- Runtime-loaded libraries (PhotoDNA, vendor SDKs) MUST detect platform and load the correct binary; surface a clear error if the binary for the current OS is not bundled.
+- Prefer pure-language implementations over native bindings when performance allows — they are vastly easier to ship cross-platform.
+
+## Networking
+
+- Bind local-only services (REST API, MCP SSE, web UI dev server) to `127.0.0.1`, **not** `localhost`. The latter resolves to IPv6 `::1` on some platforms and produces inconsistent behavior.
+- Use `0.0.0.0` only when explicitly serving on all interfaces (multi-user mode, lab automation).
+- Prefer TLS implementations that are pure Rust / pure Go / Python's `ssl` module over OpenSSL bindings, to reduce platform variance.
+
+## GPU and Hardware Acceleration
+
+- GPU support (NVIDIA CUDA via ONNX Runtime / PyTorch / TensorFlow; Apple Metal via MPS) is **optional**. The application MUST function fully in CPU-only mode on every platform.
+- Detect GPU availability at runtime; never assume CUDA / MPS is present.
+- Document the GPU support matrix: NVIDIA CUDA (Linux / Windows), Apple Metal / MPS (macOS), CPU fallback (all platforms).
+- For CAC tools that perform AI inference at scale, a GPU is recommended — but the CPU fallback must work for triage workstations and air-gapped lab boxes.
+
+## GUI Frameworks
+
+If your project has a GUI:
+
+- Choose a cross-platform framework (Qt via PySide6 / PyQt6, web-based via Electron / Tauri, or native bindings that abstract OS differences).
+- File pickers, dialogs, and notifications go through the framework's native facilities — do not hand-roll OS-specific dialogs.
+- Hotkeys, menu accelerators, and OS conventions (Cmd vs. Ctrl on macOS) MUST be honored.
+- High-DPI scaling MUST work on a Windows 4K display, a macOS Retina display, and a Linux Wayland session.
+- Bundle a fallback font in the application's assets rather than relying on system defaults.
+
+## Environment Variables
+
+- Read with the standard library's env facility and provide defaults; never assume a variable is set.
+  - Python: `os.environ.get("MY_VAR", default)`.
+- Path separators in `PATH`-like variables: `:` on Linux/macOS, `;` on Windows. Use the standard library's path-list helpers.
+  - Python: `os.pathsep`, `os.path.pathsep`.
+- On Windows, environment variable names are case-insensitive — do not rely on case for lookup keys.
+
+## Cryptography
+
+- Use vetted, well-maintained crypto libraries with portable backends.
+  - Python: `cryptography` (preferred), `pynacl` for Ed25519 / Curve25519, `hashlib` for hashing.
+  - Rust: `ring`, `rustls`, `sha2`, `blake3`, `ed25519-dalek`.
+- When restricting key files to owner-only (`0o600`), guard with a Unix check; on Windows, log a warning that ACL configuration is the operator's responsibility.
+
+## Testing Requirements
+
+- CI MUST exercise all three platforms via a GitHub Actions matrix:
+
+  ```yaml
+  strategy:
+    matrix:
+      os: [ubuntu-latest, windows-latest, macos-latest]
+      python-version: ["3.10", "3.11", "3.12"]
+  ```
+
+- Platform-specific code paths MUST have tests gated to the appropriate platform.
+  - Python: `@pytest.mark.skipif(sys.platform == "win32", reason="...")` etc.
+- Use `sys.platform` / `platform.system()` (Python) or equivalent for runtime detection — **never parse `uname` output**.
+- Integration tests that depend on external binaries (`exiftool`, `tesseract`, `ffprobe`) MUST `skip` cleanly when the binary is absent (use `shutil.which` to detect) so contributors without them installed can still run the test suite.
+
+## Packaging and Distribution
+
+- Provide installers for each platform when applicable:
+  - Windows: `.msi` / `.exe` (Inno Setup, WiX, MSIX) or a signed PyInstaller bundle.
+  - Linux: `.deb`, `.rpm`, AppImage, or a `pip install` wheel.
+  - macOS: `.dmg`, `.pkg`, or a signed Homebrew formula.
+- **Code signing** is mandatory for Windows and macOS distributions used in law enforcement environments — document the signing identity and timestamping authority in `docs/release/`.
+- Avoid statically linking GPL libraries; prefer MIT / Apache-2.0 / BSD / MPL dependencies (per the `security-compliance` rule's licensing constraints).
+
+## Surface Impact
+
+When a change touches platform-specific behavior, explicitly document the impact on each of the four surfaces (GUI, CLI, API, MCP) per the `four-surface-review` rule. **A platform regression in one surface is a release blocker for that platform.**
