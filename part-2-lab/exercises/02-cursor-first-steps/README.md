@@ -1,7 +1,7 @@
 # Exercise 2: Cursor First Steps
 
 **Duration:** 15 minutes
-**Goal:** Get comfortable working with the AI agent in Cursor — it's your collaborator, not a black box
+**Goal:** Get comfortable working with the AI agent in Cursor while using the Project VIC template as your actual lab workspace
 
 ## Step 1: Have a Conversation
 
@@ -9,8 +9,8 @@ Open the Cursor agent panel (Cmd/Ctrl+L or click the chat icon).
 
 Try these prompts one at a time. Read the agent's response before moving to the next.
 
-### Prompt 1: Ask a question
-> What is the CASE ontology and how is it used in digital forensic investigations?
+### Prompt 1: Ask the agent to explain your workspace
+> Read START-HERE-NCCC.md, QUICKSTART.md, and prompts/START-CURSOR-HERE.md in this project. Explain what this template is for and what I should do before asking you to build anything.
 
 Notice how the agent provides a structured, informative answer. This is the agent working as a **knowledge resource**.
 
@@ -38,21 +38,16 @@ Notice how the agent provides a structured, informative answer. This is the agen
 
 Notice how the agent explains each part in plain language. You don't need to understand the code to understand what it does — the agent bridges that gap.
 
-### Prompt 3: Ask it to create something
-> Create a simple Python script that takes a person's name and a list of devices as input, and prints a summary of who owns what. Keep it simple.
+### Prompt 3: Ask a concept question
+> What is the CASE ontology and how is it used in digital forensic investigations?
 
-Watch what happens:
-- The agent writes the code
-- It may create a new file
-- It may offer to run it for you
-
-This is the agent **working ON your project** — writing code, creating files.
+Notice how the agent provides a structured, informative answer. This is the agent working as a **knowledge resource**.
 
 ## Step 2: Watch the Agent Use Tools
 
 Ask the agent:
 
-> Read the README.md file in this project and summarize what this course is about.
+> Read the README.md file in this project and summarize what this repository is for.
 
 Watch the agent panel. You'll see it:
 1. **Read** the file (using the file system tool)
@@ -73,13 +68,13 @@ Compare the agent's answer to what you learned in the lecture. The agent is now 
 
 Ask the agent:
 
-> Create a Python script called hello_investigator.py that:
+> Create a small Python script called scratch/hello_investigator.py that:
 > 1. Asks for the investigator's name
 > 2. Asks for their agency
 > 3. Prints a welcome message
 > 4. Prints today's date and time
 >
-> Then run it.
+> Then explain the file you plan to create before creating it, and run it.
 
 Watch the agent:
 1. **Write** the script (working ON the project)
@@ -92,7 +87,7 @@ This is the "working ON and IN simultaneously" concept from the lecture — the 
 
 The output might not be exactly what you want. Try:
 
-> Can you modify hello_investigator.py to also ask what type of case they're working on (ICAC, cyber fraud, etc.) and include that in the output?
+> Can you modify scratch/hello_investigator.py to also ask what type of case they're working on (ICAC, cyber fraud, etc.) and include that in the output?
 
 Watch how the agent reads the existing file, understands the changes needed, and modifies it. This is the **iterative** nature of working with an agent — you guide, it implements, you refine.
 
@@ -102,15 +97,15 @@ The agent is powerful, but without guidance it makes its own assumptions. **Agen
 
 ### See an Existing Rule
 
-This course repository already has a rule. Ask the agent:
+This template repository already has Project VIC rules. Ask the agent:
 
-> Read the file .cursor/rules/course-context.mdc and explain what it does.
+> Read the files in .cursor/rules/ and explain the purpose of student-mode.mdc, security-compliance.mdc, and speckit-workflow.mdc.
 
 Notice the structure:
 - A **front-matter header** with `description` and `alwaysApply: true`
 - A **body** written in plain language describing how the agent should behave
 
-The agent read this rule before every prompt you've sent in this exercise. That's why it already knows about CASE/UCO/CAC and law enforcement context — the rule told it.
+The agent reads these rules before every prompt. That's why it can stay aligned to the Project VIC workflow, security boundaries, and spec-driven development approach.
 
 ### Create Your First Rule
 
@@ -141,11 +136,11 @@ Check: Did the agent use synthetic data (fictional names, made-up case numbers)?
 
 ## Done When
 
-- [ ] You had a conversation with the agent (knowledge question, code explanation, creation)
+- [ ] You had a conversation with the agent about the template workspace and course concepts
 - [ ] You watched the agent use tools (reading files, running commands)
-- [ ] You created and ran `hello_investigator.py`
+- [ ] You created and ran `scratch/hello_investigator.py`
 - [ ] You iterated on the script (agent modified existing code)
-- [ ] You read the existing `course-context.mdc` rule and understood its structure
+- [ ] You read existing Project VIC template rules and understood their structure
 - [ ] You created the `no-real-data.mdc` rule and tested it
 
 ## What You Just Did

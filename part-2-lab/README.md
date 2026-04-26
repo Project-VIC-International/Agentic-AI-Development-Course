@@ -6,6 +6,17 @@
 **Audience:** Law enforcement investigators, forensic examiners, crime intelligence analysts, and prosecutors working CAC/ICAC cases
 **Prerequisites:** [Setup checklist](prerequisites.md) — laptop, GitHub account, Cursor installed, Python 3.10+
 
+## Start Here
+
+This lab uses two repositories with different jobs:
+
+- The course repository explains the method and provides the exercise sequence.
+- The [Project VIC Agentic AI Development Project Template](https://github.com/Project-VIC-International/Agentic-AI-Development-Project-Template) is the working repository each student should build in.
+
+Before Exercise 0, create or open your private template-based project repository. Then use this lab guide as the reference while doing the work in your own repository.
+
+Use [course-template-crosswalk.md](course-template-crosswalk.md) to see how each lab exercise maps into the template.
+
 ## Lab Goals
 
 By the end of this lab, you will have:
@@ -22,7 +33,7 @@ By the end of this lab, you will have:
 
 | # | Exercise | Duration | Description |
 |---|----------|----------|-------------|
-| 00 | [Environment Setup](exercises/00-environment-setup/) | 15 min | Verify tools, clone repo, orient to the IDE |
+| 00 | [Environment Setup](exercises/00-environment-setup/) | 15 min | Verify tools, create/open your private template repo, orient to the IDE |
 | 01 | [GitHub Exploration](exercises/01-github-exploration/) | 15 min | Search for projects, explore key organizations |
 | 02 | [Cursor First Steps](exercises/02-cursor-first-steps/) | 15 min | First agent conversation, explain code, create a script |
 | 03 | [Spec-Driven Development](exercises/03-spec-driven-dev/) | 30 min | Constitution, specify, plan, tasks with spec-kit |
@@ -45,6 +56,7 @@ By the end of this lab, you will have:
 - **Exercise 3** is collaborative — the class writes the constitution together, then individuals specify
 - **Exercises 4-5** can be individual or paired
 - **Exercise 6** is a group activity — the class collectively guides the build
+- The course repo can stay open in a browser tab while each student works from their own template-based repository in Cursor
 
 ### Pacing
 
@@ -56,3 +68,4 @@ By the end of this lab, you will have:
 - **Cursor free tier limits:** Students may hit rate limits. Have them pair up if this happens.
 - **Python version issues:** Ensure Python 3.10+ is installed. The `python3 --version` command should confirm.
 - **Git authentication:** Students may need to authenticate Git with GitHub. `gh auth login` or SSH key setup may be needed.
+- **Local setup problems:** Fall back to GitHub Codespaces, pair with a working student, or have the student complete only the intake and prompt steps while following along.

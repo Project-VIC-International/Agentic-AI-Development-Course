@@ -53,28 +53,38 @@ Bring the idea you thought of during the lecture. Describe it to the class. If t
 
 ## Step 2: Adopt the Constitution and Cursor Rules
 
-Before writing the spec, give your AI agent the standing orders it needs to build a CAC mission tool the right way. From your project root:
+If you are using the Project VIC template as your lab workspace, most of the starter guidance is already there:
 
-```bash
-mkdir -p .cursor/rules .specify/memory
-cp ../03-spec-driven-dev/example-spec/constitution.md .specify/memory/constitution.md
-cp ../03-spec-driven-dev/example-cursor-rules/*.mdc .cursor/rules/
-```
+- `START-HERE-NCCC.md`
+- `prompts/START-CURSOR-HERE.md`
+- `intake/problem-intake.md`
+- `planning/`
+- `.github/ISSUE_TEMPLATE/`
+- `.cursor/rules/`
 
-(Adjust the relative paths if your project lives somewhere else in the course tree.)
+Before writing the spec:
 
-You now have:
+1. Paste `prompts/START-CURSOR-HERE.md` into Cursor.
+2. Complete `intake/problem-intake.md`.
+3. Review the existing `.cursor/rules/`.
+4. Draft a milestone plan before building.
 
-- A **constitution** at `.specify/memory/constitution.md` — the rules of your project
-- Eight **Cursor rules** at `.cursor/rules/` — the standing orders the AI agent reads on every prompt (CASE/UCO/CAC alignment, CJIS security, four-surface coverage, no stubs, etc.)
+If you are not using the template, you can still create the needed folders and copy the example constitution and rules from Exercise 3 into your own project root.
 
-Open a couple of the rule files and read them. They are written in plain English and you can edit them to fit your project (look for `[FILL IN]` placeholders).
+With the template, you now have:
+
+- Standing student guidance in `START-HERE-NCCC.md`
+- A reusable first prompt in `prompts/START-CURSOR-HERE.md`
+- Project intake and planning files
+- Project VIC Cursor rules in `.cursor/rules/`
+
+Open a couple of the rule files and read them. They are written in plain English and help keep the agent aligned to the workflow.
 
 ## Step 3: Define the Specification
 
-Using the constitution from Exercise 3, ask the agent to help write a specification for the chosen tool:
+Using the intake, milestone plan, and Project VIC rules in your template-based project, ask the agent to help write a specification for the chosen tool:
 
-> We're building [CHOSEN TOOL]. Using the constitution in part-2-lab/exercises/03-spec-driven-dev/example-spec/constitution.md, help me write a specification that covers:
+> We're building [CHOSEN TOOL]. Using my intake form, milestone plan, and the Project VIC rules in this repository, help me write a specification that covers:
 > 1. What the tool does
 > 2. Who uses it
 > 3. What inputs it accepts

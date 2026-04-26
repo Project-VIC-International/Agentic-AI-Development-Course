@@ -84,7 +84,27 @@ Follow the prompts to log in with your GitHub account.
 
 ## Pre-Lab Setup
 
-Once all software is installed, clone the course repository and run the preflight check:
+Once all software is installed, create your own private working repository from the Project VIC template. This is the repository you should open in Cursor and modify during the lab.
+
+Recommended with GitHub CLI:
+
+```bash
+gh repo create my-agentic-ai-project \
+  --template Project-VIC-International/Agentic-AI-Development-Project-Template \
+  --private \
+  --clone
+cd my-agentic-ai-project
+```
+
+If you prefer the GitHub website, create a new private repository from the template there, then clone your new repository locally.
+
+Keep the course repository open in a browser tab for the lab instructions:
+
+```text
+https://github.com/Project-VIC-International/Agentic-AI-Development-Course
+```
+
+Optional: if you also want the course materials available locally, you can clone the course repository separately and run the preflight check there:
 
 ```bash
 git clone https://github.com/Project-VIC-International/Agentic-AI-Development-Course.git
@@ -101,13 +121,16 @@ python3 part-2-lab/preflight.py
 
 The script checks Python version, Git, pip, and optional dependencies. Fix any items marked `FAIL` before the lab. Items marked `WARN` are optional and won't block you.
 
-Open the project in Cursor:
+Open your private template-based project in Cursor:
 
 ```bash
+cd /path/to/my-agentic-ai-project
 cursor .
 ```
 
-Or open Cursor manually and use File → Open Folder to open the `Agentic-AI-Development-Course` directory.
+Or open Cursor manually and use File → Open Folder to open your new project directory.
+
+If local setup fails, use GitHub Codespaces from your private template-based repository, or plan to pair with another student during the lab.
 
 ## What You Do NOT Need
 
@@ -127,5 +150,6 @@ Or open Cursor manually and use File → Open Folder to open the `Agentic-AI-Dev
 | Can't clone the repository | Check internet connection, verify GitHub credentials |
 | Agency laptop blocks installs | Use Observer mode — follow along in your browser and pair with a neighbor |
 | Cursor free-tier rate limit | Pair up — two people share one Cursor session. This also models real collaboration |
+| Local environment won't cooperate | Use GitHub Codespaces from the template repo, or follow along by completing the intake and prompts only |
 
 If you arrive at the lab without completing setup, don't worry — pair with someone who has, and we'll help you get set up during Exercise 0.

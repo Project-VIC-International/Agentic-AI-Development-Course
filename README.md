@@ -28,6 +28,14 @@ By the end of this course, you will be able to:
 | **Part 1** | [The Future Is Here: Building Interoperable Crimes Against Children Mission Tools with Agentic AI and Open Standards](part-1-lecture/) | 1 hour lecture |
 | **Part 2** | [From Idea to Prototype: Live Building an Open-Source Crimes Against Children Mission Capability with Agentic AI](part-2-lab/) | Hands-on lab |
 
+## Hands-On Lab Workspace
+
+This course repository explains the method. The [Project VIC Agentic AI Development Project Template](https://github.com/Project-VIC-International/Agentic-AI-Development-Project-Template) is where students should do their hands-on work.
+
+For the lab, create a private repository from the template and use that repository as your Cursor workspace. Keep this course repository open as the reference guide for the lecture, exercises, and background material.
+
+Start with `START-HERE-NCCC.md` in this repository, then switch into the template-based project for the actual lab work.
+
 ### Prerequisites
 
 See the [detailed prerequisites and setup guide](part-2-lab/prerequisites.md) for the lab portion. In summary:
@@ -38,6 +46,7 @@ See the [detailed prerequisites and setup guide](part-2-lab/prerequisites.md) fo
 - [Python 3.10+](https://www.python.org/downloads/) installed
 - [Git](https://git-scm.com/downloads) installed
 - No prior programming experience required
+- A private repository created from the [Project VIC template](https://github.com/Project-VIC-International/Agentic-AI-Development-Project-Template)
 
 ### Key Resources
 

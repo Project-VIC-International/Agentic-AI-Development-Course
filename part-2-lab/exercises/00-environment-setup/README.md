@@ -1,7 +1,7 @@
 # Exercise 0: Environment Setup
 
 **Duration:** 15 minutes
-**Goal:** Verify your development environment is working and get oriented in Cursor
+**Goal:** Verify your development environment is working, create or open your template-based project, and get oriented in Cursor
 
 > **Observer mode?** If you're following along without a full install, skip to [Step 3](#step-3-open-in-cursor) and follow on the projector. You can still browse the [course repository on GitHub](https://github.com/Project-VIC-International/Agentic-AI-Development-Course) in your browser. Pair with a neighbor for the hands-on steps.
 
@@ -18,9 +18,23 @@ python3 --version
 
 You should see version numbers for both. If not, see the [prerequisites guide](../../prerequisites.md).
 
-## Step 2: Clone and Preflight Check
+## Step 2: Create Your Private Lab Workspace
 
-If you haven't already cloned the repository:
+For the lab, your working repository should be a private repository created from the Project VIC template.
+
+Recommended with GitHub CLI:
+
+```bash
+gh repo create my-agentic-ai-project \
+  --template Project-VIC-International/Agentic-AI-Development-Project-Template \
+  --private \
+  --clone
+cd my-agentic-ai-project
+```
+
+If you prefer the GitHub website, create a new private repository from the template there, then clone your new repository locally.
+
+If you want to run the optional course preflight check, clone the course repository separately:
 
 ```bash
 git clone https://github.com/Project-VIC-International/Agentic-AI-Development-Course.git
@@ -39,9 +53,9 @@ The script checks all required and optional dependencies. Fix any `FAIL` items. 
 
 ## Step 3: Open in Cursor
 
-Launch Cursor and open the `Agentic-AI-Development-Course` folder:
+Launch Cursor and open your private template-based project folder:
 
-- **Option A:** In the terminal, type `cursor .` (if Cursor is in your PATH)
+- **Option A:** In the terminal, change into your private project folder and type `cursor .` (if Cursor is in your PATH)
 - **Option B:** Open Cursor → File → Open Folder → select the folder
 
 ## Step 4: Orient Yourself in Cursor
@@ -59,7 +73,7 @@ Try opening the agent panel now. You should see a text input where you can type 
 
 In the agent panel, type:
 
-> What files are in this project? Give me a brief overview of the repository structure.
+> Read START-HERE-NCCC.md and QUICKSTART.md in this project. Explain the student workflow and tell me what I should do before asking you to build anything.
 
 The agent will read the project files and explain what it finds. This is your first taste of working with an AI agent — you ask in natural language, it explores and answers.
 
@@ -82,8 +96,8 @@ Before moving on, confirm:
 - [ ] Git is installed and working
 - [ ] Python 3.10+ is installed and working
 - [ ] Preflight check passes (no `FAIL` items)
-- [ ] The course repository is cloned
-- [ ] Cursor is open with the project loaded
+- [ ] Your private template-based repository exists
+- [ ] Cursor is open with your private project loaded
 - [ ] You've opened the agent panel and sent a message
 - [ ] The terminal works inside Cursor
 
@@ -98,6 +112,7 @@ You set up a complete agentic AI development environment. You have:
 - **Git** — for version control and collaboration
 - **Python** — for running and building tools
 - **Cursor** — an IDE with an AI agent that can read files, write code, and run commands
-- **The course repository** — containing all exercises and examples
+- **The course repository** — the exercise guide and reference material
+- **Your private template repository** — the workspace where you will actually build
 
 You also had your first interaction with an AI agent. It read your project files and answered your question in natural language. That's the foundation everything else builds on.
