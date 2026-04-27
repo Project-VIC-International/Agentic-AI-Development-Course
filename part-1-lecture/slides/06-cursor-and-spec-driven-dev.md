@@ -61,6 +61,18 @@ Without structure, AI development is gambling:
 
 ---
 
+## Instructor Visual: Paradigm Shift
+
+![Traditional coding versus spec-driven development](../../graphics/agentic-mission-blueprint/slide-07.png)
+
+---
+
+## Instructor Visual: Spec-Driven Guardrail
+
+![Spec-driven workflow as an AI guardrail](../../graphics/forensic-ai-blueprint/slide-04.png)
+
+---
+
 ## The spec-kit Workflow
 
 [GitHub's spec-kit](https://github.com/github/spec-kit) provides a structured 4-phase workflow:
@@ -138,6 +150,12 @@ These are **agent rules** — written instructions the agent reads every time yo
 
 ---
 
+## Instructor Visual: Eight Guardrail Pillars
+
+![Eight architectural pillars for court-admissible AI software](../../graphics/forensic-ai-blueprint/slide-03.png)
+
+---
+
 ## What Are Agent Rules?
 
 In Cursor, rules live in `.cursor/rules/` as `.mdc` files. Other agentic AI tools have equivalent mechanisms.
@@ -199,6 +217,12 @@ real, working logic that performs its documented purpose.
 ```
 
 That's it. Plain language. The agent reads it and follows it.
+
+---
+
+## Instructor Visual: No Stubs Imperative
+
+![No stubs imperative for court-defensible software](../../graphics/forensic-ai-blueprint/slide-06.png)
 
 ---
 
@@ -267,6 +291,24 @@ Rules are **reusable**. Build a collection over time and copy them between proje
 | `auto-research.mdc` | Drives experiment-based optimization | Performance-critical tools |
 
 Start small. Add rules when the agent does something wrong. Over time, your rule library becomes your team's institutional knowledge — captured in files, not in someone's head.
+
+---
+
+## Instructor Visual: Cross-Platform Parity
+
+![Cross-platform execution parity](../../graphics/forensic-ai-blueprint/slide-09.png)
+
+---
+
+## Instructor Visual: Auto-Research Loop
+
+![Auto-research optimization loop](../../graphics/forensic-ai-blueprint/slide-10.png)
+
+---
+
+## Instructor Visual: Release Provenance
+
+![Release management provenance chain](../../graphics/forensic-ai-blueprint/slide-11.png)
 
 ---
 

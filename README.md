@@ -76,6 +76,7 @@ Agentic-AI-Development-Course/
 │   ├── exercises/                      # Step-by-step exercise guides
 │   └── solutions/                      # Reference solutions
 ├── resources/                          # Glossary, links, further reading
+├── graphics/                           # Instructor visuals and exported slide images
 └── .cursor/
     └── rules/                          # Cursor rules for course context
 ```

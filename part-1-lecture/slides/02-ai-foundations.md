@@ -15,6 +15,12 @@ AI is a **tool**, not magic. Understanding it helps you use it effectively.
 
 ---
 
+## Instructor Visual: Compute, Model, Data
+
+![Demystifying AI foundations](../../graphics/agentic-mission-blueprint/slide-03.png)
+
+---
+
 ## What Is a Large Language Model (LLM)?
 
 A program trained on enormous amounts of text that can understand and generate human language.

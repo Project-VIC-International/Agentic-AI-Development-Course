@@ -10,6 +10,12 @@ This is not optional. This is not a suggestion. This is the standard.
 
 ---
 
+## Instructor Visual: Trust but Verify
+
+![Trust but verify with independent testing and validation](../../graphics/agentic-mission-blueprint/slide-12.png)
+
+---
+
 ## Why Independent Testing Matters
 
 ### In Law Enforcement
@@ -82,6 +88,12 @@ When an AI agent builds a tool for you:
 ```
 
 The agent accelerates development. It does NOT replace validation.
+
+---
+
+## Instructor Visual: Court-Admissible Output
+
+![The anatomy of court-admissible output](../../graphics/forensic-ai-blueprint/slide-12.png)
 
 ---
 

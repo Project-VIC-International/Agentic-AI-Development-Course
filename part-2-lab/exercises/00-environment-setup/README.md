@@ -5,6 +5,10 @@
 
 > **Observer mode?** If you're following along without a full install, skip to [Step 3](#step-3-open-in-cursor) and follow on the projector. You can still browse the [course repository on GitHub](https://github.com/Project-VIC-International/Agentic-AI-Development-Course) in your browser. Pair with a neighbor for the hands-on steps.
 
+## Instructor Visual
+
+![Pre-flight checklist for required tools](../../../graphics/agentic-ai-mission-prototyping/slide-03.png)
+
 ## Step 1: Verify Your Tools
 
 Open a terminal (Command Prompt on Windows, Terminal on Mac/Linux) and run:

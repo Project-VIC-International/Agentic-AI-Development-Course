@@ -16,6 +16,12 @@ You wouldn't write a report without checking if someone already covered the topi
 
 ---
 
+## Instructor Visual: GitHub as Library
+
+![GitHub as the world's forensic library](../../graphics/agentic-mission-blueprint/slide-06.png)
+
+---
+
 ## Before You Build, Search
 
 Search GitHub for your problem domain:

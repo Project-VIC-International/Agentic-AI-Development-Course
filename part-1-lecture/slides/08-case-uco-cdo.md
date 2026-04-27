@@ -15,6 +15,12 @@ A **Linux Foundation** project that governs the development of CASE and UCO.
 
 ---
 
+## Instructor Visual: Translating the Chaos
+
+![Translating chaotic exports into CASE UCO CAC](../../graphics/agentic-mission-blueprint/slide-09.png)
+
+---
+
 ## The Three Layers
 
 ```
@@ -31,6 +37,12 @@ A **Linux Foundation** project that governs the development of CASE and UCO.
 ```
 
 Each layer extends the one below. Build on all three, get all three for free.
+
+---
+
+## Instructor Visual: Ontology Alignment
+
+![Ontology alignment stack](../../graphics/forensic-ai-blueprint/slide-07.png)
 
 ---
 

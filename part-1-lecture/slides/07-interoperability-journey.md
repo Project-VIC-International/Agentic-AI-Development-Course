@@ -15,6 +15,12 @@
 
 ---
 
+## Instructor Visual: Interoperability Journey
+
+![The interoperability journey from silos to shared resources](../../graphics/agentic-mission-blueprint/slide-08.png)
+
+---
+
 ## The 14-Year Reality
 
 It took **14 years** to achieve that level of adoption.

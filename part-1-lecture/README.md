@@ -38,6 +38,7 @@ The lecture moves through 12 sections. With the addition of AI/ML models, graph 
 - Slide content is in the [slides/](slides/) directory as markdown files
 - The [outline](outline.md) contains detailed timing, speaker notes, and transition cues
 - Slides can be converted to presentation format using [Marp](https://marp.app/), [reveal.js](https://revealjs.com/), or copied into PowerPoint/Google Slides
+- Instructor visuals from NotebookLM are exported in [../graphics/](../graphics/) and cataloged in [../graphics/README.md](../graphics/README.md)
 
 ## Slide Deck Overview
 

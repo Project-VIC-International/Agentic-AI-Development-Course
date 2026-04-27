@@ -13,6 +13,12 @@
 
 ---
 
+## Instructor Visual: What Is Agentic AI?
+
+![Agentic AI as LLM plus tools plus autonomy parameters](../../graphics/agentic-mission-blueprint/slide-04.png)
+
+---
+
 ## The Agent Loop
 
 ```

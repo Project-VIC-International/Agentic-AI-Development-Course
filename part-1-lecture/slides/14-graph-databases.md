@@ -12,6 +12,12 @@ But a language needs a place to be written and read.
 
 ---
 
+## Instructor Visual: Where Connected Data Lives
+
+![Where connected data lives in graph databases](../../graphics/agentic-mission-blueprint/slide-11.png)
+
+---
+
 ## What Is a Graph Database?
 
 A database designed to store and query **connected data** — nodes (entities) and edges (relationships).

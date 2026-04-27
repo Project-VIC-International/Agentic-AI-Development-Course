@@ -18,6 +18,12 @@ You've gone from:
 
 ---
 
+## Instructor Visual: Interoperable Agent Stack
+
+![The interoperable agent stack](../../graphics/agentic-mission-blueprint/slide-14.png)
+
+---
+
 ## What You're About to Do
 
 In the lab, you will:
@@ -29,6 +35,12 @@ In the lab, you will:
 5. **See CASE/UCO in action** — examine and modify real knowledge graphs
 6. **Model an investigation with CAC Ontology** — using the AI-assisted workflow
 7. **Build a prototype** — watch an agent build a real, interoperable, security-aware tool
+
+---
+
+## Instructor Visual: Transition to Part 2
+
+![Transitioning to Part 2 hands-on lab](../../graphics/agentic-mission-blueprint/slide-15.png)
 
 ---
 
@@ -54,6 +66,12 @@ Point your agent at:
 - **The CAC Ontology** — it models your investigation data
 
 All you have to do is **describe what you need** and **point the agent at the right standards**.
+
+---
+
+## Instructor Visual: Course Map Revisited
+
+![Agentic AI for investigators overview](../../graphics/Overview.png)
 
 ---
 

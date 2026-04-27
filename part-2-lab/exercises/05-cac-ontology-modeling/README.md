@@ -3,6 +3,10 @@
 **Duration:** 25 minutes
 **Goal:** Model a crimes against children investigation scenario using the CAC Ontology with AI-assisted workflow
 
+## Instructor Visual
+
+![Phase III CAC Ontology modeling workflow](../../../graphics/agentic-ai-mission-prototyping/slide-08.png)
+
 ## The Scenario
 
 You will model a realistic (but entirely synthetic) investigation scenario as a CAC Ontology knowledge graph. This exercise uses the same AI-assisted modeling workflow that practitioners use in the field.

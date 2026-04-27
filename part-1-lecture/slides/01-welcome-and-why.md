@@ -2,6 +2,12 @@
 
 ---
 
+## Instructor Visual: Course Frame
+
+![The Future Is Here course frame](../../graphics/agentic-mission-blueprint/slide-01.png)
+
+---
+
 ## The Challenge
 
 - CyberTip volume is growing exponentially
@@ -17,6 +23,18 @@
 - Manual re-entry from forensic reports into case management
 - Investigation context trapped in spreadsheets, emails, and your head
 - Building the evidence narrative by hand, every single time
+
+---
+
+## Instructor Visual: The Siloed Reality
+
+![Siloed tools becoming actionable synthesis](../../graphics/agentic-mission-blueprint/slide-02.png)
+
+---
+
+## Instructor Visual: Speed and Defensibility
+
+![Mission speed and court defensibility](../../graphics/forensic-ai-blueprint/slide-02.png)
 
 ---
 
@@ -37,6 +55,12 @@ By the end of this lecture and the lab that follows, you will:
 2. Know how to find and build on existing open-source tools
 3. Understand the open standards that make tools interoperable
 4. See a working mission tool built from scratch with AI — live
+
+---
+
+## Instructor Visual: Full Course Map
+
+![Agentic AI for investigators overview](../../graphics/Overview.png)
 
 ---
 

@@ -17,6 +17,18 @@ Before Exercise 0, create or open your private template-based project repository
 
 Use [course-template-crosswalk.md](course-template-crosswalk.md) to see how each lab exercise maps into the template.
 
+## Instructor Visuals
+
+Use these visuals to orient the room before the hands-on work begins:
+
+![Part 2 title slide](../graphics/agentic-ai-mission-prototyping/slide-01.png)
+
+![Mission dashboard for the lab phases](../graphics/agentic-ai-mission-prototyping/slide-02.png)
+
+![Operational flight plan for the lab](../graphics/agentic-ai-mission-prototyping/slide-04.png)
+
+![Agentic AI for investigators overview](../graphics/Overview.png)
+
 ## Lab Goals
 
 By the end of this lab, you will have:
@@ -69,3 +81,9 @@ By the end of this lab, you will have:
 - **Python version issues:** Ensure Python 3.10+ is installed. The `python3 --version` command should confirm.
 - **Git authentication:** Students may need to authenticate Git with GitHub. `gh auth login` or SSH key setup may be needed.
 - **Local setup problems:** Fall back to GitHub Codespaces, pair with a working student, or have the student complete only the intake and prompt steps while following along.
+
+## Closing Visual
+
+Use this recap when transitioning from the live prototype back to what participants can do after the course:
+
+![Mission recap and the agentic future](../graphics/agentic-ai-mission-prototyping/slide-11.png)

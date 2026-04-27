@@ -3,6 +3,10 @@
 **Duration:** 20 minutes
 **Goal:** Understand CASE and UCO by examining, querying, and modifying real knowledge graphs
 
+## Instructor Visual
+
+![Phase III CASE UCO domain modeling](../../../graphics/agentic-ai-mission-prototyping/slide-07.png)
+
 ## What You'll Do
 
 You'll work with actual CASE/UCO data — the same format that interoperable tools produce. By the end, you'll be able to read a knowledge graph and understand what it represents.

@@ -3,6 +3,10 @@
 **Duration:** 15 minutes
 **Goal:** Get comfortable working with the AI agent in Cursor while using the Project VIC template as your actual lab workspace
 
+## Instructor Visual
+
+![Phase I initialization for exercises 00 through 02](../../../graphics/agentic-ai-mission-prototyping/slide-05.png)
+
 ## Step 1: Have a Conversation
 
 Open the Cursor agent panel (Cmd/Ctrl+L or click the chat icon).

@@ -3,6 +3,12 @@
 **Duration:** Remaining lab time
 **Goal:** Build a working, interoperable CAC mission tool end-to-end using spec-driven development and agentic AI
 
+## Instructor Visuals
+
+![Phase IV execution end-to-end build](../../../graphics/agentic-ai-mission-prototyping/slide-09.png)
+
+![Tactical fallbacks for expected lab friction](../../../graphics/agentic-ai-mission-prototyping/slide-10.png)
+
 ## Overview
 
 This is the capstone exercise. Everything you've learned comes together here:

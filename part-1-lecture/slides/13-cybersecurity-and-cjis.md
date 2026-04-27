@@ -15,6 +15,12 @@ Security is not optional. It's a legal requirement.
 
 ---
 
+## Instructor Visual: Security Guardrails
+
+![Trust and security guardrails around agentic AI applications](../../graphics/agentic-mission-blueprint/slide-13.png)
+
+---
+
 ## DOJ CJIS Security Policy
 
 The FBI's [CJIS Security Policy](https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center) defines security requirements for any system that accesses, stores, or transmits Criminal Justice Information.
@@ -33,6 +39,12 @@ The FBI's [CJIS Security Policy](https://www.fbi.gov/services/cjis/cjis-security
 | Configuration Management | Track changes to systems and software |
 
 **Your agent can help.** Point the agent at the CJIS Security Policy and ask it to generate a compliance checklist for your tool.
+
+---
+
+## Instructor Visual: CJIS Compliance Matrix
+
+![Security and CJIS compliance matrix](../../graphics/forensic-ai-blueprint/slide-08.png)
 
 ---
 

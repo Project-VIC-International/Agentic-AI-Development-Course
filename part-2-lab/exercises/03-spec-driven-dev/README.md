@@ -3,6 +3,12 @@
 **Duration:** 30 minutes
 **Goal:** Use GitHub's spec-kit workflow to define a CAC mission tool — from constitution to tasks — before any code is written
 
+## Instructor Visuals
+
+![Phase II strategy for spec-driven development](../../../graphics/agentic-ai-mission-prototyping/slide-06.png)
+
+![Spec-driven workflow as an AI guardrail](../../../graphics/forensic-ai-blueprint/slide-04.png)
+
 ## Why Spec-Driven Development?
 
 In the lecture, we distinguished between "vibe coding" (telling AI to build whatever) and spec-driven development (defining what you want first, then having AI build it).

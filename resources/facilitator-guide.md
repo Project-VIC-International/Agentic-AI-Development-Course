@@ -31,6 +31,7 @@ Prepare these in case of Wi-Fi failure, rate limits, or install issues:
 - [ ] Screenshot set of key Cursor interactions (agent panel, tool use, file creation, terminal)
 - [ ] A completed example output from Exercise 5 (investigation-graph.ttl) saved locally
 - [ ] Zipped copy of the course repository on a USB drive — for students who can't clone
+- [ ] Instructor visual catalog reviewed: [graphics/README.md](../graphics/README.md)
 
 ### Participant Preparation
 
@@ -41,6 +42,12 @@ Prepare these in case of Wi-Fi failure, rate limits, or install issues:
 ---
 
 ## Part 1: Lecture Delivery
+
+### Instructor Visual Frame
+
+Use this optional framing slide if you want to emphasize the court-defensible software theme before the lecture begins:
+
+![The Agentic AI Forensic Blueprint](../graphics/forensic-ai-blueprint/slide-01.png)
 
 ### Timing
 
@@ -65,7 +72,7 @@ These are the moments where the audience is most likely to engage. Lean into the
 |----------|--------|
 | "Can the AI access our case data?" | Not unless you give it access. Cursor runs locally. You control what files are in the project. For sensitive data, use local models behind your firewall. |
 | "Is this admissible in court?" | The tool itself must be independently tested and validated. CASE/UCO compliance helps with structured, auditable output. But no tool is automatically admissible — T&V is mandatory. |
-| "What if the AI makes a mistake?" | It will. That's why we use spec-driven development (catch errors before code), SHACL validation (catch errors in data), and cross-model review (second opinion). You always review. |
+| "What if the AI makes a mistake?" | It will. That's why we use spec-driven development (catch errors before code), SHACL validation (catch errors in data), and cross-model review (second opinion). You always review and get independent validation. |
 | "Our agency won't let us install software." | Observer mode today. For production: work with your IT team, use local models, pursue authorized tool procurement channels. |
 | "How is this different from ChatGPT?" | ChatGPT is a chatbot — it answers questions. An agent in Cursor has tools: it can read files, write code, run commands, search the web, and interact with databases. It acts, not just responds. |
 

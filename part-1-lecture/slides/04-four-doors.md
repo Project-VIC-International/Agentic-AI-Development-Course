@@ -24,6 +24,12 @@ It has multiple doors. Different users use different doors depending on their sk
 
 ---
 
+## Instructor Visual: Four Doors
+
+![The four doors into any application](../../graphics/agentic-mission-blueprint/slide-05.png)
+
+---
+
 ## Door 1: The UI (Front Door)
 
 **Who uses it:** Everyone
@@ -105,6 +111,12 @@ The agent queries data, generates reports, processes evidence — it's a **user*
 The agent builds a feature, tests it with real data, finds an issue, fixes it, re-tests — all in one continuous loop.
 
 > The builder and the user are the same entity. This has never been possible before.
+
+---
+
+## Instructor Visual: Four-Surface Review
+
+![Four-surface review for GUI, CLI, API, and MCP](../../graphics/forensic-ai-blueprint/slide-05.png)
 
 ---
 

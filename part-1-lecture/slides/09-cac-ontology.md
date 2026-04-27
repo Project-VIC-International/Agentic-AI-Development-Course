@@ -15,6 +15,12 @@ The **Crimes Against Children Ontology Family** — a domain-specific extension 
 
 ---
 
+## Instructor Visual: Mission-Specific Standards
+
+![Mission-specific standards stack with CAC Ontology](../../graphics/agentic-mission-blueprint/slide-10.png)
+
+---
+
 ## What It Models
 
 ```
