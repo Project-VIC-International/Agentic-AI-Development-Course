@@ -5,6 +5,7 @@ The course repository teaches the workflow. The template repository is where stu
 | Course concept | Course location | Template location | Student action |
 | --- | --- | --- | --- |
 | Environment setup | `exercises/00-environment-setup/` | `QUICKSTART.md`, `docs/tooling-setup.md`, `scripts/`, `.devcontainer/devcontainer.json` | Verify tools, run setup scripts if needed, or use Codespaces |
+| Git basics | `exercises/00b-git-basics/` | the private template repo itself | Branch, commit, push, open a practice issue and pull request. Leave it unmerged. |
 | First Cursor conversation | `exercises/02-cursor-first-steps/` | `START-HERE-NCCC.md`, `prompts/START-CURSOR-HERE.md` | Ask the agent to explain the template before editing |
 | Spec-driven development | `exercises/03-spec-driven-dev/` | `docs/spec-kit-workflow.md`, `.cursor/rules/speckit-workflow.mdc` | Use `specify -> plan -> tasks -> implement -> analyze` |
 | CASE/UCO introduction | `exercises/04-case-uco-introduction/` | `docs/case-uco-cac-guidance.md`, `examples/synthetic-data/` | Identify where CASE/UCO concepts fit the project |

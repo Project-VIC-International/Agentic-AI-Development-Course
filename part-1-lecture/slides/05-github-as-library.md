@@ -16,6 +16,15 @@ You wouldn't write a report without checking if someone already covered the topi
 
 ---
 
+## Git Records. GitHub Hosts.
+
+- **Git** saves snapshots of your files (commits) on your computer.
+- **GitHub** hosts those repositories so you can search, clone, open issues, and send pull requests.
+
+The next minutes are about searching and evaluating projects. You will type git commands in [lab Exercise 0b](../../part-2-lab/exercises/00b-git-basics/).
+
+---
+
 ## Instructor Visual: GitHub as Library
 
 ![GitHub as the world's forensic library](../../graphics/agentic-mission-blueprint/slide-06.png)

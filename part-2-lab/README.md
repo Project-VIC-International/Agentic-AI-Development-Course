@@ -34,18 +34,20 @@ Use these visuals to orient the room before the hands-on work begins:
 By the end of this lab, you will have:
 
 1. Set up a working agentic AI development environment
-2. Explored GitHub to find existing CAC/ICAC projects
-3. Had your first conversation with an AI agent in Cursor
-4. Used spec-driven development to define a mission tool
-5. Examined and modified real CASE/UCO knowledge graphs
-6. Modeled an investigation scenario using CAC Ontology with AI
-7. Watched (and guided) an agent building a working prototype
+2. Saved a snapshot with git and opened a practice issue and pull request
+3. Explored GitHub to find existing CAC/ICAC projects
+4. Had your first conversation with an AI agent in Cursor
+5. Used spec-driven development to define a mission tool
+6. Examined and modified real CASE/UCO knowledge graphs
+7. Modeled an investigation scenario using CAC Ontology with AI
+8. Watched (and guided) an agent building a working prototype
 
 ## Exercises
 
 | # | Exercise | Duration | Description |
 |---|----------|----------|-------------|
 | 00 | [Environment Setup](exercises/00-environment-setup/) | 15 min | Verify tools, create/open your private template repo, orient to the IDE |
+| 00b | [Git Basics](exercises/00b-git-basics/) | 20 min | Commit, branch, push, open an issue and pull request; then ask the agent to inspect |
 | 01 | [GitHub Exploration](exercises/01-github-exploration/) | 15 min | Search for projects, explore key organizations |
 | 02 | [Cursor First Steps](exercises/02-cursor-first-steps/) | 15 min | First agent conversation, explain code, create a script |
 | 03 | [Spec-Driven Development](exercises/03-spec-driven-dev/) | 30 min | Constitution, specify, plan, tasks with spec-kit |
@@ -64,7 +66,7 @@ By the end of this lab, you will have:
 
 ### During the Lab
 
-- **Exercises 0-2** are individual — each student works at their own pace
+- **Exercises 0, 0b, and 2** are individual — each student works at their own pace. Exercise 1 is individual and browser-based.
 - **Exercise 3** is collaborative — the class writes the constitution together, then individuals specify
 - **Exercises 4-5** can be individual or paired
 - **Exercise 6** is a group activity — the class collectively guides the build
@@ -72,7 +74,7 @@ By the end of this lab, you will have:
 
 ### Pacing
 
-- Don't rush the early exercises. If students are struggling with setup or Cursor basics, spend more time there. A student who is comfortable with the agent will get more out of exercises 3-6.
+- Don't rush the early exercises. If students are struggling with setup, git, or Cursor basics, spend more time there. A student who can save a commit and talk to the agent will get more out of exercises 3-6.
 - Exercise 6 is intentionally open-ended. Use whatever time remains.
 
 ### Common Issues

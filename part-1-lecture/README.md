@@ -13,7 +13,7 @@ By the end of this lecture, attendees will understand:
 1. What AI, ML models, and agentic AI are — and where to get models (HuggingFace, Project VIC, universities)
 2. Why GPUs matter for running models at speed
 3. The four ways humans and agents interact with applications (UI, CLI, API, MCP)
-4. How to use GitHub as a library of existing solutions
+4. How to use GitHub as a library of existing solutions, and that git is how you save and share your own work
 5. What spec-driven development is and why it keeps you in control of AI
 6. The CASE/UCO/CAC Ontology ecosystem and why interoperability matters
 7. That CASE/UCO/CAC data lives in graph databases — which also have four doors, including MCP for agents

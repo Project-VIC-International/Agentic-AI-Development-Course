@@ -143,6 +143,7 @@ This section uses the "building with four doors" metaphor.
 
 ### Speaker Notes
 
+- **Sixty seconds up front:** Git records snapshots of files on the computer (commits). GitHub is the website that hosts those repositories. Lab Exercise 0b is where students type the commands. This section is search and evaluate.
 - **GitHub is not just for coders.** It's a library. Millions of projects, searchable, browsable, with documentation. You wouldn't write a report without checking if someone already wrote one on the same topic. Same principle.
 - **Live demo (if feasible) or screenshots:** Search GitHub for "ICAC," "CyberTip," "digital forensics," "CASE ontology." Show what comes up. Point out READMEs, stars, recent activity as signals of quality.
 - **The open-source mindset:**

@@ -120,3 +120,5 @@ You set up a complete agentic AI development environment. You have:
 - **Your private template repository** — the workspace where you will actually build
 
 You also had your first interaction with an AI agent. It read your project files and answered your question in natural language. That's the foundation everything else builds on.
+
+Next: [Exercise 0b](../00b-git-basics/) practices commit, push, issues, and pull requests in this same project.
