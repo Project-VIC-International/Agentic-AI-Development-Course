@@ -43,7 +43,7 @@ Resources for continued learning after the course, organized by topic.
 
 ### For Beginners
 - [GitHub: Hello World Guide](https://docs.github.com/en/get-started/quickstart/hello-world) — Your first steps on GitHub
-- [GitHub: Understanding the GitHub Flow](https://docs.github.com/en/get-started/using-github/github-flow) — How collaborative development works
+- [GitHub: Understanding the GitHub Flow](https://docs.github.com/en/get-started/quickstart/github-flow) — How collaborative development works
 - [GitHub: Git basics](https://docs.github.com/en/get-started/git-basics): clone, commit, branch, and undo
 - [Pro Git, chapters 1-2](https://git-scm.com/book/en/v2): official git book. Stop after chapter 2.
 - [Oh My Git!](https://ohmygit.org/): optional short game for the same commands.
