@@ -15,6 +15,7 @@ By the end of this course, you will be able to:
 - Explain what AI, large language models, and agentic AI are — and what they are not
 - Understand how humans and agents interact with applications (UI, CLI, API, MCP)
 - Use GitHub as a library to find and evaluate existing open-source tools
+- Save work with git and share it on GitHub using issues and pull requests
 - Use Cursor as an agentic AI IDE to build software through natural language
 - Apply spec-driven development to maintain control over what an AI agent builds
 - Understand the Cyber Domain Ontology ecosystem: UCO, CASE, and CAC Ontology

@@ -89,6 +89,31 @@ Plain-language instructions the agent must follow.
 
 ---
 
+## Git and GitHub
+
+Type the first few commits yourself. Then you may ask the agent to show `status`/`diff` and draft a commit message. You still run commit and push.
+
+| Command | What it does |
+|---------|--------------|
+| `git status` | Branch you are on, and which files changed |
+| `git diff` | The lines that changed |
+| `git add <file>` | Stage a file for the next snapshot |
+| `git commit -m "message"` | Save a snapshot |
+| `git switch -c <name>` | Create and move to a new branch |
+| `git pull` | Download commits from GitHub |
+| `git push -u origin <branch>` | Upload your branch |
+| `git clone <url>` | Copy a repository to your computer |
+
+| GitHub | What it is for |
+|--------|----------------|
+| Issue | A task, bug, or question on a repository |
+| Pull request | Propose that a branch be merged into `main` |
+| Merge | Maintainer accepts the pull request. Wait to be asked. |
+
+Practice this loop in [Exercise 0b](../part-2-lab/exercises/00b-git-basics/).
+
+---
+
 ## Key Technologies
 
 | Tool | What It Does |

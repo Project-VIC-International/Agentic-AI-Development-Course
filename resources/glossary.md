@@ -16,6 +16,10 @@ AI that operates with agency — the ability to make decisions, use tools, and t
 
 A documented set of endpoints that allows applications to exchange data programmatically. Each endpoint handles a specific type of request. The schema defines what data goes in and what comes back. Think of it as a loading dock where applications exchange standardized containers.
 
+### Branch (Git)
+
+A named line of work in a repository. Create one for a single task so `main` stays stable until a pull request is reviewed.
+
 ### CAC Ontology (Crimes Against Children Ontology)
 
 A domain-specific extension of UCO and CASE that provides classes, properties, and relationships for modeling crimes against children investigations. Covers investigations, CyberTip processing, forensics, legal processes, victim services, offender tradecraft, and international coordination. Shepherded by Project VIC International.
@@ -44,6 +48,14 @@ In an ontology, a class represents a type of thing — like `Device`, `Person`, 
 
 A text-based interface where you interact with software by typing commands. More powerful than a GUI for batch operations and scripting. The "staff entrance" to an application.
 
+### Clone (Git)
+
+A copy of a GitHub repository on your computer. `git clone` downloads it. Creating a repository from a template (Exercise 0) also gives you a local copy.
+
+### Commit (Git)
+
+A saved snapshot of files in a repository, with a short message describing the change.
+
 ### Constitution (spec-kit)
 
 In spec-driven development, the constitution defines the rules of the project — technology choices, security requirements, design principles, and compliance mandates (like CASE/UCO/CAC interoperability).
@@ -63,6 +75,14 @@ In UCO/CASE, a facet is a group of related properties attached to an object. For
 ### Fork
 
 A copy of a GitHub repository under your own account. You can modify a fork without affecting the original project. If you make improvements, you can submit them back via a pull request.
+
+### Git
+
+A tool that records snapshots of a project over time. You run it on your computer. GitHub stores copies of those snapshots.
+
+### GitHub
+
+A website that hosts git repositories. Search it like a library (Exercise 1). Use it to clone projects, open issues, and send pull requests. Project VIC, CASE, UCO, and CAC Ontology repositories live here.
 
 ### GPU (Graphics Processing Unit)
 
@@ -99,6 +119,10 @@ The process of using a trained AI/ML model to make predictions or classification
 ### Interoperability
 
 The ability of different tools, systems, and organizations to exchange and use data without manual reformatting. CASE/UCO/CAC achieve interoperability by providing a shared language for investigation data.
+
+### Issue (GitHub)
+
+A tracked discussion on a repository: a task, bug, or question. Open one, do the work on a branch, then link it from a pull request.
 
 ### JSON-LD (JavaScript Object Notation for Linked Data)
 
@@ -169,6 +193,10 @@ In an ontology, a property describes an attribute of an entity or a connection b
 ### Provenance
 
 The documented history of who did what, when, with which tool, to what data. CASE captures provenance for every investigative action, ensuring that analysis results can be traced back to their sources.
+
+### Pull Request
+
+A request to merge one branch into another, usually into `main`. Reviewers read the diff, then a maintainer merges.
 
 ### RDF (Resource Description Framework)
 

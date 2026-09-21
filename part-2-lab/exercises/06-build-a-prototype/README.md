@@ -14,6 +14,7 @@
 This is the capstone exercise. Everything you've learned comes together here:
 
 - **Exercise 0:** You set up your environment
+- **Exercise 0b:** You saved a commit, pushed a branch, and opened a practice pull request
 - **Exercise 1:** You learned to search before building
 - **Exercise 2:** You learned to work with an AI agent
 - **Exercise 3:** You learned spec-driven development

@@ -89,6 +89,14 @@ These are the moments where the audience is most likely to engage. Lean into the
 - If >30% of the room has install problems, switch to a paired model immediately
 - Have your own screen showing the preflight output as a reference
 
+#### Exercise 0b: Git Basics (20 min)
+
+- Confirm the terminal is in the private template repo, not the course repo
+- Common issue: `user.name` / `user.email` unset; first commit will fail until they set it
+- Common issue: push authentication. `gh auth login` from the prerequisites
+- Students type status, diff, add, commit, push, issue, and PR themselves. The agent inspects after that.
+- If the room is behind, keep 0b until everyone has one commit. Skip Exercise 1 first (browser search can wait).
+
 #### Exercise 1: GitHub Exploration (15 min)
 
 - This exercise works even in Observer mode (browser only)
@@ -136,7 +144,7 @@ These are the moments where the audience is most likely to engage. Lean into the
 | Cursor rate limits | Pair up. Two students per Cursor session. This actually improves learning through discussion |
 | Can't install Python packages | Demo validation on projector. Students watch and take notes |
 | Agent produces bad output | This is a teaching moment. Show the error, discuss why it happened, fix it together |
-| Running behind schedule | Skip Exercise 1 (students can explore GitHub later). Jump from Ex 0 → Ex 2 → Ex 3 |
+| Running behind schedule | Skip Exercise 1 (students can explore GitHub later). Keep Exercise 0b if the room has not saved a commit yet. Jump from Ex 0 → 0b → Ex 2 → Ex 3 |
 
 ---
 
