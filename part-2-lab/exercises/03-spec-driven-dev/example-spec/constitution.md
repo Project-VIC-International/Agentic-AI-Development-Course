@@ -46,21 +46,31 @@ All tools MUST produce output that is compliant with:
 
 ## Security and Privacy
 
-### CJIS Security Policy Compliance
+### Jurisdiction and Control Framework
 
-All tools that access, store, or transmit Criminal Justice Information (CJI) MUST comply with the [FBI CJIS Security Policy](https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center):
+Every project MUST name the country, agency type, and security control framework it is built for, and record them here before the first spec. The agent MUST ask the user if they are not recorded, and MUST NOT assume a single country's framework. Examples:
+
+- **United States, Criminal Justice Information (CJI):** [FBI CJIS Security Policy](https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center) (current version) plus NIST SP 800-53 Rev. 5
+- **Australia:** Information Security Manual (ISM), Protective Security Policy Framework (PSPF), Essential Eight, Privacy Act 1988, and state or territory rules
+- **New Zealand:** NZ Information Security Manual (NZISM), Protective Security Requirements (PSR), Privacy Act 2020
+- **European Union / United Kingdom:** GDPR and the Law Enforcement Directive (EU) 2016/680; UK GDPR and Data Protection Act 2018 Part 3
+- **Other or unknown:** national law-enforcement and privacy rules, with NIST SP 800-53 Rev. 5 and ISO/IEC 27001 as a neutral baseline
+
+Whatever the framework, tools that handle law-enforcement information MUST address:
 
 - **Access Control** — authentication, authorization, and role-based access required
 - **Auditing** — log who accessed what data, when, and what actions were taken
-- **Personnel Security** — background check requirements for anyone with CJI access
+- **Personnel Security** — vetting requirements for anyone with access to protected information, per the agency's rules
 - **Media Protection** — secure handling and disposal of storage devices
-- **Physical Security** — controlled access to systems processing CJI
+- **Physical Security** — controlled access to systems processing protected information
 - **Incident Response** — documented plan for security breaches
 - **Configuration Management** — track all changes to systems and software
 
+Digital evidence handling SHOULD also follow ISO/IEC 27037, 27041, 27042, and 27043 where applicable. Following this constitution does not make a tool certified or compliant; only the operating agency can determine that.
+
 ### NIST Cybersecurity Standards
 
-Tools SHOULD reference and implement controls from:
+Tools SHOULD use NIST controls as a common baseline that most national frameworks map to:
 
 - **NIST Cybersecurity Framework** (Identify, Protect, Detect, Respond, Recover)
 - **NIST SP 800-53 Rev. 5** — security and privacy control catalog
@@ -138,7 +148,7 @@ Any AI/ML model used in a tool MUST have:
 ## Design Principles
 
 1. **Interoperable from day one** — not as an afterthought
-2. **Secure from day one** — CJIS and encryption requirements in every design
+2. **Secure from day one** — the agency's security framework and encryption requirements in every design
 3. **Validated before deployment** — independent T&V is non-negotiable
 4. **Search before you build** — check existing projects first
 5. **Extend, don't reinvent** — use existing ontology classes

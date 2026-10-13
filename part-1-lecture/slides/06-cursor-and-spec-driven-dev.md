@@ -158,17 +158,19 @@ These are **agent rules** — written instructions the agent reads every time yo
 
 ## What Are Agent Rules?
 
-In Cursor, rules live in `.cursor/rules/` as `.mdc` files. Other agentic AI tools have equivalent mechanisms.
+Every agent reads standing instructions from a file: Cursor uses `.cursor/rules/*.mdc`, and most others read `AGENTS.md` (Claude Code reads `CLAUDE.md`, Gemini CLI reads `GEMINI.md`). The lab template keeps one copy of the rules in `policies/` and generates the rest, so the same rules work in any agent.
 
 ```
 your-project/
-├── .cursor/
-│   └── rules/
-│       ├── ontology-alignment.mdc    ← "All data must be CASE/UCO compliant"
-│       ├── no-stubs.mdc              ← "Never create placeholder code"
-│       ├── four-surface-review.mdc   ← "Check GUI, CLI, API, and MCP impact"
-│       ├── speckit-workflow.mdc      ← "Follow the spec pipeline"
-│       └── auto-research.mdc         ← "Experiment and measure improvements"
+├── policies/                         ← one source of truth, plain Markdown
+│   ├── ontology-alignment.md         ← "All data must be CASE/UCO compliant"
+│   ├── no-stubs.md                   ← "Never create placeholder code"
+│   ├── four-surface-review.md        ← "Check GUI, CLI, API, and MCP impact"
+│   ├── speckit-workflow.md           ← "Follow the spec pipeline"
+│   └── security-compliance.md        ← "Ask which country's rules apply"
+├── AGENTS.md                         ← index read by most agents
+├── CLAUDE.md, GEMINI.md              ← import AGENTS.md and core policies
+├── .cursor/rules/*.mdc               ← generated copy for Cursor
 ├── src/
 ├── tests/
 └── ...
@@ -186,7 +188,7 @@ Without rules, the agent makes its own assumptions every time:
 |---------------|------------|
 | Agent guesses your preferred format | Rule says "all output must be CASE/UCO JSON-LD" |
 | Agent writes stub code to "get it working" | Rule says "never create placeholder functions" |
-| Agent skips security considerations | Rule says "CJIS compliance is mandatory, encrypt everything" |
+| Agent skips security considerations | Rule says "ask which country's security framework applies, then meet it; encrypt everything" |
 | Agent builds for one surface only | Rule says "check impact on GUI, CLI, API, and MCP" |
 | Different results every time | **Predictable, consistent behavior** |
 
@@ -253,7 +255,7 @@ Rules and specs work together to keep the agent focused:
 ```
   ┌─────────────────────────────────────────────────┐
   │                 AGENT RULES                     │
-  │  (.cursor/rules/)                               │
+  │  (policies/ + AGENTS.md)                        │
   │                                                 │
   │  Applied to EVERYTHING the agent does:          │
   │  • Ontology compliance                          │

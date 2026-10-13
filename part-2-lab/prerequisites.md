@@ -39,7 +39,7 @@ If you see a version number (e.g., `git version 2.43.0`), you're good.
 - **Mac:** Open Terminal and type `git --version` — macOS will prompt you to install it
 - **Linux:** `sudo apt install git` (Ubuntu/Debian) or `sudo dnf install git` (Fedora)
 
-### 3. Python 3.10+
+### 3. Python 3.11+
 
 Python is the programming language we'll use for exercises and prototyping.
 
@@ -48,9 +48,9 @@ Python is the programming language we'll use for exercises and prototyping.
 python3 --version
 ```
 
-> **Windows users:** If `python3` is not recognized, try `python --version` instead. On Windows, Python is often available as `python` rather than `python3`. Either is fine as long as the version is 3.10 or higher.
+> **Windows users:** If `python3` is not recognized, try `python --version` instead. On Windows, Python is often available as `python` rather than `python3`. Either is fine as long as the version is 3.11 or higher (Spec Kit requires 3.11+).
 
-If you see version 3.10 or higher, you're good.
+If you see version 3.11 or higher, you're good.
 
 **If not installed:**
 - **All platforms:** Download from [python.org/downloads](https://www.python.org/downloads/)
@@ -58,7 +58,9 @@ If you see version 3.10 or higher, you're good.
 
 ### 4. Cursor IDE
 
-Cursor is the AI-powered development environment we'll use throughout the lab.
+Cursor is the AI-powered development environment the instructor uses throughout the lab.
+
+> **Prefer another agent?** The lab template works with Claude Code, OpenAI Codex, GitHub Copilot, Gemini CLI, OpenCode, and other AI coding agents. Install and sign in to your agent before the session, and read `docs/agent-setup.md` in the template. The exercise steps are the same; only the chat window looks different.
 
 1. Go to [cursor.com](https://cursor.com)
 2. Download the installer for your operating system

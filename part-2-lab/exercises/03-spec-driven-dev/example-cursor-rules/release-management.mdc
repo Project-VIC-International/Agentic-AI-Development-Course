@@ -28,7 +28,7 @@ Every version entry MUST include:
 - Each item MUST be a concrete, **user-facing description** — not an internal implementation detail
 - Reference the affected module / package in parentheses where helpful: `(ingest)`, `(reporting)`, `(mcp)`
 - Reference related GitHub issues or PRs: `(#42)`, `(#19)`
-- For security-relevant changes, include the control family: `(NIST AC-7, CJIS 5.6.2)` per the `security-compliance` rule
+- For security-relevant changes, include the control family: `(NIST AC-7, plus the section from your jurisdiction's framework)` per the `security-compliance` rule
 - For performance changes, include before / after benchmark numbers and link to the autoresearch run that produced them — per the `auto-research` rule, the spec floor ratchets to the new baseline
 
 ### Surface Coverage
@@ -69,7 +69,7 @@ A `Security` section is mandatory for any release that:
 - Modifies the audit chain format
 - Touches secrets handling
 
-Per the `security-compliance` rule, reference the affected NIST 800-53 control(s) and CJIS section(s).
+Per the `security-compliance` rule, reference the affected NIST 800-53 control(s) and the matching section(s) of your jurisdiction's framework (for example CJIS, ISM, or NZISM).
 
 ### Upgrade Instructions
 
@@ -111,7 +111,7 @@ The top-level `README.md` is the canonical entry point for new users. It MUST be
 - Detailed MCP tool schemas (put in MCP descriptors and `docs/mcp/`)
 - Historical changelog entries (those live in `CHANGELOG.md`)
 - Development setup instructions (put in `CONTRIBUTING.md`)
-- NIST 800-53 / CJIS control mappings (those live in `docs/security/` per `security-compliance`)
+- NIST 800-53 and jurisdiction framework control mappings (those live in `docs/security/` per `security-compliance`)
 
 ## Version Numbering
 

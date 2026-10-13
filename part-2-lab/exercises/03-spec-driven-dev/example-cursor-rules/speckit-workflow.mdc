@@ -15,12 +15,16 @@ This is the discipline that separates a court-defensible mission tool from a one
 |------|---------------|--------------|
 | 1. Constitution | `/speckit.constitution` | The project's governing rules (this is a one-time setup, then it lives at `.specify/memory/constitution.md`) |
 | 2. Specify | `/speckit.specify` | Define what the feature does, who uses it, what counts as "done" — in plain language |
-| 3. Plan | `/speckit.plan` | Translate the spec into architecture, data models, components, and contracts |
-| 4. Tasks | `/speckit.tasks` | Break the plan into ordered, testable work units with clear acceptance criteria |
-| 5. Implement | `/speckit.implement` | Execute tasks one at a time; each one is reviewed before moving on |
-| 6. Analyze | `/speckit.analyze` | Cross-check the spec, plan, tasks, and implementation for consistency |
+| 3. Clarify | `/speckit.clarify` | Answer the agent's questions about anything unclear before planning |
+| 4. Plan | `/speckit.plan` | Translate the spec into architecture, data models, components, and contracts |
+| 5. Tasks | `/speckit.tasks` | Break the plan into ordered, testable work units with clear acceptance criteria |
+| 6. Analyze | `/speckit.analyze` | Read-only cross-check of the spec, plan, and tasks before any code is written |
+| 7. Implement | `/speckit.implement` | Execute tasks one phase at a time; each phase is reviewed before moving on |
+| 8. Converge | `/speckit.converge` | Check the code against the spec, plan, and tasks; missed work is added to `tasks.md` and implemented |
 
 GitHub spec-kit (https://github.com/github/spec-kit) provides these commands. They are not optional ritual — they are how a non-programmer keeps control of an AI agent that can write code faster than any human can read it.
+
+The commands are shown in Spec Kit's reference spelling. Your agent may show them slightly differently (for example `/speckit-specify` in GitHub Copilot or `$speckit-specify` in Codex). Older Spec Kit versions do not have `/speckit.converge`; run `/speckit.analyze` again after implementation instead.
 
 ## When Spec-Driven Development Applies
 
@@ -57,7 +61,7 @@ Specs in this project MUST include:
 - **Inputs / Processing / Outputs** — described in investigator-friendly language
 - **CASE/UCO/CAC Compliance** — which classes, properties, and facets are produced; which SHACL shapes apply (per the `ontology-alignment` rule)
 - **Surface Impact** — which of the GUI, CLI, API, and MCP surfaces are affected (per the `four-surface-review` rule)
-- **Security Controls** — which NIST SP 800-53 control families and CJIS sections apply (per the `security-compliance` rule)
+- **Security Controls** — which NIST SP 800-53 control families and which sections of the project's jurisdiction framework (for example CJIS, ISM, or NZISM) apply (per the `security-compliance` rule)
 - **Performance Thresholds** — measurable floors the implementation must meet (per the `auto-research` rule)
 - **Acceptance Criteria** — concrete, testable success conditions
 - **Test & Validation Plan** — unit, integration, SHACL, and (for AI/ML) model validation requirements

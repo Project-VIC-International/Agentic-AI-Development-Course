@@ -2,11 +2,13 @@
 
 This directory contains a **starter pack of Cursor rules** that any Crimes Against Children (CAC) investigator can copy into their own project to get an AI agent (Cursor, Claude Code, Codex, etc.) building tools the right way from the very first prompt.
 
-These rules are generalized from the Cursor rules used by Project VIC International on its own development projects (Forensics, Media Authentication, the CASE/UCO/CAC SDK, the CAC Ontology). The versions here are technology-agnostic and written for investigators with no programming background — pair them with the [project constitution](../example-spec/constitution.md) and you have a complete "ground rules" pack for your AI agent.
+These rules are generalized from the development policies Project VIC International volunteers and their agents follow. The versions here are technology-agnostic and written for investigators with no programming background — pair them with the [project constitution](../example-spec/constitution.md) and you have a complete "ground rules" pack for your AI agent.
+
+> **Using a different agent, or the lab template?** These eight files are a short, Cursor-format teaching pack. The [project template](https://github.com/Project-VIC-International/Agentic-AI-Development-Project-Template) ships the full, maintained set of 25 policies in `policies/` as plain Markdown, plus `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, and `.github/copilot-instructions.md`, so the same rules load in Cursor, Claude Code, Codex, GitHub Copilot, Gemini CLI, and other agents. In the lab, use the template's policies rather than copying these files.
 
 ## What Are Cursor Rules?
 
-Cursor rules are short Markdown files in `.cursor/rules/` that the AI agent reads **on every prompt**. They are persistent context — they tell the agent things like "always validate output against SHACL" or "never hardcode secrets" without you having to repeat yourself.
+Cursor rules are short Markdown files in `.cursor/rules/` that the AI agent reads **on every prompt** (other agents use similar files, such as `AGENTS.md`, `CLAUDE.md`, or `GEMINI.md`). They are persistent context — they tell the agent things like "always validate output against SHACL" or "never hardcode secrets" without you having to repeat yourself.
 
 Think of them as **standing orders** for your AI investigator-developer.
 
@@ -23,7 +25,7 @@ alwaysApply: true
 
 `alwaysApply: true` means the agent reads this rule on every turn. Use `alwaysApply: false` plus a `globs:` pattern to scope a rule to specific files (e.g., only `tests/**`).
 
-Cursor's official documentation: https://docs.cursor.com/context/rules
+Cursor's official documentation: https://cursor.com/docs/context/rules
 
 ## How to Use This Starter Pack
 
@@ -41,7 +43,7 @@ Cursor's official documentation: https://docs.cursor.com/context/rules
 | [`no-stubs.mdc`](no-stubs.mdc) | Forbid placeholder / mock implementations | Prevents fake "it works" handlers from shipping |
 | [`four-surface-review.mdc`](four-surface-review.mdc) | Require GUI / CLI / API / MCP impact review for every change | Investigators, examiners, integrators, and AI agents all need access |
 | [`ontology-alignment.mdc`](ontology-alignment.mdc) | Mandate CASE / UCO / CAC (and optional SOLVE-IT) compliance | True interoperability across agencies and tools |
-| [`security-compliance.mdc`](security-compliance.mdc) | Enforce NIST SP 800-53 Rev. 5 and FBI CJIS Security Policy | Required for any tool touching CJI |
+| [`security-compliance.mdc`](security-compliance.mdc) | Choose your jurisdiction's framework (for example CJIS, ISM, NZISM), then apply NIST SP 800-53 Rev. 5 controls | Required for any tool touching law-enforcement information |
 | [`cross-platform.mdc`](cross-platform.mdc) | Require Windows / Linux / macOS support from day one | Examiner workstations vary across agencies |
 | [`auto-research.mdc`](auto-research.mdc) | Use Karpathy-style measure-then-improve loops | Performance gains that you can defend in court |
 | [`release-management.mdc`](release-management.mdc) | Require `CHANGELOG.md` and `README.md` updates per release | Reproducibility, attributability, and audit trail |
@@ -51,7 +53,7 @@ Cursor's official documentation: https://docs.cursor.com/context/rules
 The [constitution](../example-spec/constitution.md) says **what** your project stands for. These rules say **how** the AI agent should behave when it builds toward those values:
 
 - The constitution says "all output must be CASE/UCO/CAC compliant." The `ontology-alignment` rule tells the agent to query the CASE/UCO SDK before writing serialization code.
-- The constitution says "tools must comply with CJIS." The `security-compliance` rule tells the agent which control families apply to which features.
+- The constitution says "name your jurisdiction's security framework and meet it." The `security-compliance` rule tells the agent which control families apply to which features.
 - The constitution says "spec-driven development." The `speckit-workflow` rule tells the agent never to write code without a spec.
 
 ## Adopting the Rules in Your Own Project

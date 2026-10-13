@@ -57,34 +57,34 @@ As a class, pick one tool to build. Here are the candidates — or propose your 
 
 Bring the idea you thought of during the lecture. Describe it to the class. If the group picks it, we build it.
 
-## Step 2: Adopt the Constitution and Cursor Rules
+## Step 2: Adopt the Constitution and Project Policies
 
 If you are using the Project VIC template as your lab workspace, most of the starter guidance is already there:
 
-- `START-HERE-NCCC.md`
-- `prompts/START-CURSOR-HERE.md`
+- `START-HERE.md`
+- `prompts/START-AGENT-HERE.md`
+- `AGENTS.md` and `policies/`
 - `intake/problem-intake.md`
 - `planning/`
 - `.github/ISSUE_TEMPLATE/`
-- `.cursor/rules/`
 
 Before writing the spec:
 
-1. Paste `prompts/START-CURSOR-HERE.md` into Cursor.
-2. Complete `intake/problem-intake.md`.
-3. Review the existing `.cursor/rules/`.
+1. Paste `prompts/START-AGENT-HERE.md` into your agent.
+2. Complete `intake/problem-intake.md`, including which country and agency the tool is for.
+3. Ask the agent to summarize the core policies listed in `AGENTS.md`.
 4. Draft a milestone plan before building.
 
 If you are not using the template, you can still create the needed folders and copy the example constitution and rules from Exercise 3 into your own project root.
 
 With the template, you now have:
 
-- Standing student guidance in `START-HERE-NCCC.md`
-- A reusable first prompt in `prompts/START-CURSOR-HERE.md`
+- Standing student guidance in `START-HERE.md`
+- A reusable first prompt in `prompts/START-AGENT-HERE.md`
 - Project intake and planning files
-- Project VIC Cursor rules in `.cursor/rules/`
+- Project VIC development policies in `policies/`, delivered to your agent through `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, or `.cursor/rules/`
 
-Open a couple of the rule files and read them. They are written in plain English and help keep the agent aligned to the workflow.
+Open a couple of the policy files and read them. They are written in plain English and help keep the agent aligned to the workflow.
 
 ## Step 3: Define the Specification
 

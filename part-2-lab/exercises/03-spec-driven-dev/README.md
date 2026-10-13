@@ -53,14 +53,14 @@ These are eight ready-to-use Cursor rules — generalized from the rules Project
 - No stubs / no placeholders (`no-stubs.mdc`)
 - Four-surface review: GUI / CLI / API / MCP (`four-surface-review.mdc`)
 - CASE / UCO / CAC (and SOLVE-IT) ontology alignment (`ontology-alignment.mdc`)
-- NIST 800-53 + CJIS security compliance (`security-compliance.mdc`)
+- Jurisdiction-aware security compliance: NIST 800-53 baseline plus your country's framework, such as CJIS, ISM, or NZISM (`security-compliance.mdc`)
 - Windows / Linux / macOS cross-platform support (`cross-platform.mdc`)
 - Karpathy-style auto-research for measurable improvements (`auto-research.mdc`)
 - `CHANGELOG.md` and `README.md` discipline (`release-management.mdc`)
 
 Open the starter pack's [README](example-cursor-rules/README.md) and skim a couple of the rules. Notice how each one is short, specific, and written so an AI agent can act on it without ambiguity.
 
-You will copy these rules into your own project later in the course.
+In the lab template, the full maintained set of these rules already lives in `policies/` and loads into any agent, so you do not need to copy them there. Copy the starter pack only if you are working outside the template.
 
 ## Step 2: Write a Specification
 
@@ -84,7 +84,7 @@ part-2-lab/exercises/03-spec-driven-dev/templates/spec-template.md
 
 This template has every section you need, with placeholders to fill in. You don't need to invent the structure from scratch — just fill in the blanks.
 
-In Cursor's agent panel:
+In your agent's chat (in Cursor, the agent panel):
 
 > Read the template at part-2-lab/exercises/03-spec-driven-dev/templates/spec-template.md and the constitution at part-2-lab/exercises/03-spec-driven-dev/example-spec/constitution.md.
 >

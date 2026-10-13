@@ -77,7 +77,7 @@ Try opening the agent panel now. You should see a text input where you can type 
 
 In the agent panel, type:
 
-> Read START-HERE-NCCC.md and QUICKSTART.md in this project. Explain the student workflow and tell me what I should do before asking you to build anything.
+> Read START-HERE.md, QUICKSTART.md, and AGENTS.md in this project. Explain the student workflow and tell me what I should do before asking you to build anything.
 
 The agent will read the project files and explain what it finds. This is your first taste of working with an AI agent — you ask in natural language, it explores and answers.
 
@@ -98,7 +98,7 @@ You should see `Environment is ready!` printed.
 Before moving on, confirm:
 
 - [ ] Git is installed and working
-- [ ] Python 3.10+ is installed and working
+- [ ] Python 3.11+ is installed and working
 - [ ] Preflight check passes (no `FAIL` items)
 - [ ] Your private template-based repository exists
 - [ ] Cursor is open with your private project loaded
