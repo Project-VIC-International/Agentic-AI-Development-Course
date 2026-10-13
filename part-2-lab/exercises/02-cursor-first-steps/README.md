@@ -1,7 +1,7 @@
 # Exercise 2: Cursor First Steps
 
 **Duration:** 15 minutes
-**Goal:** Get comfortable working with the AI agent in Cursor while using the Project VIC template as your actual lab workspace
+**Goal:** Get comfortable working with your AI agent (the instructor uses Cursor) while using the Project VIC template as your actual lab workspace
 
 ## Instructor Visual
 
@@ -9,12 +9,12 @@
 
 ## Step 1: Have a Conversation
 
-Open the Cursor agent panel (Cmd/Ctrl+L or click the chat icon).
+Open your agent's chat. In Cursor, open the agent panel (Cmd/Ctrl+L or click the chat icon). In a terminal agent such as Claude Code, Codex, or Gemini CLI, start it in your project folder.
 
 Try these prompts one at a time. Read the agent's response before moving to the next.
 
 ### Prompt 1: Ask the agent to explain your workspace
-> Read START-HERE-NCCC.md, QUICKSTART.md, and prompts/START-CURSOR-HERE.md in this project. Explain what this template is for and what I should do before asking you to build anything.
+> Read START-HERE.md, QUICKSTART.md, AGENTS.md, and prompts/START-AGENT-HERE.md in this project. Explain what this template is for and what I should do before asking you to build anything.
 
 Notice how the agent provides a structured, informative answer. This is the agent working as a **knowledge resource**.
 
@@ -99,28 +99,29 @@ Watch how the agent reads the existing file, understands the changes needed, and
 
 The agent is powerful, but without guidance it makes its own assumptions. **Agent rules** are written instructions the agent reads every time you prompt it. They make the agent's behavior predictable and consistent.
 
-### See an Existing Rule
+### See the Existing Policies
 
-This template repository already has Project VIC rules. Ask the agent:
+The template already has Project VIC development policies in `policies/`. They are plain Markdown, so every agent can read them. `AGENTS.md` lists them all, and small adapter files deliver them to each tool (for example `.cursor/rules/` for Cursor, `CLAUDE.md` for Claude Code, and `GEMINI.md` for Gemini CLI). Ask the agent:
 
-> Read the files in .cursor/rules/ and explain the purpose of student-mode.mdc, security-compliance.mdc, and speckit-workflow.mdc.
+> Read AGENTS.md, then explain the purpose of policies/student-mode.md, policies/security-compliance.md, and policies/speckit-workflow.md. Which of these does your tool load automatically, and how?
 
-Notice the structure:
-- A **front-matter header** with `description` and `alwaysApply: true`
+Notice the structure of each policy:
+- A **front-matter header** with `description`, `alwaysApply`, and sometimes `globs` (file patterns where the policy applies)
 - A **body** written in plain language describing how the agent should behave
 
-The agent reads these rules before every prompt. That's why it can stay aligned to the Project VIC workflow, security boundaries, and spec-driven development approach.
+Core policies (`alwaysApply: true`) apply to every prompt. That's why the agent can stay aligned to the Project VIC workflow, security boundaries, and spec-driven development approach.
 
 ### Create Your First Rule
 
 Now create your own rule. Ask the agent:
 
-> Create a new Cursor rule file at .cursor/rules/no-real-data.mdc with the following:
-> - description: "Never use real PII, case data, or victim information — all examples must use synthetic data"
+> Create a new policy file at policies/no-real-data.md with this front matter:
+> - description: "Never use real personal data, case data, or victim information; all examples must use synthetic data"
 > - alwaysApply: true
-> - In the body, explain that this is a law enforcement training environment, all data must be synthetic, and the agent should generate realistic but fictional names, dates, and case numbers when examples are needed.
+>
+> In the body, explain that this is a law enforcement training environment, all data must be synthetic, and the agent should generate realistic but fictional names, dates, and case numbers when examples are needed. Then show me the command `python3 scripts/sync_agent_rules.py`, explain what it does, and run it after I approve.
 
-After the agent creates the file, open it and read it. This rule will now apply to every future prompt in this project.
+After the script runs, open `policies/no-real-data.md` and read it. Then look at what the script generated: `.cursor/rules/no-real-data.mdc`, a new row in the `AGENTS.md` policy index, and a new import line in `CLAUDE.md` and `GEMINI.md`. One source file, delivered to every agent. Start a new chat so your agent loads the updated rules.
 
 ### Test Your Rule
 
@@ -132,10 +133,12 @@ Check: Did the agent use synthetic data (fictional names, made-up case numbers)?
 
 ### Key Takeaway on Rules
 
-- Rules live in `.cursor/rules/` as `.mdc` files
-- The agent reads them **every time** you send a prompt
+- In this template, rules live in `policies/` as Markdown files; `scripts/sync_agent_rules.py` delivers them to Cursor, Claude Code, Codex, Copilot, Gemini CLI, and other agents
+- Cursor's own format is `.cursor/rules/*.mdc`; other agents use `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, or `.github/copilot-instructions.md`
+- The agent reads core rules **every time** you send a prompt
 - You can add and adjust rules over time as you learn what the agent needs
 - You can build a **library of rules** and reuse them across projects
+- Rules guide an agent but do not force it; you still review what it does
 - Rules complement spec-driven development — specs guide individual features, rules guide everything
 
 ## Done When
@@ -144,8 +147,8 @@ Check: Did the agent use synthetic data (fictional names, made-up case numbers)?
 - [ ] You watched the agent use tools (reading files, running commands)
 - [ ] You created and ran `scratch/hello_investigator.py`
 - [ ] You iterated on the script (agent modified existing code)
-- [ ] You read existing Project VIC template rules and understood their structure
-- [ ] You created the `no-real-data.mdc` rule and tested it
+- [ ] You read the template's policies and understood their structure
+- [ ] You created `policies/no-real-data.md`, ran the sync script, and tested the rule
 
 ## What You Just Did
 

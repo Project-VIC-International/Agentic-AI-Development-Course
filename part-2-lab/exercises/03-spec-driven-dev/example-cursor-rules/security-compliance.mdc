@@ -1,21 +1,39 @@
 ---
-description: NIST SP 800-53 Rev. 5 and DoJ FBI CJIS security controls — mandatory for all code touching auth, crypto, evidence, logging, or network
+description: Jurisdiction-aware security controls (NIST SP 800-53 Rev. 5 baseline plus your country's framework, such as FBI CJIS, Australian ISM, or NZISM) for all code touching auth, crypto, evidence, logging, or network
 alwaysApply: true
 ---
 
-# Security Compliance: NIST SP 800-53 Rev. 5 and FBI CJIS Security Policy
+# Security Compliance: Choose Your Framework, Then Implement the Controls
 
-This project processes Criminal Justice Information (CJI) and law-enforcement-sensitive evidence — potentially including CSAM in ICAC casework. All code MUST comply with **NIST SP 800-53 Rev. 5** and the **FBI CJIS Security Policy** (currently v5.9.x). Non-compliance is not a bug — it is a deployment blocker, and in many jurisdictions a legal liability for the agency operating the tool.
+This project processes law-enforcement-sensitive information and evidence — potentially including CSAM in crimes-against-children casework. All code MUST meet the security control framework that applies to the agency that will operate the tool. Non-compliance is not a bug — it is a deployment blocker, and in many jurisdictions a legal liability for the agency operating the tool.
+
+This rule uses **NIST SP 800-53 Rev. 5** control families as a common, widely mapped baseline. Most national frameworks map to it, but they are not the same, so you must also apply your own jurisdiction's framework.
 
 The constitution's "Security and Privacy" section is the high-level statement. This rule is the enforceable detail the agent applies when writing code.
 
-The full mappings should live in your repo at `docs/security/nist-800-53-mapping.md` and `docs/security/cjis-compliance-mapping.md`. Update them every time a new feature touches a control family.
+The full mappings should live in your repo at `docs/security/nist-800-53-mapping.md` and a mapping for your jurisdiction's framework (for example `docs/security/cjis-compliance-mapping.md`, `docs/security/ism-mapping.md`, or `docs/security/nzism-mapping.md`). Update them every time a new feature touches a control family.
 
-These are the normal security control frameworks used within the United States of America. You may need to adjust this to your country or regional security control frameworks. Many security control frameworks have overlaps but they are not the same. If you want to run your software in many countries you may need to apply various security framework profiles to your application.
+## Choose the Control Framework First
+
+Before writing security-relevant code, the agent MUST ask the user which country and type of agency will operate the tool, record the answer in the constitution or project context, and plan for that framework. Do not assume the United States. Examples:
+
+| Where the tool will run | Typical frameworks to confirm with the agency |
+|-------------------------|-----------------------------------------------|
+| United States, criminal justice information (CJI) | FBI CJIS Security Policy (use the current version) plus NIST SP 800-53 Rev. 5 |
+| Australia | Australian Government Information Security Manual (ISM), Protective Security Policy Framework (PSPF), Essential Eight, Privacy Act 1988, plus state or territory rules |
+| New Zealand | NZ Information Security Manual (NZISM), Protective Security Requirements (PSR), Privacy Act 2020 |
+| European Union / United Kingdom | GDPR and the Law Enforcement Directive (EU) 2016/680; UK GDPR and Data Protection Act 2018 Part 3 |
+| Other countries, or not yet known | National law-enforcement and privacy rules, with NIST SP 800-53 Rev. 5 and ISO/IEC 27001 as a neutral baseline |
+
+For digital evidence handling in any country, also consider ISO/IEC 27037 (identification, collection, acquisition, preservation), 27041 (method validation), 27042 (analysis and interpretation), and 27043 (investigation process).
+
+If you want to run your software in many countries you may need several framework profiles. Name the framework you assumed in every spec, and never claim the tool is certified or compliant — only the operating agency can make that determination.
 
 ## Reference Documents
 
-- **FBI CJIS Security Policy** — https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+- **FBI CJIS Security Policy** (United States) — https://www.fbi.gov/services/cjis/cjis-security-policy-resource-center
+- **Australian ISM** — https://www.cyber.gov.au/ism
+- **NZISM** — https://nzism.gcsb.govt.nz/
 - **NIST SP 800-53 Rev. 5** — https://csrc.nist.gov/publications/detail/sp/800-53/rev-5/final
 - **NIST Cybersecurity Framework** — https://www.nist.gov/cyberframework
 - **NIST CFTT** (tool validation) — https://www.nist.gov/itl/ssd/software-quality-group/computer-forensics-tool-testing-program-cftt
@@ -29,9 +47,9 @@ When implementing any feature that touches the areas below, map your implementat
 - **AC-2 — Account management**: All multi-user mode users have individual accounts; no shared credentials. Agency identity systems map 1:1 to investigators / examiners. Never ship a default `admin/admin` account.
 - **AC-3 — Access enforcement**: Implement Role-Based Access Control (RBAC). Every API endpoint and MCP tool that mutates state MUST check the user's permission, not just their authentication.
 - **AC-6 — Least privilege**: Each component runs with the minimum permissions it needs. Plugin sandboxing for any third-party / dynamically-loaded code MUST drop privileges before executing untrusted code. Container deployments run as non-root.
-- **AC-7 — Unsuccessful login attempts**: Lock accounts after a configurable threshold of failed authentications. CJIS requires a maximum of 5 consecutive failures. Lockout state is persisted and auditable.
+- **AC-7 — Unsuccessful login attempts**: Lock accounts after a configurable threshold of failed authentications. Set the default to the value your framework requires (CJIS, the ISM, and NZISM each specify one). Lockout state is persisted and auditable.
 - **AC-8 — System use notification**: GUI and API surfaces MUST display a configurable legal banner before login. The banner text is set per deployment by the operating agency.
-- **AC-11 — Session lock**: Auto-lock after 30 minutes of inactivity (CJIS). API / MCP sessions enforce token expiry.
+- **AC-11 — Session lock**: Auto-lock after a configurable period of inactivity, defaulting to your framework's requirement. API / MCP sessions enforce token expiry.
 - **AC-17 — Remote access**: All remote connections (REST API, MCP over network transports, multi-user database connections) MUST use TLS 1.2 or higher.
 
 ### Audit and Accountability (AU)
@@ -44,8 +62,8 @@ When implementing any feature that touches the areas below, map your implementat
 
 ### Identification and Authentication (IA)
 
-- **IA-2 — User identification and authentication**: Required before any access to CJI on the API, MCP, or multi-user GUI surfaces. Single-user local mode MAY authenticate against the OS user account.
-- **IA-5 — Authenticator management**: Passwords meet CJIS complexity (minimum 8 characters, or passphrase ≥ 20). MFA support via TOTP for API access. **Default credentials are forbidden.**
+- **IA-2 — User identification and authentication**: Required before any access to protected case information on the API, MCP, or multi-user GUI surfaces. Single-user local mode MAY authenticate against the OS user account.
+- **IA-5 — Authenticator management**: Password and passphrase rules follow your framework (for example CJIS, the ISM, or NZISM) and NIST SP 800-63B. MFA support via TOTP for API access. **Default credentials are forbidden.**
 - **IA-6 — Authenticator feedback**: Never echo passwords, API tokens, or signing keys in logs, terminal output, error messages, panics, or audit entries.
   - Python: use a wrapper such as a `Secret[str]` class that overrides `__repr__` and `__str__`, and avoid logging `**kwargs` blindly.
   - Other languages: use the equivalent secret-wrapper pattern (`secrecy::Secret<T>` in Rust, etc.).
@@ -65,33 +83,33 @@ When implementing any feature that touches the areas below, map your implementat
 
 ### System and Information Integrity (SI)
 
-- **SI-2 — Flaw remediation**: Security vulnerabilities are patched within CJIS timelines. CI MUST run a dependency vulnerability scanner on every PR (Python: `pip-audit` or `safety`; Rust: `cargo audit`; Node: `npm audit`); high-severity advisories block merge.
+- **SI-2 — Flaw remediation**: Security vulnerabilities are patched within the timelines your framework sets. CI MUST run a dependency vulnerability scanner on every PR (Python: `pip-audit` or `safety`; Rust: `cargo audit`; Node: `npm audit`); high-severity advisories block merge.
 - **SI-4 — System monitoring**: Structured logging with JSON output for SIEM ingestion. Repeated authentication failures and unusual evidence-access patterns generate audit events at `WARN` level or above.
 - **SI-7 — Software and information integrity**: Output bundles (CASE/UCO exports, Portable Cases, Project VIC exports) MUST include a `manifest.json` listing every artifact with its SHA-256 (and BLAKE3 when configured) and an Ed25519 signature over the manifest. SHACL validation is enforced for ontology exports per the `ontology-alignment` rule.
 - **SI-10 — Information input validation**: Every external input (file inputs, API request bodies, MCP tool arguments, CLI arguments, plugin manifests) is validated at the boundary. Reject before processing.
 
-## CJIS-Specific Requirements
+## Common Law-Enforcement Requirements
 
-These come directly from the FBI CJIS Security Policy and supplement the NIST controls above.
+These requirements appear, with different wording and section numbers, in most law-enforcement frameworks (for example the FBI CJIS Security Policy in the United States, the ISM in Australia, and the NZISM in New Zealand). Cite the specific sections from the framework and version your agency uses.
 
-### Advanced Authentication (CJIS 5.6.2)
+### Advanced Authentication
 
-- MFA MUST be available for remote access to CJI. TOTP is the supported default; smart-card / PIV / FIDO2 support is roadmapped.
+- MFA MUST be available for remote access to protected case information. TOTP is the supported default; smart-card / PIV / FIDO2 support is roadmapped.
 - Session tokens expire and are not reusable.
 - API keys are rotatable without downtime; rotation is an audit event.
 
-### Encryption (CJIS 5.10.1)
+### Encryption
 
-- AES-256 (or stronger) for data at rest where the deployment processes CJI.
+- AES-256 (or stronger) for data at rest where the deployment processes protected case information.
 - TLS 1.2+ for data in transit.
-- FIPS 140-2/3 validated cryptographic modules when deployed on government systems requiring FIPS mode.
+- Validated cryptographic modules when the deployment requires them (for example FIPS 140-3 in the United States, or ASD-approved cryptography in Australia).
 
 ### Personnel Security and Attribution
 
 - Audit logs identify the specific user (or `system`) who performed each action.
 - Agency identifier and analyst identifier are recorded in every CASE/UCO graph export and every Project VIC export.
 
-### Media Protection (CJIS 5.10)
+### Media Protection
 
 - Evidence files are opened **read-only**. Forensic image files (E01, RAW, AFF4, VHD, VMDK) MUST never be written to by any module.
 - Original file hashes are computed at import (a Data Source Integrity step) and verified on demand.
@@ -166,16 +184,16 @@ Per the constitution's AI/ML validation requirements:
 
 [FILL IN as your project grows. Example structure:
 
-| Feature Area | Module / Component | Primary Controls | CJIS Section |
+| Feature Area | Module / Component | NIST SP 800-53 Controls | Your Framework Reference |
 |--------------|--------------------|--------------------|---------------|
-| API authentication & RBAC | `myproject.api`, `myproject.auth` | AC-2, AC-3, IA-2, IA-5 | 5.6 |
-| Session management & lockout | `myproject.auth.session` | AC-7, AC-11, AC-17 | 5.6.2 |
-| Evidence ingest & integrity | `myproject.ingest`, `myproject.hashing` | SI-7, SC-28, MP-* | 5.10 |
-| Bundle signing & verification | `myproject.export.bundle` | SC-12, SC-13, SI-7 | 5.10.1 |
-| Tamper-evident audit chain | `myproject.audit` | AU-2, AU-3, AU-6, AU-9, AU-12 | 5.4 |
-| Project VIC sharing | `myproject.vic` | IA-8, SC-8, SI-7 | 5.10 |
-| Input validation | All surfaces | SI-10, SC-39 | 5.10 |
-| AI / ML inference | `myproject.ml.<model>` | (model validation, bias evaluation) | — |
-| Container deployment | `docker/`, `helm/` | AC-6, SC-39 | 5.7 |
-| Analyst wellbeing controls | `myproject.wellbeing` | (operator/analyst safety; CAC ontology) | — |
+| API authentication & RBAC | `myproject.api`, `myproject.auth` | AC-2, AC-3, IA-2, IA-5 | [FILL IN] |
+| Session management & lockout | `myproject.auth.session` | AC-7, AC-11, AC-17 | [FILL IN] |
+| Evidence ingest & integrity | `myproject.ingest`, `myproject.hashing` | SI-7, SC-28, MP-* | [FILL IN] |
+| Bundle signing & verification | `myproject.export.bundle` | SC-12, SC-13, SI-7 | [FILL IN] |
+| Tamper-evident audit chain | `myproject.audit` | AU-2, AU-3, AU-6, AU-9, AU-12 | [FILL IN] |
+| Project VIC sharing | `myproject.vic` | IA-8, SC-8, SI-7 | [FILL IN] |
+| Input validation | All surfaces | SI-10, SC-39 | [FILL IN] |
+| AI / ML inference | `myproject.ml.<model>` | (model validation, bias evaluation) | [FILL IN] |
+| Container deployment | `docker/`, `helm/` | AC-6, SC-39 | [FILL IN] |
+| Analyst wellbeing controls | `myproject.wellbeing` | (operator/analyst safety; CAC ontology) | [FILL IN] |
 ]

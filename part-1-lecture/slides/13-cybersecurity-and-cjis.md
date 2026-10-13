@@ -6,7 +6,7 @@
 
 Any tool you build for CAC investigations will handle:
 
-- **Criminal Justice Information (CJI)** — regulated by the FBI CJIS Security Policy
+- **Criminal justice and law-enforcement information** — regulated by your country's framework (for example the FBI CJIS Security Policy in the United States, the ISM in Australia, or the NZISM in New Zealand)
 - **Personally Identifiable Information (PII)** — suspect, victim, and witness data
 - **Evidence** — digital artifacts with chain of custody requirements
 - **Law Enforcement Sensitive (LES)** information
@@ -39,6 +39,21 @@ The FBI's [CJIS Security Policy](https://www.fbi.gov/services/cjis/cjis-security
 | Configuration Management | Track changes to systems and software |
 
 **Your agent can help.** Point the agent at the CJIS Security Policy and ask it to generate a compliance checklist for your tool.
+
+---
+
+## Outside the United States
+
+CJIS is a US framework. The same requirement areas exist everywhere, under different names. Tell your agent where the tool will run, and it should plan for that framework:
+
+| Where | Frameworks to confirm with your agency |
+|-------|----------------------------------------|
+| Australia | Information Security Manual (ISM), PSPF, Essential Eight, Privacy Act 1988, state and territory rules |
+| New Zealand | NZISM, Protective Security Requirements (PSR), Privacy Act 2020 |
+| European Union / United Kingdom | GDPR and the Law Enforcement Directive (EU) 2016/680; UK GDPR and Data Protection Act 2018 Part 3 |
+| Elsewhere or unknown | National law-enforcement and privacy rules, with NIST SP 800-53 and ISO/IEC 27001 as a neutral baseline |
+
+For digital evidence anywhere, also look at ISO/IEC 27037, 27041, 27042, and 27043. The lab template's `policies/security-compliance.md` asks students for their jurisdiction before it plans any security controls.
 
 ---
 
@@ -103,7 +118,7 @@ Overlays customize the NIST 800-53 controls for specific missions. **Law enforce
 
 You don't need to memorize these standards. **Point your agent at them.**
 
-> "Read the CJIS Security Policy and generate a security requirements checklist for a Python tool that processes CyberTip data and stores it in a graph database."
+> "Read the CJIS Security Policy (or the Australian ISM, or the NZISM) and generate a security requirements checklist for a Python tool that processes CyberTip data and stores it in a graph database."
 
 > "Review my application against NIST 800-53 control family AC (Access Control) and tell me what I'm missing."
 
@@ -119,7 +134,7 @@ Remember the project constitution from spec-driven development?
 
 Your constitution should include:
 
-- **CJIS Security Policy compliance** as a mandatory requirement
+- **Your jurisdiction's security framework** (CJIS, ISM, NZISM, or other) as a mandatory requirement
 - **NIST 800-53 control baseline** appropriate for your environment
 - **Encryption requirements** (at rest and in transit)
 - **Testing and validation requirements** before operational deployment
@@ -133,7 +148,7 @@ When the agent builds your tool from the spec, it inherits these security requir
 | Do This | Not This |
 |---------|----------|
 | Encrypt everything, always | "We'll add encryption later" |
-| Reference CJIS in your constitution | Ignore security standards |
-| Use NIST 800-53 as your control framework | Make up your own controls |
+| Name your jurisdiction's framework in your constitution | Ignore security standards |
+| Use NIST 800-53 as a common baseline alongside your framework | Make up your own controls |
 | Point your agent at the standards | Try to memorize every control |
 | Test security before deployment | Assume the agent got it right |

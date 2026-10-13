@@ -15,7 +15,7 @@ By the end of this course, you will be able to:
 - Explain what AI, large language models, and agentic AI are — and what they are not
 - Understand how humans and agents interact with applications (UI, CLI, API, MCP)
 - Use GitHub as a library to find and evaluate existing open-source tools
-- Use Cursor as an agentic AI IDE to build software through natural language
+- Use an agentic AI coding tool (the instructor uses Cursor) to build software through natural language
 - Apply spec-driven development to maintain control over what an AI agent builds
 - Understand the Cyber Domain Ontology ecosystem: UCO, CASE, and CAC Ontology
 - Produce interoperable investigation data using CASE/UCO/CAC standards
@@ -32,9 +32,9 @@ By the end of this course, you will be able to:
 
 This course repository explains the method. The [Project VIC Agentic AI Development Project Template](https://github.com/Project-VIC-International/Agentic-AI-Development-Project-Template) is where students should do their hands-on work.
 
-For the lab, create a private repository from the template and use that repository as your Cursor workspace. Keep this course repository open as the reference guide for the lecture, exercises, and background material.
+For the lab, create a private repository from the template and open it in your AI coding agent. The instructor uses Cursor; Claude Code, Codex, GitHub Copilot, Gemini CLI, and other agents also work because the template's policies are agent-neutral. Keep this course repository open as the reference guide for the lecture, exercises, and background material.
 
-Start with `START-HERE-NCCC.md` in this repository, then switch into the template-based project for the actual lab work.
+Start with `START-HERE.md` in this repository, then switch into the template-based project for the actual lab work.
 
 ### Prerequisites
 
@@ -43,7 +43,7 @@ See the [detailed prerequisites and setup guide](part-2-lab/prerequisites.md) fo
 - A laptop with internet access
 - A [GitHub](https://github.com) account (free)
 - [Cursor](https://cursor.com) IDE installed (free tier is sufficient)
-- [Python 3.10+](https://www.python.org/downloads/) installed
+- [Python 3.11+](https://www.python.org/downloads/) installed
 - [Git](https://git-scm.com/downloads) installed
 - No prior programming experience required
 - A private repository created from the [Project VIC template](https://github.com/Project-VIC-International/Agentic-AI-Development-Project-Template)
@@ -77,8 +77,9 @@ Agentic-AI-Development-Course/
 │   └── solutions/                      # Reference solutions
 ├── resources/                          # Glossary, links, further reading
 ├── graphics/                           # Instructor visuals and exported slide images
-└── .cursor/
-    └── rules/                          # Cursor rules for course context
+├── AGENTS.md                           # Course context for any AI coding agent
+├── CLAUDE.md, GEMINI.md                # Import AGENTS.md for Claude Code and Gemini CLI
+└── START-HERE.md                       # Where students begin
 ```
 
 ### License

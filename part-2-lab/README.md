@@ -4,7 +4,7 @@
 
 **Format:** Hands-on lab
 **Audience:** Law enforcement investigators, forensic examiners, crime intelligence analysts, and prosecutors working CAC/ICAC cases
-**Prerequisites:** [Setup checklist](prerequisites.md) — laptop, GitHub account, Cursor installed, Python 3.10+
+**Prerequisites:** [Setup checklist](prerequisites.md) — laptop, GitHub account, Cursor installed, Python 3.11+
 
 ## Start Here
 
@@ -78,7 +78,7 @@ By the end of this lab, you will have:
 ### Common Issues
 
 - **Cursor free tier limits:** Students may hit rate limits. Have them pair up if this happens.
-- **Python version issues:** Ensure Python 3.10+ is installed. The `python3 --version` command should confirm.
+- **Python version issues:** Ensure Python 3.11+ is installed. The `python3 --version` command should confirm.
 - **Git authentication:** Students may need to authenticate Git with GitHub. `gh auth login` or SSH key setup may be needed.
 - **Local setup problems:** Fall back to GitHub Codespaces, pair with a working student, or have the student complete only the intake and prompt steps while following along.
 

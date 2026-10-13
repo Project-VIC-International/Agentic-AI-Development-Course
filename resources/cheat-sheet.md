@@ -69,12 +69,13 @@ Constitution ──► Specify ──► Plan ──► Tasks ──► Implemen
 | Plan | Architecture and data model | Agent proposes, you approve |
 | Tasks | Ordered work units with "done" criteria | Agent proposes, you approve |
 | Implement | Working code and tests | Agent builds, you review |
+| Converge | Missed work found and finished | Agent checks, you confirm |
 
 ---
 
 ## Agent Rules
 
-Rules live in `.cursor/rules/` and the agent reads them every prompt.
+In the template, rules live in `policies/` and reach every agent through `AGENTS.md` (plus `CLAUDE.md`, `GEMINI.md`, `.github/copilot-instructions.md`, and Cursor's `.cursor/rules/`). After editing a policy, run `python3 scripts/sync_agent_rules.py`. Core rules are read on every prompt.
 
 ```
 ---
@@ -108,5 +109,5 @@ Plain-language instructions the agent must follow.
 | SHACL validation | Ensures your graph follows the rules (required fields, correct types) |
 | Cross-model review | Use a second AI model as a peer reviewer |
 | NIST CFTT | NIST program for forensic tool validation |
-| CJIS compliance | Mandatory for any tool handling Criminal Justice Information |
+| Security framework | Mandatory: your jurisdiction's framework (CJIS for US criminal justice information; ISM in Australia; NZISM in New Zealand; GDPR/LED in the EU) |
 | Independent T&V | Non-negotiable before operational use |
