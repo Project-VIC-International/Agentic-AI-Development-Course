@@ -71,7 +71,7 @@ This course encompasses the approach we take within Project VIC International. W
 
 ---
 
-## You Do NOT Need to Be a Programmer
+## You Do NOT Need to Be a Programmer - But, do not go fire your programmers and engineers as they are still very important to keep around.
 
 If you can describe what you need in plain language, you can carefully build the tool you need and test it using agentic AI plus the guardrails and methods described in this lecture.
 
