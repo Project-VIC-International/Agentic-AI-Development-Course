@@ -13,7 +13,8 @@
 - CyberTip volume is growing exponentially
 - Devices per case: phones, tablets, laptops, cloud accounts, gaming consoles, IoT
 - More platforms, more data, more complexity — same-sized teams
-- The tools you need don't exist yet, or they don't talk to each other
+- The tools you need don't always exist yet, or the ones that do don't "talk" to each other - especially across vendor ecosystems
+- Every law enforcement detective worldwide is buried in data normalization tasks
 
 ---
 
