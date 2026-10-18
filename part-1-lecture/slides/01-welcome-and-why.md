@@ -20,8 +20,9 @@
 
 ## The Daily Reality
 
-- Hours spent reformatting data between tools
+- Hours spent reformatting (normalizing) data between tools
 - Manual re-entry from forensic reports into case management
+- Manual searches for artifacts across warrant returns and digital forensic tool outputs
 - Investigation context trapped in spreadsheets, emails, and your head
 - Building the evidence narrative by hand, every single time
 
@@ -42,9 +43,9 @@
 ## What If You Could Change That?
 
 - Build the exact tool your mission needs
-- Make it interoperable with every other tool from day one
+- Make it interoperable with every other tool from day one by design
 - Do it without being a software developer
-- Do it in hours, not months
+- Have a working prototype in hours - continue to mature with mission needs over time
 
 ---
 
