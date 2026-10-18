@@ -44,7 +44,7 @@ There are different types of LLMs, each designed for different strengths:
 
 | Type | What It Does | When You'd Use It |
 |------|-------------|-------------------|
-| **Instruction-Following** | Follows directions precisely. You say "do X," it does X. | Writing reports, formatting data, building tools |
+| **Instruction-Following** | Follows directions precisely. You say "do X," it does X. | Writing reports, formatting data, building tools. Tool calling LLMs are a subset of this type. |
 | **Reasoning** | Thinks step-by-step through complex problems. Takes longer but gets harder things right. | Analyzing evidence connections, legal reasoning, planning |
 | **Dense Models** | Every part of the model activates for every query. Thorough but computationally expensive. | High-accuracy tasks where quality matters most |
 | **Mixture of Experts (MoE)** | Only activates the relevant "expert" parts of the model for each query. Faster and cheaper. | High-volume processing, cost-sensitive deployments |
