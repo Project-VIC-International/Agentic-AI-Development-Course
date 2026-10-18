@@ -90,7 +90,7 @@ Given context, they generate the most likely useful continuation.
 - They don't access the internet on their own (without tools)
 - They don't act — they respond (unless they're agents with tools)
 
-**Critical:** Always verify AI output. Trust but verify.
+**Critical:** Don't explicitly trust outputs of LLMs - Always verify. Seek to continuously improve the model's policy harness, and fine tuning if necessary.
 
 ---
 
