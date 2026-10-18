@@ -46,6 +46,7 @@
 
 - Build the exact tool your mission needs
 - Make it interoperable with every other tool from day one by design
+- Use community foundations to build trust into your tool - no more black boxes
 - Do it without being a software developer
 - Have a working prototype in hours - continue to mature with mission needs over time
 
@@ -59,6 +60,8 @@ By the end of this lecture and the lab that follows, you will:
 2. Know how to find and build on existing open-source tools
 3. Understand the open standards that make tools interoperable
 4. See a working mission tool built from scratch with AI — live
+
+This course encompasses the approach we take within Project VIC International. We are seeing detectives who volunteer at Project VIC submit pull requests within hours to days of taking this course - helping improve tools for the child safeguarding community.
 
 ---
 
