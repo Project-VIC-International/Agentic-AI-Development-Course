@@ -2,7 +2,7 @@
 
 ## Building Interoperable Crimes Against Children Mission Tools with Agentic AI and Open Standards
 
-Training materials for a two-part session at the [National Cyber Crime Conference (NCCC)](https://www.mass.gov/info-details/national-cyber-crime-conference), hosted by the Massachusetts Attorney General's Office.
+Training materials for a two-part session. Compressed course can be offered in 4 hours. A three-day course is necessary to more fully explore the concepts in the course and conduct the hands-on lab.
 
 ### Who This Course Is For
 
@@ -17,9 +17,9 @@ By the end of this course, you will be able to:
 - Use GitHub as a library to find and evaluate existing open-source tools
 - Use an agentic AI coding tool (the instructor uses Cursor) to build software through natural language
 - Apply spec-driven development to maintain control over what an AI agent builds
-- Understand the Cyber Domain Ontology ecosystem: UCO, CASE, and CAC Ontology
-- Produce interoperable investigation data using CASE/UCO/CAC standards
-- Build a working prototype of a CAC mission tool in a single session
+- Understand the Cyber Domain Ontology ecosystem: UCO, CASE, CAC Ontology, and SOLVE-IT
+- Produce interoperable investigation data using CASE/UCO/CAC/SOLVE-IT specifications
+- Build a working prototype of a CAC-specific or general digital investigtion mission tool
 
 ### Course Structure
 
