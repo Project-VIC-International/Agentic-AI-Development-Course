@@ -15,6 +15,7 @@
 - More platforms, more data, more complexity — same-sized teams
 - The tools you need don't always exist yet, or the ones that do don't "talk" to each other - especially across vendor ecosystems
 - Every law enforcement detective worldwide is buried in data normalization tasks
+- Project VIC observes that about 1/2 of digital investigators worldwide in law enforcement cannot afford to buy or sustain commerial tool licenses needed to do their job
 
 ---
 
@@ -25,6 +26,7 @@
 - Manual searches for artifacts across warrant returns and digital forensic tool outputs
 - Investigation context trapped in spreadsheets, emails, and your head
 - Building the evidence narrative by hand, every single time
+- Trying to get more budget or sustain what you have from year-to-year
 
 ---
 
@@ -68,6 +70,6 @@ By the end of this lecture and the lab that follows, you will:
 
 ## You Do NOT Need to Be a Programmer
 
-If you can describe what you need in plain language, you can build it.
+If you can describe what you need in plain language, you can carefully build the tool you need and test it using agentic AI plus the guardrails and methods described in this lecture.
 
 That's the paradigm shift we're here to show you.
