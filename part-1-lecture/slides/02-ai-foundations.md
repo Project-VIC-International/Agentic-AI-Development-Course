@@ -23,13 +23,18 @@ AI is a **tool**, not magic. Understanding it helps you use it effectively.
 
 ## What Is a Large Language Model (LLM)?
 
-A program trained on enormous amounts of text that can understand and generate human language.
+Traditionally a model trained on enormous amounts of text that can understand and generate human language. A store of semantic understanding.
 
 **Examples you may know:**
 - ChatGPT (OpenAI)
 - Claude (Anthropic)
 - Gemini (Google)
 - Copilot (Microsoft / GitHub)
+- QWEN (Alibaba)
+- LLAMA (Meta)
+- Nemotron (NVIDIA)
+
+and many more...
 
 ---
 
