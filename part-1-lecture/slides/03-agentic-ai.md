@@ -61,11 +61,11 @@ Without tools, it's a chatbot. With tools, it's a collaborator.
 
 ## Why This Matters for Your Mission
 
-You don't need to learn to code.
+You don't need to learn to code. You do need to learn to iterate through dev/test cycles quickly - historically called DevOps. If you or your agent breaks something, the agent can probably fix the issue within minutes. The costs of engineering are changing drastically along with our risk tolerances.
 
-You need to learn to **describe what you want clearly**.
+You need to learn to **describe what you want clearly**. Explain what you think you want to an agent and have it summarize, then iterate - iterate - iterate.
 
-The agent handles the implementation. You review, guide, and iterate.
+The agent handles the implementation. You review, guide, test and iterate. Multiple agents can work together with multiple humans on a project at the same time. Try not to give entire complex tasks to a single agent - learn to break the tasks up.
 
 ---
 
