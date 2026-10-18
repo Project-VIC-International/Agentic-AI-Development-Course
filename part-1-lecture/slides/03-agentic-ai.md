@@ -6,7 +6,7 @@
 
 | Chatbot | Agent |
 |---------|-------|
-| Waits for your question | Takes a goal and works toward it |
+| Waits for your question | Takes a goal and works toward it - /goal release "Software" v1.0.0 - explicitly follow established milestones in Github|
 | Gives one answer | Iterates through multiple steps |
 | Can only talk | Can use tools |
 | Generates text | Takes action |
