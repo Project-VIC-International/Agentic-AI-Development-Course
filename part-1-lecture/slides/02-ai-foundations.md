@@ -2,7 +2,7 @@
 
 ---
 
-## What Is Artificial Intelligence?
+## What Is Artificial Intelligence - or Super Intelligence in some corners?
 
 Software that can perform tasks that typically require human intelligence:
 
