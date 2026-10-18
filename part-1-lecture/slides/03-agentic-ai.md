@@ -67,16 +67,17 @@ You need to learn to **describe what you want clearly**. Explain what you think 
 
 The agent handles the implementation. You review, guide, test and iterate. Multiple agents can work together with multiple humans on a project at the same time. Try not to give entire complex tasks to a single agent - learn to break the tasks up.
 
+We now have the ability to realize human-machine teaming to solve complex problems and do things that were once considered seemingly impossible without significant resources.
 ---
 
-## "Vibe Coding" vs. Disciplined Development
+## "Vibe Coding" vs. Disciplined Spec-Driven Development
 
 | Vibe Coding | Spec-Driven Development |
 |-------------|------------------------|
 | "Hey AI, build me a tool" | Define requirements first, then build |
 | Hope for the best | Verify against the spec |
-| No structure | Constitution → Spec → Plan → Tasks |
+| No structure | Constitution → Research → Spec → Plan → Tasks → Evaluate |
 | Hard to reproduce | Reproducible and auditable |
 | Fragile results | Reliable results |
 
-We'll show you the disciplined approach shortly.
+We'll show you the disciplined spec-driven approach shortly.
